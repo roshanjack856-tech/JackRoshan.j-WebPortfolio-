@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Projects | Jack Roshan</title>
+
+<!-- GOOGLE FONTS -->
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#081b3a;
+  color:white;
+  overflow-x:hidden;
+  font-family:'Outfit',sans-serif;
+}
+
+/* PREMIUM BACKGROUND */
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+
+  background:
+  linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,.78)),
+  url("Screenshot 2026-06-07 100111.png");
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  z-index:-2;
+}
+
+/* GOLD GLOW */
+
+body::after{
+  content:'';
+  position:fixed;
+
+  top:50%;
+  right:8%;
+
+  width:400px;
+  height:400px;
+
+  transform:translateY(-50%);
+
+  background:rgba(216,155,43,.15);
+
+  filter:blur(120px);
+
+  z-index:-1;
+}
+
+/* NAVBAR */
+
+nav{
+  width:100%;
+  padding:22px 8%;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(10px);
+}
+
+.logo{
+  font-size:2rem;
+  color:#d89b2b;
+  font-weight:700;
+
+  font-family:'Cormorant Garamond',serif;
+}
+
+.nav-links{
+  display:flex;
+  gap:35px;
+  list-style:none;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:white;
+  font-size:14px;
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  color:#d89b2b;
+}
+
+/* PROJECT SECTION */
+
+.projects{
+  min-height:100vh;
+
+  padding:100px 8%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* CONTAINER */
+
+.project-container{
+  width:100%;
+  max-width:1200px;
+}
+
+/* HEADER */
+
+.project-header{
+  text-align:center;
+
+  margin-bottom:70px;
+}
+
+.mini-title{
+  color:#d89b2b;
+
+  font-size:13px;
+
+  letter-spacing:5px;
+
+  text-transform:uppercase;
+
+  margin-bottom:20px;
+
+  font-weight:600;
+}
+
+.project-title{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:4.5rem;
+
+  line-height:1.1;
+
+  margin-bottom:20px;
+}
+
+.project-title span{
+  color:#d89b2b;
+  font-style:italic;
+}
+
+.project-sub{
+  color:#dcdcdc;
+
+  max-width:700px;
+
+  margin:auto;
+
+  line-height:1.9;
+
+  font-size:16px;
+}
+
+/* PROJECT CARD */
+
+.project-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:60px;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(216,155,43,.15);
+
+  border-radius:30px;
+
+  padding:45px;
+
+  backdrop-filter:blur(12px);
+
+  transition:.4s;
+}
+
+.project-card:hover{
+  transform:translateY(-10px);
+
+  border-color:#d89b2b;
+
+  box-shadow:
+  0 0 35px rgba(216,155,43,.15);
+}
+
+/* IMAGE */
+
+.project-image{
+  flex:1;
+}
+
+.project-image img{
+  width:100%;
+
+  border-radius:20px;
+
+  border:2px solid rgba(216,155,43,.2);
+}
+
+/* CONTENT */
+
+.project-content{
+  flex:1;
+}
+
+.project-content h2{
+  font-size:3rem;
+
+  margin-bottom:20px;
+
+  font-family:'Cormorant Garamond',serif;
+}
+
+.project-content h2 span{
+  color:#d89b2b;
+  font-style:italic;
+}
+
+.project-content p{
+  color:#dcdcdc;
+
+  line-height:1.9;
+
+  margin-bottom:18px;
+
+  font-size:15px;
+}
+
+/* TECH TAGS */
+
+.tech-tags{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:12px;
+
+  margin-top:25px;
+  margin-bottom:30px;
+}
+
+.tech-tags span{
+  padding:10px 18px;
+
+  border-radius:30px;
+
+  border:1px solid rgba(216,155,43,.3);
+
+  color:#d89b2b;
+
+  font-size:13px;
+}
+
+/* BUTTONS */
+
+.button-row{
+  display:flex;
+  gap:18px;
+}
+
+.btn{
+  display:inline-block;
+
+  padding:14px 28px;
+
+  text-decoration:none;
+
+  border-radius:8px;
+
+  font-weight:600;
+
+  transition:.3s;
+}
+
+.primary-btn{
+  background:#d89b2b;
+  color:#081b3a;
+}
+
+.primary-btn:hover{
+  transform:translateY(-4px);
+
+  box-shadow:0 0 20px rgba(216,155,43,.4);
+}
+
+.secondary-btn{
+  border:1px solid rgba(216,155,43,.4);
+
+  color:#d89b2b;
+}
+
+.secondary-btn:hover{
+  background:#d89b2b;
+  color:#081b3a;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+  .project-card{
+    flex-direction:column;
+  }
+
+  .project-title{
+    font-size:3rem;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .project-content{
+    text-align:center;
+  }
+
+  .tech-tags{
+    justify-content:center;
+  }
+
+  .button-row{
+    justify-content:center;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+  <div class="logo">
+    JACK ROSHAN J
+  </div>
+
+  <ul class="nav-links">
+
+    <li><a href="index.html">Home</a></li>
+
+    <li><a href="about.html">About</a></li>
+
+    <li><a href="services.html">Services</a></li>
+
+    <li><a href="projects.html">Projects</a></li>
+
+    <li><a href="#">Contact</a></li>
+
+  </ul>
+
+</nav>
+
+<!-- PROJECTS -->
+
+<section class="projects">
+
+  <div class="project-container">
+
+    <!-- HEADER -->
+
+    <div class="project-header">
+
+      <div class="mini-title">
+        MY WORK
+      </div>
+
+      <h1 class="project-title">
+
+        Featured <span>Project</span>
+
+      </h1>
+
+      <p class="project-sub">
+        A modern responsive business website designed and developed
+        with premium UI, elegant layout, and responsive experience.
+      </p>
+
+    </div>
+
+    <!-- PROJECT CARD -->
+
+    <div class="project-card">
+
+      <!-- IMAGE -->
+
+      <div class="project-image">
+
+        <img src="c:\Users\acer\OneDrive\图片\Screenshot 2026-06-07 113522.png" alt="Foreign Bridge Project">
+
+      </div>
+
+      <!-- CONTENT -->
+
+      <div class="project-content">
+
+        <h2>
+
+          Foreign Bridge <span>Website</span>
+
+        </h2>
+
+        <p>
+          Designed and developed a premium export and import business website
+          with modern UI design, responsive layout, and smooth user experience.
+        </p>
+
+        <p>
+          Built using HTML, CSS, JavaScript, GitHub, and Vercel deployment
+          with focus on performance and professional business branding.
+        </p>
+
+        <!-- TAGS -->
+
+        <div class="tech-tags">
+
+          <span>HTML</span>
+
+          <span>CSS</span>
+
+          <span>JavaScript</span>
+
+          <span>Responsive</span>
+
+          <span>GitHub</span>
+
+          <span>Vercel</span>
+
+        </div>
+
+        <!-- BUTTONS -->
+
+        <div class="button-row">
+
+          <a href="https://fb-group.vercel.app/" target="_blank" class="btn primary-btn">
+            Live Demo
+          </a>
+
+          <a href="https://github.com/roshanjack856-tech/Foreign-Bridge-456.git" target="_blank" class="btn secondary-btn">
+            GitHub
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+
+</html>

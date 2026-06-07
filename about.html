@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About | Jack Roshan</title>
+
+<!-- GOOGLE FONTS -->
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#081b3a;
+  color:white;
+  overflow-x:hidden;
+  font-family:'Outfit',sans-serif;
+}
+
+/* BACKGROUND */
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+
+  background:
+  linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.82)),
+  url("Screenshot 2026-06-07 100111.png");
+
+  background-size:cover;
+  background-position:center;
+
+  z-index:-2;
+}
+
+/* GOLD GLOW */
+
+body::after{
+  content:'';
+  position:fixed;
+
+  top:50%;
+  left:10%;
+
+  width:400px;
+  height:400px;
+
+  background:rgba(216,155,43,.12);
+
+  filter:blur(120px);
+
+  transform:translateY(-50%);
+
+  z-index:-1;
+}
+
+/* NAVBAR */
+
+nav{
+  width:100%;
+  padding:22px 8%;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(10px);
+}
+
+.logo{
+  font-size:2rem;
+  color:#d89b2b;
+  font-weight:700;
+
+  font-family:'Cormorant Garamond',serif;
+}
+
+.nav-links{
+  display:flex;
+  gap:35px;
+  list-style:none;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:white;
+  font-size:14px;
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  color:#d89b2b;
+}
+
+/* ABOUT */
+
+.about{
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:80px 8%;
+}
+
+.about-container{
+  width:100%;
+  max-width:1300px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:70px;
+}
+
+/* IMAGE */
+
+.about-image{
+  flex:1;
+
+  display:flex;
+  justify-content:center;
+}
+
+.image-box{
+  width: 600px;
+  height: 800px;
+
+  border-radius:30px;
+
+  overflow:hidden;
+
+  border:3px solid #d89b2b;
+
+  box-shadow:
+  0 0 40px rgba(216,155,43,.25),
+  0 0 80px rgba(216,155,43,.12);
+}
+
+.image-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* TEXT */
+
+.about-text{
+  flex:1;
+}
+
+.mini-title{
+  color:#d89b2b;
+
+  font-size:13px;
+
+  letter-spacing:5px;
+
+  text-transform:uppercase;
+
+  margin-bottom:20px;
+
+  font-weight:600;
+}
+
+.about-title{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:4.5rem;
+
+  line-height:1.1;
+
+  margin-bottom:25px;
+}
+
+.about-title span{
+  color:#d89b2b;
+  font-style:italic;
+}
+
+.about-text p{
+  color:#e4e4e4;
+
+  font-size:16px;
+
+  line-height:1.9;
+
+  margin-bottom:18px;
+}
+
+/* INFO BOX */
+
+.info-grid{
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:18px;
+
+  margin-top:30px;
+}
+
+.info-card{
+  padding:20px;
+
+  border:1px solid rgba(216,155,43,.2);
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.03);
+
+  backdrop-filter:blur(10px);
+}
+
+.info-card h3{
+  color:#d89b2b;
+
+  margin-bottom:8px;
+
+  font-size:18px;
+}
+
+.info-card p{
+  margin:0;
+  font-size:14px;
+  line-height:1.6;
+}
+
+/* BUTTON */
+
+.btn{
+  display:inline-block;
+
+  margin-top:35px;
+
+  padding:15px 35px;
+
+  background:#d89b2b;
+
+  color:#081b3a;
+
+  text-decoration:none;
+
+  border-radius:8px;
+
+  font-weight:700;
+
+  transition:.3s;
+}
+
+.btn:hover{
+  transform:translateY(-4px);
+
+  box-shadow:0 0 20px rgba(216,155,43,.4);
+}
+
+/* MOBILE */
+
+@media(max-width:950px){
+
+  .about-container{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .about-title{
+    font-size:3rem;
+  }
+
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+
+  .image-box{
+    width:300px;
+    height:380px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+  <div class="logo">
+    JACK ROSHAN J
+  </div>
+
+  <ul class="nav-links">
+
+    <li><a href="index.html">Home</a></li>
+
+    <li><a href="about.html">About</a></li>
+
+    <li><a href="#">Services</a></li>
+
+    <li><a href="#">Projects</a></li>
+
+    <li><a href="#">Contact</a></li>
+
+  </ul>
+
+</nav>
+
+<!-- ABOUT -->
+
+<section class="about">
+
+  <div class="about-container">
+
+    <!-- IMAGE -->
+
+    <div class="about-image">
+
+      <div class="image-box">
+
+        <img src="c:\Users\acer\OneDrive\图片\Screenshot 2026-06-07 111630.png" alt="Jack Roshan">
+
+      </div>
+
+    </div>
+
+    <!-- TEXT -->
+
+    <div class="about-text">
+
+      <div class="mini-title">
+        ABOUT ME
+      </div>
+
+      <h1 class="about-title">
+
+        Passionate <br>
+
+        <span>Web Developer</span>
+
+      </h1>
+
+      <p>
+        I am Jack Roshan, a B.Sc. Computer Science graduate from Loyola College
+        with strong interest in UI/UX design, frontend development,
+        and modern web technologies.
+      </p>
+
+      <p>
+        I specialize in creating responsive websites, user-friendly interfaces,
+        and modern business designs using HTML, CSS, JavaScript,
+        Figma, Canva, GitHub, and Vercel.
+      </p>
+
+      <p>
+        I enjoy learning new technologies, solving problems,
+        and building creative digital experiences.
+      </p>
+
+      <!-- INFO -->
+
+      <div class="info-grid">
+
+        <div class="info-card">
+
+          <h3>Education</h3>
+
+          <p>
+            B.Sc Computer Science<br>
+            Loyola College
+          </p>
+
+        </div>
+
+        <div class="info-card">
+
+          <h3>Skills</h3>
+
+          <p>
+            HTML, CSS, JavaScript,
+            UI/UX, GitHub
+          </p>
+
+        </div>
+
+        <div class="info-card">
+
+          <h3>Experience</h3>
+
+          <p>
+            Internship at
+            Codsair Technologies
+          </p>
+
+        </div>
+
+        <div class="info-card">
+
+          <h3>Freelancing</h3>
+
+          <p>
+            Responsive website
+            and digital design projects
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- BUTTON -->
+
+      <a href="#" class="btn">
+        Download Resume
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+</html>
