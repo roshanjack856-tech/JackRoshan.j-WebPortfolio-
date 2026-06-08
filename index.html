@@ -1,408 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jack Roshan Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<title>Modern Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-*{ margin:0; padding:0; box-sizing:border-box; }
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
 body{
-  background:#081b3a; color:white;
-  overflow-y:auto; overflow-x:hidden;
-  font-family:'Outfit',sans-serif; min-height:100vh;
-}
-body::before{
-  content:''; position:fixed; inset:0;
-  background: linear-gradient(rgba(5,10,20,.82),rgba(5,10,20,.82)), url("WhatsApp Image 2026-06-08 at 3.30.33 PM.jpeg");
-  background-size:cover; background-position:center; z-index:-2;
-}
-body::after{
-  content:''; position:fixed; top:50%; right:8%;
-  width:400px; height:400px; transform:translateY(-50%);
-  background:rgba(255,140,50,.18); filter:blur(120px); z-index:-1;
+
+  min-height:100vh;
+
+  overflow:hidden;
+
+  font-family:'Outfit',sans-serif;
+
+  color:white;
+
+  background-image:url("windows-black.png");
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
 }
 
-/* NAV */
+/* NAVBAR */
+
 nav{
-  width:100%; padding:22px 8%;
-  display:flex; justify-content:space-between; align-items:center;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  backdrop-filter:blur(10px); position:sticky; top:0; z-index:500;
-  background:rgba(8,27,58,.8);
-}
-.logo{ font-size:1.6rem; font-weight:700; color:#d89b2b; font-family:'Cormorant Garamond',serif; }
-.nav-links{ display:flex; gap:30px; list-style:none; }
-.nav-links a{ text-decoration:none; color:white; font-size:14px; font-weight:500; transition:.3s; }
-.nav-links a:hover, .nav-links a.active{ color:#d89b2b; }
 
-/* Hamburger */
-.hamburger{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:6px; z-index:1100; }
-.hamburger span{ display:block; width:26px; height:2px; background:#d89b2b; border-radius:2px; transition:.35s; }
-.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2){ opacity:0; transform:scaleX(0); }
-.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  width:100%;
 
-/* Overlay */
-.mob-overlay{
-  position:fixed; inset:0; background:rgba(0,0,0,.65);
-  z-index:1040; opacity:0; pointer-events:none;
-  transition:.35s; backdrop-filter:blur(3px);
-}
-.mob-overlay.open{ opacity:1; pointer-events:all; }
+  padding:22px 8%;
 
-/* ====== MOBILE SLIDE MENU ====== */
-.mob-menu{
-  position:fixed; top:0; left:-100%;
-  width:min(295px,80vw); height:100vh;
-  background:#0b1e3d;
-  border-right:1px solid rgba(216,155,43,.2);
-  z-index:1050; transition:.42s cubic-bezier(.77,0,.18,1);
-  display:flex; flex-direction:column; overflow:hidden;
-}
-.mob-menu.open{ left:0; box-shadow:20px 0 80px rgba(0,0,0,.9); }
-
-/* Menu header */
-.mob-head{
-  padding:1.4rem 1.3rem 1rem;
-  border-bottom:1px solid rgba(255,255,255,.07);
-  display:flex; align-items:center; gap:.85rem;
-  background:rgba(216,155,43,.04); flex-shrink:0;
-}
-.mob-avatar{
-  width:46px; height:46px; border-radius:50%;
-  background:linear-gradient(135deg,#d89b2b,#9a6510);
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Cormorant Garamond',serif; font-size:1.15rem;
-  font-weight:700; color:#081b3a; flex-shrink:0;
-  border:2px solid rgba(216,155,43,.5);
-  box-shadow:0 0 14px rgba(216,155,43,.25);
-}
-.mob-head-name{ font-family:'Cormorant Garamond',serif; font-size:.98rem; font-weight:700; color:#d89b2b; line-height:1.2; }
-.mob-head-role{ font-size:.62rem; color:rgba(255,255,255,.36); margin-top:.1rem; }
-.mob-x{ margin-left:auto; font-size:1.1rem; color:rgba(255,255,255,.35); cursor:pointer; transition:.2s; padding:.3rem .4rem; border-radius:4px; line-height:1; flex-shrink:0; }
-.mob-x:hover{ color:#d89b2b; background:rgba(216,155,43,.1); }
-
-/* Scrollable body */
-.mob-body{ flex:1; overflow-y:auto; display:flex; flex-direction:column; }
-.mob-body::-webkit-scrollbar{ width:2px; }
-.mob-body::-webkit-scrollbar-thumb{ background:rgba(216,155,43,.25); }
-
-.mob-label{
-  font-size:.58rem; letter-spacing:.18em; text-transform:uppercase;
-  color:rgba(255,255,255,.28); padding:.9rem 1.3rem .3rem; font-weight:600; flex-shrink:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-/* Vertical nav links */
-.mob-nav-links{ display:flex; flex-direction:column; }
-.mob-nav-links a{
-  display:flex; align-items:center; gap:.8rem;
-  padding:.8rem 1.3rem; color:rgba(255,255,255,.7);
-  text-decoration:none; font-size:.84rem; font-weight:500;
-  border-bottom:1px solid rgba(255,255,255,.04);
-  transition:.28s; position:relative;
-  transform:translateX(-28px); opacity:0;
-}
-.mob-menu.open .mob-nav-links a{ transform:translateX(0); opacity:1; }
-.mob-menu.open .mob-nav-links a:nth-child(1){ transition:transform .36s .06s ease, opacity .36s .06s ease, background .2s, color .2s, padding .2s; }
-.mob-menu.open .mob-nav-links a:nth-child(2){ transition:transform .36s .12s ease, opacity .36s .12s ease, background .2s, color .2s, padding .2s; }
-.mob-menu.open .mob-nav-links a:nth-child(3){ transition:transform .36s .18s ease, opacity .36s .18s ease, background .2s, color .2s, padding .2s; }
-.mob-menu.open .mob-nav-links a:nth-child(4){ transition:transform .36s .24s ease, opacity .36s .24s ease, background .2s, color .2s, padding .2s; }
-.mob-nav-links a .ico{
-  width:33px; height:33px; background:rgba(255,255,255,.05);
-  border-radius:8px; display:flex; align-items:center; justify-content:center;
-  font-size:.92rem; flex-shrink:0; transition:.28s;
-  border:1px solid rgba(255,255,255,.06);
-}
-.mob-nav-links a:hover, .mob-nav-links a.active{
-  color:#d89b2b; background:rgba(216,155,43,.06); padding-left:1.7rem;
-}
-.mob-nav-links a:hover .ico, .mob-nav-links a.active .ico{
-  background:rgba(216,155,43,.12); border-color:rgba(216,155,43,.22);
-}
-.mob-nav-links a.active::before{
-  content:''; position:absolute; left:0; top:0; bottom:0;
-  width:3px; background:#d89b2b; border-radius:0 2px 2px 0;
+.logo{
+
+  font-size:2rem;
+
+  font-weight:700;
+
+  color:#00c3ff;
 }
 
-/* ====== SERVICES HORIZONTAL SCROLL ====== */
-.mob-srv-section{ border-top:1px solid rgba(255,255,255,.05); padding-bottom:.5rem; flex-shrink:0; }
-.mob-srv-scroll{
-  display:flex; gap:.55rem; overflow-x:auto;
-  padding:.6rem 1.3rem; scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
-}
-.mob-srv-scroll::-webkit-scrollbar{ height:2px; }
-.mob-srv-scroll::-webkit-scrollbar-thumb{ background:rgba(216,155,43,.3); }
+.nav-links{
 
-.mob-srv-card{
-  flex:0 0 auto; scroll-snap-align:start;
-  background:rgba(216,155,43,.05);
-  border:1px solid rgba(216,155,43,.16);
-  border-radius:10px; padding:.7rem .75rem;
-  text-align:center; min-width:72px;
-  text-decoration:none; transition:.28s;
-  transform:translateX(-16px); opacity:0;
-}
-.mob-menu.open .mob-srv-card{ transform:translateX(0); opacity:1; }
-.mob-menu.open .mob-srv-card:nth-child(1){ transition:transform .36s .30s ease, opacity .36s .30s ease, background .2s; }
-.mob-menu.open .mob-srv-card:nth-child(2){ transition:transform .36s .36s ease, opacity .36s .36s ease, background .2s; }
-.mob-menu.open .mob-srv-card:nth-child(3){ transition:transform .36s .42s ease, opacity .36s .42s ease, background .2s; }
-.mob-menu.open .mob-srv-card:nth-child(4){ transition:transform .36s .48s ease, opacity .36s .48s ease, background .2s; }
-.mob-menu.open .mob-srv-card:nth-child(5){ transition:transform .36s .54s ease, opacity .36s .54s ease, background .2s; }
-.mob-menu.open .mob-srv-card:nth-child(6){ transition:transform .36s .60s ease, opacity .36s .60s ease, background .2s; }
-.mob-srv-card:hover{
-  background:rgba(216,155,43,.14); border-color:rgba(216,155,43,.38);
-  transform:translateY(-3px) !important;
-}
-.srv-i{ font-size:1.25rem; display:block; margin-bottom:.28rem; }
-.srv-n{ font-size:.6rem; color:rgba(255,255,255,.62); font-weight:500; line-height:1.25; }
+  display:flex;
 
-/* Contact CTA */
-.mob-cta{ padding:.6rem 1.2rem .3rem; flex-shrink:0; }
-.mob-cta a{
-  display:flex; align-items:center; justify-content:center; gap:.45rem;
-  padding:.88rem; background:#d89b2b; color:#081b3a;
-  font-weight:700; font-size:.84rem; border-radius:8px;
-  text-decoration:none; transition:.28s;
-  transform:translateY(10px); opacity:0;
-}
-.mob-menu.open .mob-cta a{ transform:translateY(0); opacity:1; transition:.36s .64s ease; }
-.mob-cta a:hover{ background:#f0b040; box-shadow:0 6px 20px rgba(216,155,43,.35); transform:translateY(-2px) !important; }
+  gap:35px;
 
-/* Footer */
-.mob-foot{ padding:.7rem 1.3rem 1.1rem; border-top:1px solid rgba(255,255,255,.05); flex-shrink:0; }
-.mob-foot p{ font-size:.64rem; color:rgba(255,255,255,.26); line-height:1.7; }
-.mob-foot a{ color:#d89b2b; text-decoration:none; }
-
-/* ====== HOME ====== */
-.home{ min-height:calc(100vh - 73px); display:flex; align-items:center; justify-content:center; padding:10px 8% 0; }
-.home-container{ width:100%; max-width:1350px; display:flex; justify-content:space-between; align-items:center; gap:50px; }
-.home-text{ flex:1; }
-.mini-title{ color:#d89b2b; font-size:13px; letter-spacing:5px; text-transform:uppercase; margin-bottom:20px; font-weight:600; }
-.hero-title{ font-family:'Cormorant Garamond',serif; font-size:4.5rem; line-height:1; margin-bottom:22px; font-weight:700; }
-.hero-title span{ color:#d89b2b; font-style:italic; }
-.home-text p{ color:#e4e4e4; font-size:15px; line-height:1.7; max-width:620px; margin-bottom:14px; }
-.skill-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; margin-bottom:28px; }
-.skill-tags span{ padding:10px 18px; border-radius:30px; border:1px solid rgba(216,155,43,.35); color:#d89b2b; font-size:13px; transition:.3s; cursor:default; }
-.skill-tags span:hover{ background:#d89b2b; color:#081b3a; transform:translateY(-3px); }
-.btn{ display:inline-block; padding:14px 32px; background:#d89b2b; color:#081b3a; text-decoration:none; border-radius:8px; font-weight:700; transition:.3s; }
-.btn:hover{ transform:translateY(-4px); box-shadow:0 0 20px rgba(216,155,43,.4); }
-.social-row{ display:flex; gap:14px; margin-top:28px; }
-.soc{ width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center; text-decoration:none; color:white; font-size:.95rem; transition:.3s; }
-.soc:hover{ background:#d89b2b; color:#081b3a; transform:translateY(-3px); }
-.home-image{ flex:1; display:flex; justify-content:center; align-items:flex-start; margin-top:-50px; }
-.image-box{ width:360px; height:360px; border-radius:50%; overflow:hidden; border:4px solid #d89b2b; box-shadow:0 0 40px rgba(216,155,43,.35),0 0 100px rgba(216,155,43,.15); }
-.image-box img{ width:100%; height:100%; object-fit:cover; }
-
-/* RESPONSIVE */
-@media(max-width:950px){
-  .home{ height:auto; padding:50px 8%; }
-  .home-container{ flex-direction:column-reverse; text-align:center; }
-  .nav-links{ display:none; }
-  .hamburger{ display:flex; }
-  .hero-title{ font-size:3rem; }
-  .home-text p{ margin:auto auto 14px; }
-  .skill-tags{ justify-content:center; }
-  .social-row{ justify-content:center; }
-  .image-box{ width:230px; height:230px; }
-  .home-image{ margin-top:0; }
+  list-style:none;
 }
-@media(max-width:480px){
-  nav{ padding:16px 5%; }
-  .logo{ font-size:1.2rem; }
-  .hero-title{ font-size:2.2rem; }
-  .home{ padding:40px 5%; }
+
+.nav-links a{
+
+  text-decoration:none;
+
+  color:white;
+
+  transition:.3s;
 }
+
+.nav-links a:hover{
+
+  color:#00c3ff;
+}
+
+/* HERO */
+
+.hero{
+
+  min-height:90vh;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 8%;
+}
+
+/* LEFT */
+
+.hero-left{
+
+  flex:1;
+}
+
+.small-title{
+
+  color:#00c3ff;
+
+  letter-spacing:4px;
+
+  margin-bottom:20px;
+
+  font-size:13px;
+}
+
+.hero-title{
+
+  font-size:5rem;
+
+  line-height:1.1;
+
+  margin-bottom:25px;
+}
+
+.hero-title span{
+
+  color:#00c3ff;
+}
+
+.hero-text{
+
+  max-width:550px;
+
+  line-height:1.9;
+
+  color:#d8d8d8;
+
+  margin-bottom:35px;
+}
+
+/* BUTTON */
+
+.btn{
+
+  display:inline-block;
+
+  padding:15px 30px;
+
+  border-radius:10px;
+
+  background:#00c3ff;
+
+  color:black;
+
+  text-decoration:none;
+
+  font-weight:600;
+
+  transition:.3s;
+}
+
+.btn:hover{
+
+  transform:translateY(-5px);
+}
+
+/* RIGHT IMAGE */
+
+.hero-right{
+
+  flex:1;
+
+  display:flex;
+  justify-content:center;
+}
+
+.image-box{
+
+  width:420px;
+  height:420px;
+
+  border-radius:50%;
+
+  overflow:hidden;
+
+  border:3px solid #00c3ff;
+}
+
+.image-box img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+  body{
+    overflow:auto;
+  }
+
+  .hero{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    padding:60px 8%;
+  }
+
+  .hero-title{
+    font-size:3rem;
+  }
+
+  .image-box{
+
+    width:280px;
+    height:280px;
+
+    margin-top:40px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+}
+
 </style>
+
 </head>
+
 <body>
 
-<div class="mob-overlay" id="overlay"></div>
+<!-- NAVBAR -->
 
-<!-- ====== MOBILE SLIDE MENU ====== -->
-<div class="mob-menu" id="mobMenu">
-
-  <!-- Header -->
-  <div class="mob-head">
-    <div class="mob-avatar">JR</div>
-    <div>
-      <div class="mob-head-name">Jack Roshan J</div>
-      <div class="mob-head-role">Web Developer &amp; UI/UX Designer</div>
-    </div>
-    <div class="mob-x" id="mobClose">✕</div>
-  </div>
-
-  <!-- Scrollable body -->
-  <div class="mob-body">
-
-    <!-- PAGES label -->
-    <div class="mob-label">Pages</div>
-
-    <!-- 4 vertical nav links -->
-    <div class="mob-nav-links">
-      <a href="index.html" class="active">
-        <span class="ico">🏠</span> Home
-      </a>
-      <a href="about.html">
-        <span class="ico">👤</span> About
-      </a>
-      <a href="project.html">
-        <span class="ico">🗂️</span> Projects
-      </a>
-      <a href="contact.html">
-        <span class="ico">✉️</span> Contact
-      </a>
-    </div>
-
-    <!-- SERVICES label + horizontal scroll -->
-    <div class="mob-label" style="margin-top:.5rem">
-      Services &nbsp;<span style="color:rgba(216,155,43,.5);font-size:.52rem;letter-spacing:.06em">swipe →</span>
-    </div>
-
-    <div class="mob-srv-section">
-      <div class="mob-srv-scroll">
-
-        <a href="services.html#webdev" class="mob-srv-card">
-          <span class="srv-i">🌐</span>
-          <span class="srv-n">Web Dev</span>
-        </a>
-
-        <a href="services.html#uiux" class="mob-srv-card">
-          <span class="srv-i">🎨</span>
-          <span class="srv-n">UI/UX</span>
-        </a>
-
-        <a href="services.html#nocode" class="mob-srv-card">
-          <span class="srv-i">⚡</span>
-          <span class="srv-n">No-Code</span>
-        </a>
-
-        <a href="services.html#graphic" class="mob-srv-card">
-          <span class="srv-i">🖼️</span>
-          <span class="srv-n">Graphic</span>
-        </a>
-
-        <a href="services.html#seo" class="mob-srv-card">
-          <span class="srv-i">📈</span>
-          <span class="srv-n">SEO</span>
-        </a>
-
-        <a href="services.html#deploy" class="mob-srv-card">
-          <span class="srv-i">🚀</span>
-          <span class="srv-n">Deploy</span>
-        </a>
-
-      </div>
-    </div>
-
-  </div><!-- /mob-body -->
-
-  <!-- Contact CTA -->
-  <div class="mob-cta">
-    <a href="contact.html" id="ctaLink">✉ &nbsp;Contact Me</a>
-  </div>
-
-  <!-- Footer -->
-  <div class="mob-foot">
-    <p>
-      📞 <a href="tel:9082844086">9082844086</a><br>
-      ✉ <a href="mailto:roshanjack856@gmail.com">roshanjack856@gmail.com</a>
-    </p>
-  </div>
-
-</div>
-
-<!-- ====== NAVBAR ====== -->
 <nav>
-  <div class="logo">JACK ROSHAN J</div>
+
+  <div class="logo">
+    Jack Roshan
+  </div>
 
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="project.html">Projects</a></li>
-    <li><a href="contact.html">Contact</a></li>
+
+    <li><a href="#">Home</a></li>
+
+    <li><a href="#">About</a></li>
+
+    <li><a href="#">Services</a></li>
+
+    <li><a href="#">Projects</a></li>
+
+    <li><a href="#">Contact</a></li>
+
   </ul>
 
-  <button class="hamburger" id="ham" aria-label="Open Menu">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
-<!-- ====== HOME ====== -->
-<section class="home">
-  <div class="home-container">
+<!-- HERO -->
 
-    <div class="home-text">
-      <div class="mini-title">WHO I AM</div>
+<section class="hero">
 
-      <h1 class="hero-title">
-        JACK ROSHAN<br>
-        <span>Web Developer</span>
-      </h1>
+  <!-- LEFT -->
 
-      <p>B.Sc. Computer Science graduate from Loyola College with strong interest in UI/UX design, web development, freelancing, and digital solutions.</p>
-      <p>Skilled in HTML, CSS, JavaScript, Figma, Canva, GitHub, Vercel Deployment, MS Word, PowerPoint, and Excel.</p>
-      <p>Passionate about building responsive websites, user-friendly UI designs, and modern business websites.</p>
+  <div class="hero-left">
 
-      <div class="skill-tags">
-        <span>HTML</span>
-        <span>CSS</span>
-        <span>JavaScript</span>
-        <span>UI/UX</span>
-        <span>Figma</span>
-        <span>GitHub</span>
-        <span>Vercel</span>
-      </div>
-
-      <a href="contact.html" class="btn">Let's Connect</a>
-
-      <div class="social-row">
-        <a href="mailto:roshanjack856@gmail.com" class="soc" title="Email">✉</a>
-        <a href="tel:9082844086" class="soc" title="Phone">📞</a>
-        <a href="https://www.jk.vercel.app" class="soc" title="Website" target="_blank">🌐</a>
-        <a href="https://github.com" class="soc" title="GitHub" target="_blank">⌨</a>
-      </div>
+    <div class="small-title">
+      FULL STACK DEVELOPER
     </div>
 
-    <div class="home-image">
-      <div class="image-box">
-        <img src="Picsart_26-06-05_14-14-31-226.png" alt="Jack Roshan">
-      </div>
+    <h1 class="hero-title">
+
+      Modern <span>Portfolio</span>
+
+    </h1>
+
+    <p class="hero-text">
+
+      I create modern responsive websites with premium UI design,
+      smooth user experience, GitHub integration, and Vercel deployment.
+
+    </p>
+
+    <a href="#" class="btn">
+      View Projects
+    </a>
+
+  </div>
+
+  <!-- RIGHT -->
+
+  <div class="hero-right">
+
+    <div class="image-box">
+
+      <img src="resume-photo.jpg" alt="Jack Roshan">
+
     </div>
 
   </div>
+
 </section>
 
-<script>
-const ham      = document.getElementById('ham');
-const mobMenu  = document.getElementById('mobMenu');
-const overlay  = document.getElementById('overlay');
-const mobClose = document.getElementById('mobClose');
-const ctaLink  = document.getElementById('ctaLink');
-
-function openMenu(){
-  mobMenu.classList.add('open');
-  overlay.classList.add('open');
-  ham.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeMenu(){
-  mobMenu.classList.remove('open');
-  overlay.classList.remove('open');
-  ham.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-ham.addEventListener('click', openMenu);
-mobClose.addEventListener('click', closeMenu);
-overlay.addEventListener('click', closeMenu);
-ctaLink.addEventListener('click', closeMenu);
-
-document.querySelectorAll('.mob-nav-links a').forEach(a =>
-  a.addEventListener('click', closeMenu)
-);
-</script>
 </body>
+
 </html>
