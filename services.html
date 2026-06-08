@@ -8,8 +8,6 @@
 
 <title>Services | Jack Roshan</title>
 
-<!-- GOOGLE FONTS -->
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -20,11 +18,16 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   background:#081b3a;
   color:white;
   overflow-x:hidden;
   font-family:'Outfit',sans-serif;
+  position:relative;
 }
 
 /* BACKGROUND */
@@ -40,6 +43,7 @@ body::before{
 
   background-size:cover;
   background-position:center;
+  background-repeat:no-repeat;
 
   z-index:-2;
 }
@@ -78,6 +82,12 @@ nav{
   border-bottom:1px solid rgba(255,255,255,.08);
 
   backdrop-filter:blur(10px);
+
+  position:sticky;
+  top:0;
+  z-index:1000;
+
+  background:rgba(0,0,0,.35);
 }
 
 .logo{
@@ -101,15 +111,212 @@ nav{
   transition:.3s;
 }
 
-.nav-links a:hover{
+.nav-links a:hover,
+.nav-links a.active{
   color:#d89b2b;
+}
+
+/* HAMBURGER */
+
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  z-index:1200;
+}
+
+.hamburger span{
+  width:26px;
+  height:2px;
+  background:#d89b2b;
+  border-radius:3px;
+  transition:.3s;
+}
+
+/* MOBILE OVERLAY */
+
+.mob-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+
+  backdrop-filter:blur(4px);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.3s;
+
+  z-index:1000;
+}
+
+.mob-overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* MOBILE MENU */
+
+.mob-menu{
+  position:fixed;
+
+  top:0;
+  left:-100%;
+
+  width:290px;
+  height:100vh;
+
+  background:#0b1e3d;
+
+  border-right:1px solid rgba(216,155,43,.2);
+
+  z-index:1100;
+
+  transition:.45s cubic-bezier(.77,0,.18,1);
+
+  display:flex;
+  flex-direction:column;
+
+  overflow:hidden;
+}
+
+.mob-menu.open{
+  left:0;
+  box-shadow:20px 0 70px rgba(0,0,0,.8);
+}
+
+/* MENU HEADER */
+
+.mob-head{
+  padding:25px 20px;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  background:rgba(216,155,43,.04);
+}
+
+.mob-avatar{
+  width:50px;
+  height:50px;
+
+  border-radius:50%;
+
+  background:linear-gradient(135deg,#d89b2b,#9a6510);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:700;
+  font-size:18px;
+
+  color:#081b3a;
+
+  border:2px solid rgba(216,155,43,.4);
+}
+
+.mob-info{
+  flex:1;
+}
+
+.mob-head-name{
+  font-size:15px;
+  font-weight:700;
+  color:#d89b2b;
+}
+
+.mob-head-role{
+  font-size:11px;
+  color:rgba(255,255,255,.5);
+  margin-top:3px;
+}
+
+.mob-x{
+  font-size:24px;
+  cursor:pointer;
+  color:white;
+  transition:.3s;
+}
+
+.mob-x:hover{
+  color:#d89b2b;
+}
+
+/* MOBILE NAVIGATION */
+
+.mob-nav-links{
+  display:flex;
+  flex-direction:column;
+  margin-top:10px;
+}
+
+.mob-nav-links a{
+  color:rgba(255,255,255,.75);
+  text-decoration:none;
+
+  padding:18px 25px;
+
+  border-bottom:1px solid rgba(255,255,255,.05);
+
+  transition:.3s;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  font-size:15px;
+}
+
+.mob-nav-links a:hover,
+.mob-nav-links a.active{
+  background:rgba(216,155,43,.08);
+  color:#d89b2b;
+  padding-left:32px;
+}
+
+/* CONTACT BUTTON */
+
+.mob-btn{
+  margin-top:auto;
+  padding:20px;
+}
+
+.mob-btn a{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  width:100%;
+
+  padding:14px;
+
+  background:#d89b2b;
+  color:#081b3a;
+
+  text-decoration:none;
+  font-weight:700;
+
+  border-radius:10px;
+
+  transition:.3s;
+}
+
+.mob-btn a:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 20px rgba(216,155,43,.4);
 }
 
 /* SERVICES */
 
 .services{
   min-height:100vh;
-
   padding:100px 8%;
 }
 
@@ -117,7 +324,6 @@ nav{
 
 .services-header{
   text-align:center;
-
   margin-bottom:70px;
 }
 
@@ -274,6 +480,34 @@ nav{
     display:none;
   }
 
+  .hamburger{
+    display:flex;
+  }
+
+}
+
+@media(max-width:480px){
+
+  nav{
+    padding:16px 5%;
+  }
+
+  .logo{
+    font-size:1.3rem;
+  }
+
+  .services{
+    padding:60px 5%;
+  }
+
+  .services-title{
+    font-size:2.4rem;
+  }
+
+  .service-card{
+    padding:30px 22px;
+  }
+
 }
 
 </style>
@@ -281,6 +515,68 @@ nav{
 </head>
 
 <body>
+
+<!-- MOBILE OVERLAY -->
+
+<div class="mob-overlay" id="overlay"></div>
+
+<!-- MOBILE MENU -->
+
+<div class="mob-menu" id="mobMenu">
+
+  <div class="mob-head">
+
+    <div class="mob-avatar">JR</div>
+
+    <div class="mob-info">
+
+      <div class="mob-head-name">
+        Jack Roshan J
+      </div>
+
+      <div class="mob-head-role">
+        Web Developer & UI/UX Designer
+      </div>
+
+    </div>
+
+    <div class="mob-x" id="mobClose">✕</div>
+
+  </div>
+
+  <div class="mob-nav-links">
+
+    <a href="index.html">
+      🏠 Home
+    </a>
+
+    <a href="about.html">
+      👤 About
+    </a>
+
+    <a href="services.html" class="active">
+      ⚡ Services
+    </a>
+
+    <a href="project.html">
+      🗂 Projects
+    </a>
+
+    <a href="contact.html">
+      ✉ Contact
+    </a>
+
+  </div>
+
+  <div class="mob-btn">
+
+    <a href="contact.html">
+      Contact Me
+    </a>
+
+  </div>
+
+</div>
 
 <!-- NAVBAR -->
 
@@ -296,13 +592,21 @@ nav{
 
     <li><a href="about.html">About</a></li>
 
-    <li><a href="services.html">Services</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
 
-    <li><a href="#">Projects</a></li>
+    <li><a href="project.html">Projects</a></li>
 
-    <li><a href="#">Contact</a></li>
+    <li><a href="contact.html">Contact</a></li>
 
   </ul>
+
+  <button class="hamburger" id="ham">
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </button>
 
 </nav>
 
@@ -467,4 +771,4 @@ nav{
 </section>
 
 </body>
-</html>
+</html> it's correct code ? it's don't work in my vercel websitw 
