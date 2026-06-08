@@ -1,97 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Jack Roshan Portfolio</title>
-
-<!-- GOOGLE FONTS -->
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{ margin:0; padding:0; box-sizing:border-box; }
 
 body{
   background:#081b3a;
   color:white;
-
   overflow-y:auto;
   overflow-x:hidden;
-
   font-family:'Outfit',sans-serif;
-
-  height:100vh;
+  min-height:100vh;
 }
 
-/* BACKGROUND IMAGE */
-
+/* BACKGROUND */
 body::before{
   content:'';
   position:fixed;
   inset:0;
-
   background:
-  linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,.78)),
-  url("Screenshot 2026-06-07 100111.png");
-
+    linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,.78)),
+    url("Screenshot 2026-06-07 100111.png");
   background-size:cover;
   background-position:center;
-
   z-index:-2;
 }
-
-/* GOLD GLOW */
 
 body::after{
   content:'';
   position:fixed;
-
   top:50%;
   right:8%;
-
   width:400px;
   height:400px;
-
   transform:translateY(-50%);
-
   background:rgba(216,155,43,.15);
-
   filter:blur(120px);
-
   z-index:-1;
 }
 
-/* NAVBAR */
-
+/* ====== NAVBAR ====== */
 nav{
   width:100%;
   padding:22px 8%;
-
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   border-bottom:1px solid rgba(255,255,255,.08);
-
   backdrop-filter:blur(10px);
+  position:relative;
+  z-index:500;
 }
 
 .logo{
-  font-size:2rem;
+  font-size:1.6rem;
   font-weight:700;
-
   color:#d89b2b;
-
   font-family:'Cormorant Garamond',serif;
+  letter-spacing:.02em;
 }
 
 .nav-links{
@@ -108,62 +79,263 @@ nav{
   transition:.3s;
 }
 
-.nav-links a:hover{
-  color:#d89b2b;
+.nav-links a:hover{ color:#d89b2b; }
+
+/* Hamburger — hidden on desktop */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  padding:4px;
+  z-index:1100;
+}
+.hamburger span{
+  display:block;
+  width:26px;
+  height:2px;
+  background:#d89b2b;
+  border-radius:2px;
+  transition:.35s;
+}
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; transform:scaleX(0); }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* ====== OVERLAY ====== */
+.mob-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:1040;
+  opacity:0;
+  pointer-events:none;
+  transition:.35s;
+  backdrop-filter:blur(3px);
+}
+.mob-overlay.open{
+  opacity:1;
+  pointer-events:all;
 }
 
-/* HOME */
+/* ====== MOBILE SLIDE MENU ====== */
+.mob-menu{
+  position:fixed;
+  top:0;
+  left:-100%;          /* slides from LEFT like the image */
+  width:min(320px,82vw);
+  height:100vh;
+  background:#0d1f38;
+  border-right:1px solid rgba(216,155,43,.25);
+  z-index:1050;
+  transition:.42s cubic-bezier(.77,0,.18,1);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.mob-menu.open{
+  left:0;
+  box-shadow:20px 0 80px rgba(0,0,0,.8);
+}
 
-.home{
-  min-height:calc(100vh - 90px);
-
+/* Menu header */
+.mob-menu-head{
+  padding:1.6rem 1.6rem 1.2rem;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+.mob-logo-img{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#d89b2b,#a06a10);
   display:flex;
   align-items:center;
   justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem;
+  font-weight:700;
+  color:#081b3a;
+  flex-shrink:0;
+  border:2px solid rgba(216,155,43,.4);
+}
+.mob-logo-info{}
+.mob-logo-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;
+  font-weight:700;
+  color:#d89b2b;
+  line-height:1.1;
+}
+.mob-logo-sub{
+  font-size:.7rem;
+  color:rgba(255,255,255,.4);
+  margin-top:.1rem;
+}
+.mob-close{
+  margin-left:auto;
+  font-size:1.4rem;
+  color:rgba(255,255,255,.4);
+  cursor:pointer;
+  transition:.2s;
+  line-height:1;
+  padding:.2rem .4rem;
+}
+.mob-close:hover{ color:#d89b2b; }
 
+/* Nav links inside menu */
+.mob-nav{
+  padding:.8rem 0;
+  flex:1;
+}
+.mob-nav-label{
+  font-size:.62rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  padding:.7rem 1.6rem .3rem;
+  font-weight:600;
+}
+.mob-nav a{
+  display:flex;
+  align-items:center;
+  gap:.9rem;
+  padding:.85rem 1.6rem;
+  color:rgba(255,255,255,.75);
+  text-decoration:none;
+  font-size:.88rem;
+  font-weight:500;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  transition:.28s;
+  /* slide-in animation */
+  transform:translateX(-30px);
+  opacity:0;
+}
+.mob-menu.open .mob-nav a{
+  transform:translateX(0);
+  opacity:1;
+}
+/* Staggered delays */
+.mob-menu.open .mob-nav a:nth-child(1){ transition:transform .35s .08s, opacity .35s .08s, background .2s, color .2s; }
+.mob-menu.open .mob-nav a:nth-child(2){ transition:transform .35s .14s, opacity .35s .14s, background .2s, color .2s; }
+.mob-menu.open .mob-nav a:nth-child(3){ transition:transform .35s .20s, opacity .35s .20s, background .2s, color .2s; }
+.mob-menu.open .mob-nav a:nth-child(4){ transition:transform .35s .26s, opacity .35s .26s, background .2s, color .2s; }
+.mob-menu.open .mob-nav a:nth-child(5){ transition:transform .35s .32s, opacity .35s .32s, background .2s, color .2s; }
+
+.mob-nav a .m-icon{
+  width:34px;
+  height:34px;
+  background:rgba(255,255,255,.05);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  flex-shrink:0;
+  transition:.28s;
+}
+.mob-nav a:hover,
+.mob-nav a.active{
+  color:#d89b2b;
+  background:rgba(216,155,43,.07);
+  padding-left:2rem;
+}
+.mob-nav a:hover .m-icon,
+.mob-nav a.active .m-icon{
+  background:rgba(216,155,43,.15);
+}
+
+/* Last link — Contact highlighted */
+.mob-nav a.mob-contact{
+  margin:1rem 1.2rem 0;
+  border-radius:8px;
+  border:1px solid rgba(216,155,43,.3);
+  background:rgba(216,155,43,.06);
+  color:#d89b2b;
+  justify-content:center;
+  padding:.85rem 1rem;
+}
+.mob-nav a.mob-contact:hover{
+  background:#d89b2b;
+  color:#081b3a;
+  padding-left:1rem;
+}
+
+/* Skills quick section inside menu */
+.mob-skills{
+  padding:.8rem 1.6rem 1rem;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.mob-skills-label{
+  font-size:.62rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.3);
+  margin-bottom:.7rem;
+  font-weight:600;
+}
+.mob-skill-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+}
+.mob-skill-tags span{
+  font-size:.68rem;
+  padding:.28rem .65rem;
+  border:1px solid rgba(216,155,43,.25);
+  border-radius:20px;
+  color:#d89b2b;
+}
+
+/* Menu footer */
+.mob-foot{
+  padding:1rem 1.6rem 1.4rem;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.mob-foot p{
+  font-size:.7rem;
+  color:rgba(255,255,255,.3);
+}
+.mob-foot a{ color:#d89b2b; }
+
+/* ====== HOME SECTION ====== */
+.home{
+  min-height:calc(100vh - 90px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
   padding:10px 8% 0;
 }
 
 .home-container{
   width:100%;
   max-width:1350px;
-
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   gap:50px;
 }
 
-/* LEFT SIDE */
-
-.home-text{
-  flex:1;
-}
+.home-text{ flex:1; }
 
 .mini-title{
   color:#d89b2b;
-
   font-size:13px;
-
   letter-spacing:5px;
-
   text-transform:uppercase;
-
   margin-bottom:20px;
-
   font-weight:600;
 }
 
 .hero-title{
   font-family:'Cormorant Garamond',serif;
-
   font-size:4.5rem;
-
   line-height:1;
-
   margin-bottom:22px;
-
   font-weight:700;
 }
 
@@ -174,145 +346,102 @@ nav{
 
 .home-text p{
   color:#e4e4e4;
-
   font-size:15px;
-
   line-height:1.7;
-
   max-width:620px;
-
   margin-bottom:14px;
 }
-
-/* SKILLS */
 
 .skill-tags{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-
   margin-top:20px;
   margin-bottom:28px;
 }
 
 .skill-tags span{
   padding:10px 18px;
-
   border-radius:30px;
-
   border:1px solid rgba(216,155,43,.35);
-
   color:#d89b2b;
-
   font-size:13px;
-
   transition:.3s;
 }
 
 .skill-tags span:hover{
   background:#d89b2b;
   color:#081b3a;
-
   transform:translateY(-3px);
 }
 
-/* BUTTON */
-
 .btn{
   display:inline-block;
-
   padding:14px 32px;
-
   background:#d89b2b;
-
   color:#081b3a;
-
   text-decoration:none;
-
   border-radius:8px;
-
   font-weight:700;
-
   transition:.3s;
 }
 
 .btn:hover{
   transform:translateY(-4px);
-
   box-shadow:0 0 20px rgba(216,155,43,.4);
 }
-
-/* SOCIAL */
 
 .social-row{
   display:flex;
   gap:14px;
-
   margin-top:28px;
 }
 
 .soc{
   width:44px;
   height:44px;
-
   border-radius:50%;
-
   border:1px solid rgba(255,255,255,.15);
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   text-decoration:none;
-
   color:white;
-
   transition:.3s;
 }
 
 .soc:hover{
   background:#d89b2b;
   color:#081b3a;
-
   transform:translateY(-3px);
 }
 
-/* RIGHT IMAGE */
-
 .home-image{
   flex:1;
-
   display:flex;
   justify-content:center;
   align-items:flex-start;
-
   margin-top:-50px;
 }
 
 .image-box{
   width:360px;
   height:360px;
-
   border-radius:50%;
-
   overflow:hidden;
-
   border:4px solid #d89b2b;
-
   box-shadow:
-  0 0 40px rgba(216,155,43,.35),
-  0 0 100px rgba(216,155,43,.15);
+    0 0 40px rgba(216,155,43,.35),
+    0 0 100px rgba(216,155,43,.15);
 }
 
 .image-box img{
   width:100%;
   height:100%;
-
   object-fit:cover;
 }
 
-/* MOBILE */
-
+/* ====== RESPONSIVE ====== */
 @media(max-width:950px){
 
   .home{
@@ -325,156 +454,189 @@ nav{
     text-align:center;
   }
 
-  .nav-links{
-    display:none;
-  }
+  .nav-links{ display:none; }
+  .hamburger{ display:flex; }
 
-  .hero-title{
-    font-size:3rem;
-  }
+  .hero-title{ font-size:3rem; }
 
-  .home-text p{
-    margin:auto auto 14px;
-  }
+  .home-text p{ margin:auto auto 14px; }
+  .skill-tags{ justify-content:center; }
+  .social-row{ justify-content:center; }
 
-  .skill-tags{
-    justify-content:center;
-  }
+  .image-box{ width:260px; height:260px; }
+  .home-image{ margin-top:0; }
+}
 
-  .social-row{
-    justify-content:center;
-  }
-
-  .image-box{
-    width:280px;
-    height:280px;
-  }
-
-  .home-image{
-    margin-top:0;
-  }
-
+@media(max-width:480px){
+  nav{ padding:18px 5%; }
+  .logo{ font-size:1.3rem; }
+  .hero-title{ font-size:2.4rem; }
 }
 
 </style>
-
 </head>
-
 <body>
 
-<!-- NAVBAR -->
+<!-- OVERLAY -->
+<div class="mob-overlay" id="overlay"></div>
 
-<nav>
+<!-- ====== MOBILE SLIDE MENU ====== -->
+<div class="mob-menu" id="mobMenu">
 
-  <div class="logo">
-    JACK ROSHAN J
+  <!-- Head -->
+  <div class="mob-menu-head">
+    <div class="mob-logo-img">JR</div>
+    <div class="mob-logo-info">
+      <div class="mob-logo-name">Jack Roshan J</div>
+      <div class="mob-logo-sub">Web Developer &amp; UI/UX Designer</div>
+    </div>
+    <div class="mob-close" id="mobClose">✕</div>
   </div>
+
+  <!-- Nav Links -->
+  <nav class="mob-nav">
+    <div class="mob-nav-label">Navigation</div>
+    <a href="index.html" class="active">
+      <span class="m-icon">🏠</span> Home
+    </a>
+    <a href="about.html">
+      <span class="m-icon">👤</span> About
+    </a>
+    <a href="skills.html">
+      <span class="m-icon">⚡</span> Skills
+    </a>
+    <a href="services.html">
+      <span class="m-icon">🛠️</span> Services
+    </a>
+    <a href="education.html">
+      <span class="m-icon">🎓</span> Education
+    </a>
+    <a href="resume.html">
+      <span class="m-icon">📄</span> Resume
+    </a>
+    <a href="contact.html" class="mob-contact">
+      ✉ Contact Me
+    </a>
+  </nav>
+
+  <!-- Quick Skills -->
+  <div class="mob-skills">
+    <div class="mob-skills-label">My Skills</div>
+    <div class="mob-skill-tags">
+      <span>HTML</span>
+      <span>CSS</span>
+      <span>JavaScript</span>
+      <span>Figma</span>
+      <span>Canva</span>
+      <span>GitHub</span>
+      <span>Vercel</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="mob-foot">
+    <p>📞 <a href="tel:9082844086">9082844086</a> &nbsp;|&nbsp; ✉ <a href="mailto:roshanjack856@gmail.com">roshanjack856@gmail.com</a></p>
+  </div>
+
+</div>
+
+<!-- ====== NAVBAR ====== -->
+<nav>
+  <div class="logo">JACK ROSHAN J</div>
 
   <ul class="nav-links">
-
-    <li><a href="#">index.html</a></li>
-
-    <li><a href="#">about.html</a></li>
-
-    <li><a href="#">Services.html</a></li>
-
-    <li><a href="#">Project.html</a></li>
-
-    <li><a href="#">Contact.html</a></li>
-
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="resume.html">Resume</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
 
+  <!-- Hamburger -->
+  <button class="hamburger" id="ham" aria-label="Open Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- HOME -->
-
+<!-- ====== HOME ====== -->
 <section class="home">
-
   <div class="home-container">
 
-    <!-- LEFT SIDE -->
-
+    <!-- LEFT -->
     <div class="home-text">
-
-      <div class="mini-title">
-        WHO WE ARE
-      </div>
+      <div class="mini-title">WHO I AM</div>
 
       <h1 class="hero-title">
-
-        JACK ROSHAN <br>
-
+        JACK ROSHAN<br>
         <span>Web Developer</span>
-
       </h1>
 
-      <p>
-        B.Sc. Computer Science graduate from Loyola College with strong interest in
-        UI/UX design, web development, freelancing, and digital solutions.
-      </p>
-
-      <p>
-        Skilled in HTML, CSS, JavaScript, Figma, Canva,
-        GitHub, Vercel Deployment, MS Word,
-        PowerPoint, and Excel.
-      </p>
-
-      <p>
-        Passionate about building responsive websites,
-        user-friendly UI designs, and modern business websites.
-      </p>
-
-      <!-- SKILLS -->
+      <p>B.Sc. Computer Science graduate from Loyola College with strong interest in UI/UX design, web development, freelancing, and digital solutions.</p>
+      <p>Skilled in HTML, CSS, JavaScript, Figma, Canva, GitHub, Vercel Deployment, MS Word, PowerPoint, and Excel.</p>
+      <p>Passionate about building responsive websites, user-friendly UI designs, and modern business websites.</p>
 
       <div class="skill-tags">
-
         <span>HTML</span>
-
         <span>CSS</span>
-
         <span>JavaScript</span>
-
         <span>UI/UX</span>
-
         <span>Figma</span>
-
         <span>GitHub</span>
-
         <span>Vercel</span>
-
       </div>
 
-      <!-- BUTTON -->
-
-      <a href="#" class="btn">
-        Let's Connect
-      </a>
-
-      <!-- ONLY ONE ICON -->
+      <a href="contact.html" class="btn">Let's Connect</a>
 
       <div class="social-row">
-
-        <a href="#" class="soc">⌨</a>
-
+        <a href="mailto:roshanjack856@gmail.com" class="soc" title="Email">✉</a>
+        <a href="tel:9082844086" class="soc" title="Phone">📞</a>
+        <a href="https://www.jk.vercel.app" class="soc" title="Website" target="_blank">🌐</a>
+        <a href="https://github.com" class="soc" title="GitHub" target="_blank">⌨</a>
       </div>
-
     </div>
 
-    <!-- RIGHT SIDE -->
-
+    <!-- RIGHT -->
     <div class="home-image">
-
       <div class="image-box">
-
         <img src="Picsart_26-06-05_14-14-31-226.png" alt="Jack Roshan">
-
       </div>
-
     </div>
 
   </div>
-
 </section>
+
+<!-- ====== SCRIPT ====== -->
+<script>
+const ham     = document.getElementById('ham');
+const mobMenu = document.getElementById('mobMenu');
+const overlay = document.getElementById('overlay');
+const mobClose= document.getElementById('mobClose');
+
+function openMenu(){
+  mobMenu.classList.add('open');
+  overlay.classList.add('open');
+  ham.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMenu(){
+  mobMenu.classList.remove('open');
+  overlay.classList.remove('open');
+  ham.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+ham.addEventListener('click', openMenu);
+mobClose.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeMenu);
+
+// Close when a menu link is tapped
+document.querySelectorAll('.mob-nav a').forEach(a =>
+  a.addEventListener('click', closeMenu)
+);
+</script>
 
 </body>
 </html>
