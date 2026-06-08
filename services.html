@@ -94,7 +94,6 @@ nav{
   font-size:2rem;
   color:#d89b2b;
   font-weight:700;
-
   font-family:'Cormorant Garamond',serif;
 }
 
@@ -164,7 +163,7 @@ nav{
   position:fixed;
 
   top:0;
-  left:-100%;
+  left:-320px;
 
   width:290px;
   height:100vh;
@@ -329,25 +328,17 @@ nav{
 
 .mini-title{
   color:#d89b2b;
-
   font-size:13px;
-
   letter-spacing:5px;
-
   text-transform:uppercase;
-
   margin-bottom:20px;
-
   font-weight:600;
 }
 
 .services-title{
   font-family:'Cormorant Garamond',serif;
-
   font-size:4.5rem;
-
   line-height:1.1;
-
   margin-bottom:20px;
 }
 
@@ -358,13 +349,9 @@ nav{
 
 .services-sub{
   color:#dcdcdc;
-
   max-width:750px;
-
   margin:auto;
-
   line-height:1.9;
-
   font-size:16px;
 }
 
@@ -372,9 +359,7 @@ nav{
 
 .services-grid{
   display:grid;
-
   grid-template-columns:repeat(3,1fr);
-
   gap:30px;
 }
 
@@ -508,6 +493,10 @@ nav{
     padding:30px 22px;
   }
 
+  .mob-menu{
+    width:280px;
+  }
+
 }
 
 </style>
@@ -614,8 +603,6 @@ nav{
 
 <section class="services">
 
-  <!-- HEADER -->
-
   <div class="services-header">
 
     <div class="mini-title">
@@ -623,9 +610,7 @@ nav{
     </div>
 
     <h1 class="services-title">
-
       Premium <span>Services</span>
-
     </h1>
 
     <p class="services-sub">
@@ -636,11 +621,7 @@ nav{
 
   </div>
 
-  <!-- GRID -->
-
   <div class="services-grid">
-
-    <!-- CARD 1 -->
 
     <div class="service-card">
 
@@ -661,8 +642,6 @@ nav{
 
     </div>
 
-    <!-- CARD 2 -->
-
     <div class="service-card">
 
       <div class="service-icon">
@@ -681,8 +660,6 @@ nav{
       </a>
 
     </div>
-
-    <!-- CARD 3 -->
 
     <div class="service-card">
 
@@ -703,8 +680,6 @@ nav{
 
     </div>
 
-    <!-- CARD 4 -->
-
     <div class="service-card">
 
       <div class="service-icon">
@@ -724,8 +699,6 @@ nav{
 
     </div>
 
-    <!-- CARD 5 -->
-
     <div class="service-card">
 
       <div class="service-icon">
@@ -744,8 +717,6 @@ nav{
       </a>
 
     </div>
-
-    <!-- CARD 6 -->
 
     <div class="service-card">
 
@@ -770,5 +741,49 @@ nav{
 
 </section>
 
+<script>
+
+const ham = document.getElementById('ham');
+
+const mobMenu = document.getElementById('mobMenu');
+
+const overlay = document.getElementById('overlay');
+
+const mobClose = document.getElementById('mobClose');
+
+function openMenu(){
+
+  mobMenu.classList.add('open');
+
+  overlay.classList.add('open');
+
+  document.body.style.overflow='hidden';
+
+}
+
+function closeMenu(){
+
+  mobMenu.classList.remove('open');
+
+  overlay.classList.remove('open');
+
+  document.body.style.overflow='';
+
+}
+
+ham.addEventListener('click', openMenu);
+
+mobClose.addEventListener('click', closeMenu);
+
+overlay.addEventListener('click', closeMenu);
+
+document.querySelectorAll('.mob-nav-links a').forEach(link=>{
+
+  link.addEventListener('click', closeMenu);
+
+});
+
+</script>
+
 </body>
-</html> it's correct code ? it's don't work in my vercel websitw 
+</html>
