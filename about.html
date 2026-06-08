@@ -129,11 +129,10 @@ nav{
 }
 
 .hamburger span{
-  width:26px;
+  width:28px;
   height:2px;
   background:#d89b2b;
   border-radius:3px;
-  transition:.3s;
 }
 
 /* MOBILE OVERLAY */
@@ -218,8 +217,6 @@ nav{
   font-size:18px;
 
   color:#081b3a;
-
-  border:2px solid rgba(216,155,43,.4);
 }
 
 .mob-info{
@@ -242,11 +239,6 @@ nav{
   font-size:24px;
   cursor:pointer;
   color:white;
-  transition:.3s;
-}
-
-.mob-x:hover{
-  color:#d89b2b;
 }
 
 /* MOBILE NAVIGATION */
@@ -304,13 +296,6 @@ nav{
   font-weight:700;
 
   border-radius:10px;
-
-  transition:.3s;
-}
-
-.mob-btn a:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 20px rgba(216,155,43,.4);
 }
 
 /* ABOUT */
@@ -477,7 +462,7 @@ nav{
   box-shadow:0 0 20px rgba(216,155,43,.4);
 }
 
-/* RESPONSIVE */
+/* TABLET */
 
 @media(max-width:950px){
 
@@ -503,12 +488,13 @@ nav{
   }
 
   .image-box{
-    width:320px;
-    height:420px;
-    border-radius:28px;
+    width:340px;
+    height:460px;
   }
 
 }
+
+/* MOBILE */
 
 @media(max-width:480px){
 
@@ -517,22 +503,35 @@ nav{
   }
 
   .logo{
-    font-size:1.3rem;
+    font-size:1.5rem;
   }
 
   .about{
-    padding:50px 5%;
+    padding:45px 5%;
   }
 
   .about-title{
-    font-size:2.3rem;
+    font-size:2.7rem;
+  }
+
+  .about-image{
+    width:100%;
+    display:flex;
+    justify-content:center;
   }
 
   .image-box{
-    width:100%;
-    max-width:280px;
-    height:360px;
-    border-radius:26px;
+    width:320px;
+    height:430px;
+
+    border-radius:30px;
+
+    margin:auto;
+  }
+
+  .about-text p{
+    font-size:15px;
+    line-height:1.9;
   }
 
 }
@@ -643,8 +642,6 @@ nav{
 
   <div class="about-container">
 
-    <!-- IMAGE -->
-
     <div class="about-image">
 
       <div class="image-box">
@@ -654,8 +651,6 @@ nav{
       </div>
 
     </div>
-
-    <!-- TEXT -->
 
     <div class="about-text">
 
@@ -672,20 +667,15 @@ nav{
       </h1>
 
       <p>
-        I am Jack Roshan, a B.Sc. Computer Science graduate from Loyola College
-        with strong interest in UI/UX design, frontend development,
-        and modern web technologies.
+        I am Jack Roshan, a B.Sc. Computer Science graduate from Loyola College with strong interest in UI/UX design, frontend development, and modern web technologies.
       </p>
 
       <p>
-        I specialize in creating responsive websites, user-friendly interfaces,
-        and modern business designs using HTML, CSS, JavaScript,
-        Figma, Canva, GitHub, and Vercel.
+        I specialize in creating responsive websites, user-friendly interfaces, and modern business designs using HTML, CSS, JavaScript, Figma, Canva, GitHub, and Vercel.
       </p>
 
       <p>
-        I enjoy learning new technologies, solving problems,
-        and building creative digital experiences.
+        I enjoy learning new technologies, solving problems, and building creative digital experiences.
       </p>
 
       <div class="info-grid">
