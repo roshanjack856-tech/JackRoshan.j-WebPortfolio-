@@ -336,11 +336,17 @@ nav{
   flex:1;
   display:flex;
   justify-content:center;
+  align-items:flex-start;
+
+  margin-top:-120px;
 }
 
 .image-box{
   width:420px;
   height:420px;
+
+  position:relative;
+  top:-20px;
 
   border-radius:50%;
   overflow:hidden;
@@ -398,6 +404,11 @@ nav{
   .image-box{
     width:250px;
     height:250px;
+    top:0;
+  }
+
+  .home-image{
+    margin-top:0;
   }
 }
 
