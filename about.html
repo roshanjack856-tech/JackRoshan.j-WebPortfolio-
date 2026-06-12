@@ -2,26 +2,21 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>About | Jack Roshan</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
-
 html{
   scroll-behavior:smooth;
 }
-
 body{
   background:#081b3a;
   color:white;
@@ -31,62 +26,45 @@ body{
 }
 
 /* BACKGROUND */
-
 body::before{
   content:'';
   position:fixed;
   inset:0;
-
   background:
   linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.82)),
   url("Screenshot 2026-06-07 100111.png");
-
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-
   z-index:-2;
 }
 
 /* GOLD GLOW */
-
 body::after{
   content:'';
   position:fixed;
-
   top:50%;
   left:10%;
-
   width:400px;
   height:400px;
-
   background:rgba(216,155,43,.12);
-
   filter:blur(120px);
-
   transform:translateY(-50%);
-
   z-index:-1;
 }
 
 /* NAVBAR */
-
 nav{
   width:100%;
   padding:22px 8%;
-
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   border-bottom:1px solid rgba(255,255,255,.08);
-
   backdrop-filter:blur(10px);
-
   position:sticky;
   top:0;
   z-index:1000;
-
   background:rgba(0,0,0,.35);
 }
 
@@ -94,7 +72,6 @@ nav{
   font-size:2rem;
   color:#d89b2b;
   font-weight:700;
-
   font-family:'Cormorant Garamond',serif;
 }
 
@@ -117,7 +94,6 @@ nav{
 }
 
 /* HAMBURGER */
-
 .hamburger{
   display:none;
   flex-direction:column;
@@ -136,19 +112,14 @@ nav{
 }
 
 /* MOBILE OVERLAY */
-
 .mob-overlay{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.7);
-
   backdrop-filter:blur(4px);
-
   opacity:0;
   pointer-events:none;
-
   transition:.3s;
-
   z-index:1000;
 }
 
@@ -158,27 +129,18 @@ nav{
 }
 
 /* MOBILE MENU */
-
 .mob-menu{
   position:fixed;
-
   top:0;
   left:-100%;
-
   width:290px;
   height:100vh;
-
   background:#0b1e3d;
-
   border-right:1px solid rgba(216,155,43,.2);
-
   z-index:1100;
-
   transition:.45s cubic-bezier(.77,0,.18,1);
-
   display:flex;
   flex-direction:column;
-
   overflow:hidden;
 }
 
@@ -188,34 +150,25 @@ nav{
 }
 
 /* MENU HEADER */
-
 .mob-head{
   padding:25px 20px;
-
   display:flex;
   align-items:center;
   gap:12px;
-
   border-bottom:1px solid rgba(255,255,255,.08);
-
   background:rgba(216,155,43,.04);
 }
 
 .mob-avatar{
   width:50px;
   height:50px;
-
   border-radius:50%;
-
   background:linear-gradient(135deg,#d89b2b,#9a6510);
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-weight:700;
   font-size:18px;
-
   color:#081b3a;
 }
 
@@ -242,7 +195,6 @@ nav{
 }
 
 /* MOBILE NAVIGATION */
-
 .mob-nav-links{
   display:flex;
   flex-direction:column;
@@ -252,17 +204,12 @@ nav{
 .mob-nav-links a{
   color:rgba(255,255,255,.75);
   text-decoration:none;
-
   padding:18px 25px;
-
   border-bottom:1px solid rgba(255,255,255,.05);
-
   transition:.3s;
-
   display:flex;
   align-items:center;
   gap:12px;
-
   font-size:15px;
 }
 
@@ -274,7 +221,6 @@ nav{
 }
 
 /* CONTACT BUTTON */
-
 .mob-btn{
   margin-top:auto;
   padding:20px;
@@ -284,45 +230,34 @@ nav{
   display:flex;
   justify-content:center;
   align-items:center;
-
   width:100%;
-
   padding:14px;
-
   background:#d89b2b;
   color:#081b3a;
-
   text-decoration:none;
   font-weight:700;
-
   border-radius:10px;
 }
 
 /* ABOUT */
-
 .about{
   min-height:100vh;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   padding:80px 8%;
 }
 
 .about-container{
   width:100%;
   max-width:1300px;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   gap:70px;
 }
 
 /* IMAGE */
-
 .about-image{
   flex:1;
   display:flex;
@@ -332,13 +267,9 @@ nav{
 .image-box{
   width:520px;
   height:680px;
-
   border-radius:30px;
-
   overflow:hidden;
-
   border:3px solid #d89b2b;
-
   box-shadow:
   0 0 40px rgba(216,155,43,.25),
   0 0 80px rgba(216,155,43,.12);
@@ -352,32 +283,23 @@ nav{
 }
 
 /* TEXT */
-
 .about-text{
   flex:1;
 }
 
 .mini-title{
   color:#d89b2b;
-
   font-size:13px;
-
   letter-spacing:5px;
-
   text-transform:uppercase;
-
   margin-bottom:20px;
-
   font-weight:600;
 }
 
 .about-title{
   font-family:'Cormorant Garamond',serif;
-
   font-size:4.5rem;
-
   line-height:1.1;
-
   margin-bottom:25px;
 }
 
@@ -388,43 +310,30 @@ nav{
 
 .about-text p{
   color:#e4e4e4;
-
   font-size:16px;
-
   line-height:1.9;
-
   margin-bottom:18px;
 }
 
 /* INFO BOX */
-
 .info-grid{
   display:grid;
-
   grid-template-columns:repeat(2,1fr);
-
   gap:18px;
-
   margin-top:30px;
 }
 
 .info-card{
   padding:20px;
-
   border:1px solid rgba(216,155,43,.2);
-
   border-radius:18px;
-
   background:rgba(255,255,255,.03);
-
   backdrop-filter:blur(10px);
 }
 
 .info-card h3{
   color:#d89b2b;
-
   margin-bottom:8px;
-
   font-size:18px;
 }
 
@@ -435,235 +344,122 @@ nav{
 }
 
 /* BUTTON */
-
 .btn{
   display:inline-block;
-
   margin-top:35px;
-
   padding:15px 35px;
-
   background:#d89b2b;
-
   color:#081b3a;
-
   text-decoration:none;
-
   border-radius:8px;
-
   font-weight:700;
-
   transition:.3s;
 }
 
 .btn:hover{
   transform:translateY(-4px);
-
   box-shadow:0 0 20px rgba(216,155,43,.4);
 }
 
 /* TABLET */
-
 @media(max-width:950px){
-
-  .nav-links{
-    display:none;
-  }
-
-  .hamburger{
-    display:flex;
-  }
-
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
   .about-container{
     flex-direction:column;
     text-align:center;
   }
-
-  .about-title{
-    font-size:3rem;
-  }
-
-  .info-grid{
-    grid-template-columns:1fr;
-  }
-
+  .about-title{font-size:3rem;}
+  .info-grid{grid-template-columns:1fr;}
   .image-box{
     width:340px;
     height:460px;
   }
-
 }
 
 /* MOBILE */
-
 @media(max-width:480px){
-
-  nav{
-    padding:16px 5%;
-  }
-
-  .logo{
-    font-size:1.5rem;
-  }
-
-  .about{
-    padding:45px 5%;
-  }
-
-  .about-title{
-    font-size:2.7rem;
-  }
-
+  nav{padding:16px 5%;}
+  .logo{font-size:1.5rem;}
+  .about{padding:45px 5%;}
+  .about-title{font-size:2.7rem;}
   .about-image{
     width:100%;
     display:flex;
     justify-content:center;
   }
-
   .image-box{
     width:320px;
     height:430px;
-
     border-radius:30px;
-
     margin:auto;
   }
-
   .about-text p{
     font-size:15px;
     line-height:1.9;
   }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
-<!-- MOBILE OVERLAY -->
-
 <div class="mob-overlay" id="overlay"></div>
 
-<!-- MOBILE MENU -->
-
 <div class="mob-menu" id="mobMenu">
-
   <div class="mob-head">
-
     <div class="mob-avatar">JR</div>
-
     <div class="mob-info">
-
-      <div class="mob-head-name">
-        Jack Roshan J
-      </div>
-
-      <div class="mob-head-role">
-        Web Developer & UI/UX Designer
-      </div>
-
+      <div class="mob-head-name">Jack Roshan J</div>
+      <div class="mob-head-role">Web Developer & UI/UX Designer</div>
     </div>
-
     <div class="mob-x" id="mobClose">✕</div>
-
   </div>
 
   <div class="mob-nav-links">
-
-    <a href="index.html">
-      🏠 Home
-    </a>
-
-    <a href="about.html" class="active">
-      👤 About
-    </a>
-
-    <a href="services.html">
-      ⚡ Services
-    </a>
-
-    <a href="project.html">
-      🗂 Projects
-    </a>
-
-    <a href="contact.html">
-      ✉ Contact
-    </a>
-
+    <a href="index.html">🏠 Home</a>
+    <a href="about.html" class="active">👤 About</a>
+    <a href="services.html">⚡ Services</a>
+    <a href="project.html">🗂 Projects</a>
+    <a href="contact.html">✉ Contact</a>
   </div>
 
   <div class="mob-btn">
-
-    <a href="contact.html">
-      Contact Me
-    </a>
-
+    <a href="contact.html">Contact Me</a>
   </div>
-
 </div>
 
-<!-- NAVBAR -->
-
 <nav>
-
-  <div class="logo">
-    JACK ROSHAN J
-  </div>
-
+  <div class="logo">JACK ROSHAN J</div>
   <ul class="nav-links">
-
     <li><a href="index.html">Home</a></li>
-
     <li><a href="about.html" class="active">About</a></li>
-
     <li><a href="services.html">Services</a></li>
-
     <li><a href="project.html">Projects</a></li>
-
     <li><a href="contact.html">Contact</a></li>
-
   </ul>
 
   <button class="hamburger" id="ham">
-
     <span></span>
     <span></span>
     <span></span>
-
   </button>
-
 </nav>
 
-<!-- ABOUT -->
-
 <section class="about">
-
   <div class="about-container">
-
     <div class="about-image">
-
       <div class="image-box">
-
         <img src="Screenshot 2026-06-07 111630.png" alt="Jack Roshan">
-
       </div>
-
     </div>
 
     <div class="about-text">
-
-      <div class="mini-title">
-        ABOUT ME
-      </div>
+      <div class="mini-title">ABOUT ME</div>
 
       <h1 class="about-title">
-
         Passionate <br>
-
         <span>Web Developer</span>
-
       </h1>
 
       <p>
@@ -679,105 +475,61 @@ nav{
       </p>
 
       <div class="info-grid">
-
         <div class="info-card">
-
           <h3>Education</h3>
-
-          <p>
-            B.Sc Computer Science<br>
-            Loyola College
-          </p>
-
+          <p>B.Sc Computer Science<br>Loyola College</p>
         </div>
 
         <div class="info-card">
-
           <h3>Skills</h3>
-
-          <p>
-            HTML, CSS, JavaScript,
-            UI/UX, GitHub
-          </p>
-
+          <p>HTML, CSS, JavaScript, UI/UX, GitHub</p>
         </div>
 
         <div class="info-card">
-
           <h3>Experience</h3>
-
-          <p>
-            Internship at
-            Codsair Technologies
-          </p>
-
+          <p>Internship at Codsair Technologies</p>
         </div>
 
         <div class="info-card">
-
           <h3>Freelancing</h3>
-
-          <p>
-            Responsive website
-            and digital design projects
-          </p>
-
+          <p>Responsive website and digital design projects</p>
         </div>
-
       </div>
 
-      <a href="#" class="btn">
+      <!-- RESUME DOWNLOAD BUTTON -->
+      <a href="resume.pdf" class="btn" download>
         Download Resume
       </a>
 
     </div>
-
   </div>
-
 </section>
 
 <script>
-
 const ham = document.getElementById('ham');
-
 const mobMenu = document.getElementById('mobMenu');
-
 const overlay = document.getElementById('overlay');
-
 const mobClose = document.getElementById('mobClose');
 
 function openMenu(){
-
   mobMenu.classList.add('open');
-
   overlay.classList.add('open');
-
   document.body.style.overflow='hidden';
-
 }
 
 function closeMenu(){
-
   mobMenu.classList.remove('open');
-
   overlay.classList.remove('open');
-
   document.body.style.overflow='';
-
 }
 
 ham.addEventListener('click', openMenu);
-
 mobClose.addEventListener('click', closeMenu);
-
 overlay.addEventListener('click', closeMenu);
 
 document.querySelectorAll('.mob-nav-links a').forEach(link=>{
-
   link.addEventListener('click', closeMenu);
-
 });
-
 </script>
 
 </body>
