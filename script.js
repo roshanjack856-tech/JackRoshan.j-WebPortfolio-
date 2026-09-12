@@ -1,9 +1,89 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 
-    /* =========================================
+    /* =====================================================
+       PRELOADER
+    ====================================================== */
+
+    const preloader =
+        document.getElementById("preloader");
+
+    const loadingPercent =
+        document.getElementById("loadingPercent");
+
+    const loaderProgress =
+        document.getElementById("loaderProgress");
+
+
+    document.body.classList.add("loading");
+
+
+    let progress = 0;
+
+
+    const loadingTimer = setInterval(() => {
+
+        progress++;
+
+
+        if (loadingPercent) {
+
+            loadingPercent.textContent =
+                progress;
+
+        }
+
+
+        if (loaderProgress) {
+
+            loaderProgress.style.width =
+                progress + "%";
+
+        }
+
+
+        if (progress >= 100) {
+
+            clearInterval(loadingTimer);
+
+
+            setTimeout(() => {
+
+                if (preloader) {
+
+                    preloader.classList.add("loaded");
+
+                }
+
+
+                document.body.classList.remove(
+                    "loading"
+                );
+
+
+                setTimeout(() => {
+
+                    if (preloader) {
+
+                        preloader.style.display =
+                            "none";
+
+                    }
+
+                }, 1400);
+
+
+            }, 500);
+
+        }
+
+    }, 25);
+
+
+
+    /* =====================================================
        MOBILE MENU
-    ========================================== */
+    ====================================================== */
 
     const menuBtn =
         document.getElementById("menuBtn");
@@ -20,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         closeBtn &&
         mobileMenu
     ) {
+
 
         menuBtn.addEventListener(
             "click",
@@ -67,9 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================
-       WAIT FOR GSAP
-    ========================================== */
+
+    /* =====================================================
+       CHECK GSAP
+    ====================================================== */
 
     if (
         typeof gsap === "undefined" ||
@@ -90,14 +172,16 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =========================================
+
+    /* =====================================================
        PORTRAIT ELEMENTS
-    ========================================== */
+    ====================================================== */
 
     const portrait =
         document.getElementById(
             "portrait3D"
         );
+
 
     const portraitFrame =
         document.getElementById(
@@ -119,53 +203,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================
-       FRAME SETTINGS
-    ========================================== */
+
+    /* =====================================================
+       300 IMAGE FRAMES
+    ====================================================== */
 
     const TOTAL_FRAMES = 300;
 
+    const FRAME_FOLDER =
+        "portrait-frames";
 
-    /*
-        IMPORTANT:
-
-        Your GitHub files are in the
-        SAME folder as index.html.
-
-        Example:
-
-        index.html
-        ezgif-frame-001.jpg
-        ezgif-frame-002.jpg
-        ...
-        ezgif-frame-300.jpg
-    */
-
-    const FRAME_PREFIX =
-        "ezgif-frame-";
-
-    const FRAME_EXTENSION =
-        ".jpg";
-
-
-    /* =========================================
-       IMAGE ARRAY
-    ========================================== */
 
     const frames = [];
 
     let currentFrame = -1;
 
 
-    /* =========================================
-       PRELOAD 300 IMAGES
-    ========================================== */
+
+    /* =====================================================
+       PRELOAD ALL 300 JPG IMAGES
+    ====================================================== */
 
     for (
         let i = 1;
         i <= TOTAL_FRAMES;
         i++
     ) {
+
 
         const image =
             new Image();
@@ -179,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         image.src =
-            `${FRAME_PREFIX}${frameNumber}${FRAME_EXTENSION}`;
+            `${FRAME_FOLDER}/ezgif-frame-${frameNumber}.jpg`;
 
 
         frames.push(image);
@@ -187,37 +251,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================
+
+    /* =====================================================
        SHOW FRAME
-    ========================================== */
+    ====================================================== */
 
-    function showFrame(
-        frameIndex
-    ) {
+    function showFrame(frameIndex) {
 
 
-        /*
-            Keep frame number between
-            0 and 299
-        */
+        frameIndex = Math.max(
+            0,
+            Math.min(
+                TOTAL_FRAMES - 1,
+                frameIndex
+            )
+        );
 
-        frameIndex =
-            Math.max(
-                0,
-                Math.min(
-                    TOTAL_FRAMES - 1,
-                    frameIndex
-                )
-            );
-
-
-        /*
-            Don't reload same frame
-        */
 
         if (
-            frameIndex ===
-            currentFrame
+            frameIndex === currentFrame
         ) {
 
             return;
@@ -236,62 +288,55 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-            If already loaded
-        */
-
         if (
             frame.complete &&
             frame.naturalWidth > 0
         ) {
 
+
             portraitFrame.src =
                 frame.src;
+
 
             currentFrame =
                 frameIndex;
 
-            return;
+
+        } else {
+
+
+            frame.onload = () => {
+
+
+                portraitFrame.src =
+                    frame.src;
+
+
+                currentFrame =
+                    frameIndex;
+
+            };
 
         }
-
-
-        /*
-            If still loading
-        */
-
-        frame.onload = () => {
-
-            portraitFrame.src =
-                frame.src;
-
-            currentFrame =
-                frameIndex;
-
-        };
 
     }
 
 
-    /* =========================================
-       SHOW FIRST FRAME
-    ========================================== */
+
+    /* =====================================================
+       SHOW FIRST IMAGE
+    ====================================================== */
 
     showFrame(0);
 
 
-    /* =========================================
-       RESET PORTRAIT TRANSFORM
+
+    /* =====================================================
+       DO NOT ROTATE IMAGE WITH CSS
        
-       VERY IMPORTANT:
-       
-       We DO NOT use rotateY().
-       
-       We DO NOT use rotateX().
-       
-       The JPG images themselves contain
-       the character's 3D movement.
-    ========================================== */
+       The 300 JPG frames already contain
+       the character rotation.
+    ====================================================== */
 
     gsap.set(
         portrait,
@@ -316,9 +361,10 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =========================================
-       SCROLL FRAME ANIMATION
-    ========================================== */
+
+    /* =====================================================
+       SCROLL → 300 FRAMES
+    ====================================================== */
 
     const animation = {
 
@@ -334,49 +380,28 @@ document.addEventListener("DOMContentLoaded", () => {
             frame:
                 TOTAL_FRAMES - 1,
 
-            ease: "none",
+
+            ease:
+                "none",
 
 
             scrollTrigger: {
 
-                trigger: "#home",
+                trigger:
+                    "#home",
 
-
-                /*
-                    Animation starts when
-                    Home reaches top
-                */
 
                 start:
                     "top top",
 
 
-                /*
-                    Scroll distance.
-
-                    Bigger value =
-                    slower character movement.
-
-                    Smaller value =
-                    faster movement.
-                */
-
                 end:
-                    "+=2200",
+                    "+=1800",
 
-
-                /*
-                    Smooth scroll
-                */
 
                 scrub:
-                    0.4,
+                    0.5,
 
-
-                /*
-                    Keep hero fixed while
-                    frames change.
-                */
 
                 pin:
                     true,
@@ -393,15 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 onUpdate:
                     (self) => {
 
-
-                        /*
-                            Convert scroll progress
-                            0 → 1
-
-                            into frame:
-
-                            0 → 299
-                        */
 
                         const frameIndex =
                             Math.round(
@@ -422,9 +438,10 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =========================================
+
+    /* =====================================================
        SCROLL HINT
-    ========================================== */
+    ====================================================== */
 
     const scrollHint =
         document.getElementById(
@@ -448,13 +465,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 scrollTrigger: {
 
-                    trigger: "#home",
+                    trigger:
+                        "#home",
+
 
                     start:
                         "top top",
 
+
                     end:
                         "+=300",
+
 
                     scrub:
                         true
@@ -467,9 +488,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =========================================
+
+    /* =====================================================
        ACTIVE NAVIGATION
-    ========================================== */
+    ====================================================== */
 
     const sections =
         document.querySelectorAll(
@@ -484,6 +506,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function updateActiveNavigation() {
+
 
         let current = "";
 
@@ -506,12 +529,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (
                     scrollPosition >=
-                    sectionTop &&
+                        sectionTop &&
 
                     scrollPosition <
-                    sectionTop +
-                    sectionHeight
+                        sectionTop +
+                        sectionHeight
                 ) {
+
 
                     current =
                         section.getAttribute(
@@ -540,6 +564,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "#" + current
                 ) {
 
+
                     link.classList.add(
                         "active"
                     );
@@ -561,9 +586,10 @@ document.addEventListener("DOMContentLoaded", () => {
     updateActiveNavigation();
 
 
-    /* =========================================
+
+    /* =====================================================
        REFRESH SCROLLTRIGGER
-    ========================================== */
+    ====================================================== */
 
     window.addEventListener(
         "load",
@@ -574,10 +600,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     );
 
-
-    /* =========================================
-       RESIZE
-    ========================================== */
 
     let resizeTimer;
 
@@ -603,15 +625,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
         }
-    );
-
-
-    /* =========================================
-       CHECK ALL 300 FRAMES
-    ========================================== */
-
-    console.log(
-        "300-frame portrait animation initialized."
     );
 
 });
