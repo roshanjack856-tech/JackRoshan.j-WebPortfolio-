@@ -1,5 +1,6 @@
 /* =====================================================
-   JACK ROSHAN J PORTFOLIO
+   JACK ROSHAN PORTFOLIO
+   300 FRAME SCROLL ANIMATION
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -9,11 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
        ELEMENTS
     ================================================= */
 
-    const loader =
-        document.getElementById("loader");
+    const loader = document.getElementById("loader");
 
-    const website =
-        document.getElementById("website");
+    const website = document.getElementById("website");
 
     const loaderNumber =
         document.getElementById("loaderNumber");
@@ -21,347 +20,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const loaderProgress =
         document.getElementById("loaderProgress");
 
-    const portrait =
-        document.getElementById("portraitFrame");
-
-    const frameCounter =
-        document.getElementById("frameCounter");
-
-    const scrollScene =
-        document.querySelector(".scroll-scene");
-
-    const textBlocks =
-        document.querySelectorAll(".scene-text");
-
-    const menuButton =
-        document.getElementById("menuButton");
-
-    const mobileMenu =
-        document.getElementById("mobileMenu");
-
-    const closeMenu =
-        document.getElementById("closeMenu");
+    const loaderStatus =
+        document.getElementById("loaderStatus");
 
 
     /* =================================================
-       MOBILE MENU
+       LOADER - EXACTLY ABOUT 3 SECONDS
     ================================================= */
-
-    if (menuButton && mobileMenu) {
-
-        menuButton.addEventListener(
-            "click",
-            function () {
-
-                mobileMenu.classList.add("open");
-
-            }
-        );
-
-    }
-
-
-    if (closeMenu && mobileMenu) {
-
-        closeMenu.addEventListener(
-            "click",
-            function () {
-
-                mobileMenu.classList.remove("open");
-
-            }
-        );
-
-    }
-
-
-    if (mobileMenu) {
-
-        const mobileLinks =
-            mobileMenu.querySelectorAll("a");
-
-        mobileLinks.forEach(function (link) {
-
-            link.addEventListener(
-                "click",
-                function () {
-
-                    mobileMenu.classList.remove(
-                        "open"
-                    );
-
-                }
-            );
-
-        });
-
-    }
-
-
-    /* =================================================
-       HOME PAGE CHECK
-    ================================================= */
-
-    if (!portrait || !scrollScene) {
-
-        startSimpleLoader();
-
-        return;
-
-    }
-
-
-    /* =================================================
-       300 FRAMES
-    ================================================= */
-
-    const TOTAL_FRAMES = 300;
-
-    const frames = [];
-
-    let loadedFrames = 0;
-
-
-    /* First image */
-
-    portrait.src =
-        "ezgif-frame-001.jpg";
-
-
-    /* Preload all 300 images */
-
-    for (
-        let i = 1;
-        i <= TOTAL_FRAMES;
-        i++
-    ) {
-
-        const image =
-            new Image();
-
-
-        const number =
-            String(i).padStart(3, "0");
-
-
-        image.src =
-            `ezgif-frame-${number}.jpg`;
-
-
-        image.onload = function () {
-
-            loadedFrames++;
-
-        };
-
-
-        frames.push(image);
-
-    }
-
-
-    /* =================================================
-       SHOW FRAME
-    ================================================= */
-
-    function showFrame(frame) {
-
-        frame =
-            Math.max(
-                0,
-                Math.min(
-                    TOTAL_FRAMES - 1,
-                    frame
-                )
-            );
-
-
-        const image =
-            frames[frame];
-
-
-        if (
-            image &&
-            image.complete
-        ) {
-
-            portrait.src =
-                image.src;
-
-        }
-
-
-        if (frameCounter) {
-
-            frameCounter.textContent =
-                `FRAME ${String(frame + 1).padStart(3, "0")} / 300`;
-
-        }
-
-    }
-
-
-    /* =================================================
-       CHANGE TEXT
-    ================================================= */
-
-    function updateText(progress) {
-
-        if (!textBlocks.length) {
-
-            return;
-
-        }
-
-
-        const total =
-            textBlocks.length;
-
-
-        let index =
-            Math.floor(
-                progress * total
-            );
-
-
-        if (index >= total) {
-
-            index =
-                total - 1;
-
-        }
-
-
-        textBlocks.forEach(
-            function (text, i) {
-
-                if (i === index) {
-
-                    text.classList.add(
-                        "active"
-                    );
-
-                } else {
-
-                    text.classList.remove(
-                        "active"
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       SCROLL ANIMATION
-    ================================================= */
-
-    let ticking = false;
-
-
-    function updateScroll() {
-
-        const rect =
-            scrollScene.getBoundingClientRect();
-
-
-        const totalDistance =
-            scrollScene.offsetHeight -
-            window.innerHeight;
-
-
-        let progress =
-            -rect.top /
-            totalDistance;
-
-
-        progress =
-            Math.max(
-                0,
-                Math.min(
-                    1,
-                    progress
-                )
-            );
-
-
-        /* 001 → 300 */
-
-        const frame =
-            Math.round(
-                progress *
-                (TOTAL_FRAMES - 1)
-            );
-
-
-        showFrame(frame);
-
-
-        /* Text changes with frame */
-
-        updateText(progress);
-
-
-        ticking = false;
-
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        function () {
-
-            if (!ticking) {
-
-                window.requestAnimationFrame(
-                    updateScroll
-                );
-
-                ticking = true;
-
-            }
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    /* =================================================
-       INITIAL FRAME
-    ================================================= */
-
-    showFrame(0);
-
-    updateText(0);
-
-
-    /* =================================================
-       LOADER
-       EXACTLY ABOUT 3 SECONDS
-    ================================================= */
-
-    startLoader();
-
 
     function startLoader() {
 
-        const start =
-            performance.now();
+        const startTime = performance.now();
 
-        const duration =
-            3000;
+        const duration = 3000;
 
-
-        function animateLoader(now) {
+        function loaderAnimation(currentTime) {
 
             const elapsed =
-                now - start;
-
+                currentTime - startTime;
 
             const progress =
                 Math.min(
@@ -369,162 +45,519 @@ document.addEventListener("DOMContentLoaded", function () {
                     1
                 );
 
-
             const percent =
-                Math.floor(
-                    progress * 100
-                );
+                Math.floor(progress * 100);
 
+            loaderNumber.textContent =
+                percent + "%";
 
-            if (loaderNumber) {
-
-                loaderNumber.textContent =
-                    `${percent}%`;
-
-            }
-
-
-            if (loaderProgress) {
-
-                loaderProgress.style.width =
-                    `${percent}%`;
-
-            }
+            loaderProgress.style.width =
+                percent + "%";
 
 
             if (progress < 1) {
 
                 requestAnimationFrame(
-                    animateLoader
+                    loaderAnimation
                 );
 
             } else {
 
-                finishLoader();
+                loaderNumber.textContent =
+                    "100%";
+
+                loaderProgress.style.width =
+                    "100%";
+
+                loaderStatus.textContent =
+                    "COMPLETE";
+
+
+                setTimeout(function () {
+
+                    loader.style.transition =
+                        "opacity 0.7s ease";
+
+                    loader.style.opacity =
+                        "0";
+
+                    loader.style.visibility =
+                        "hidden";
+
+
+                    website.style.transition =
+                        "opacity 0.7s ease";
+
+                    website.style.opacity =
+                        "1";
+
+                    website.style.visibility =
+                        "visible";
+
+
+                    startPortfolio();
+
+                }, 250);
+
+            }
+
+        }
+
+        requestAnimationFrame(
+            loaderAnimation
+        );
+
+    }
+
+
+    /* =================================================
+       START LOADER
+    ================================================= */
+
+    startLoader();
+
+
+    /* =================================================
+       MOBILE MENU
+    ================================================= */
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const mobileMenu =
+        document.getElementById("mobileMenu");
+
+    const mobileClose =
+        document.getElementById("mobileClose");
+
+
+    if (menuButton) {
+
+        menuButton.addEventListener(
+            "click",
+            function () {
+
+                mobileMenu.classList.add(
+                    "open"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (mobileClose) {
+
+        mobileClose.addEventListener(
+            "click",
+            function () {
+
+                mobileMenu.classList.remove(
+                    "open"
+                );
+
+            }
+        );
+
+    }
+
+
+    const mobileLinks =
+        document.querySelectorAll(
+            ".mobile-menu a"
+        );
+
+
+    mobileLinks.forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            function () {
+
+                mobileMenu.classList.remove(
+                    "open"
+                );
+
+            }
+        );
+
+    });
+
+
+    /* =================================================
+       PORTFOLIO
+    ================================================= */
+
+    function startPortfolio() {
+
+
+        const portrait =
+            document.getElementById(
+                "portraitFrame"
+            );
+
+
+        if (!portrait) {
+            return;
+        }
+
+
+        const progressFill =
+            document.getElementById(
+                "progressFill"
+            );
+
+
+        const progressNumber =
+            document.getElementById(
+                "progressNumber"
+            );
+
+
+        const stories =
+            document.querySelectorAll(
+                ".story"
+            );
+
+
+        /* =============================================
+           300 FRAMES
+        ============================================= */
+
+        const TOTAL_FRAMES = 300;
+
+
+        /* =============================================
+           IMAGE PRELOAD
+        ============================================= */
+
+        const frames = [];
+
+        let loadedFrames = 0;
+
+
+        function framePath(number) {
+
+            const frameNumber =
+                String(number).padStart(
+                    3,
+                    "0"
+                );
+
+            /*
+              IMPORTANT:
+
+              Images are in GitHub ROOT folder.
+
+              NOT:
+              portrait-frames/
+
+              Correct:
+              ezgif-frame-001.jpg
+            */
+
+            return (
+                "ezgif-frame-" +
+                frameNumber +
+                ".jpg"
+            );
+
+        }
+
+
+        /* =============================================
+           PRELOAD IMAGES
+        ============================================= */
+
+        for (
+            let i = 1;
+            i <= TOTAL_FRAMES;
+            i++
+        ) {
+
+            const img =
+                new Image();
+
+            img.src =
+                framePath(i);
+
+            frames[i - 1] =
+                img;
+
+
+            img.onload = function () {
+
+                loadedFrames++;
+
+            };
+
+
+            img.onerror = function () {
+
+                console.warn(
+                    "Could not load:",
+                    framePath(i)
+                );
+
+            };
+
+        }
+
+
+        /* =============================================
+           SHOW FRAME
+        ============================================= */
+
+        function showFrame(frameIndex) {
+
+            frameIndex =
+                Math.max(
+                    0,
+                    Math.min(
+                        TOTAL_FRAMES - 1,
+                        frameIndex
+                    )
+                );
+
+
+            const frame =
+                frames[frameIndex];
+
+
+            if (
+                frame &&
+                frame.complete &&
+                frame.naturalWidth > 0
+            ) {
+
+                portrait.src =
+                    frame.src;
+
+            } else {
+
+                /*
+                  If image is still loading,
+                  load it directly.
+                */
+
+                const img =
+                    new Image();
+
+                img.src =
+                    framePath(
+                        frameIndex + 1
+                    );
+
+                img.onload =
+                    function () {
+
+                        portrait.src =
+                            img.src;
+
+                    };
 
             }
 
         }
 
 
-        requestAnimationFrame(
-            animateLoader
-        );
+        /* =============================================
+           STORY CHANGE
+        ============================================= */
 
-    }
+        function updateStory(progress) {
 
 
-    /* =================================================
-       FINISH LOADER
-    ================================================= */
+            let storyIndex = 0;
 
-    function finishLoader() {
 
-        if (!loader || !website) {
+            if (progress < 0.20) {
 
-            return;
+                storyIndex = 0;
+
+            } else if (progress < 0.40) {
+
+                storyIndex = 1;
+
+            } else if (progress < 0.60) {
+
+                storyIndex = 2;
+
+            } else if (progress < 0.80) {
+
+                storyIndex = 3;
+
+            } else {
+
+                storyIndex = 4;
+
+            }
+
+
+            stories.forEach(function (
+                story,
+                index
+            ) {
+
+                if (index === storyIndex) {
+
+                    story.classList.add(
+                        "active-story"
+                    );
+
+                } else {
+
+                    story.classList.remove(
+                        "active-story"
+                    );
+
+                }
+
+            });
 
         }
 
 
-        loader.classList.add(
-            "hide"
-        );
+        /* =============================================
+           SCROLL ANIMATION
+        ============================================= */
+
+        let ticking = false;
 
 
-        website.style.visibility =
-            "visible";
-
-        website.style.opacity =
-            "1";
+        function updateAnimation() {
 
 
-        setTimeout(
-            function () {
-
-                loader.style.display =
-                    "none";
-
-            },
-            800
-        );
-
-    }
-
-
-    /* =================================================
-       SIMPLE LOADER FOR OTHER PAGES
-    ================================================= */
-
-    function startSimpleLoader() {
-
-        if (!loader || !website) {
-
-            return;
-
-        }
-
-
-        const start =
-            performance.now();
-
-        const duration =
-            1800;
-
-
-        function run(now) {
-
-            const progress =
-                Math.min(
-                    (now - start) / duration,
-                    1
+            const section =
+                document.querySelector(
+                    ".scroll-experience"
                 );
 
 
+            const rect =
+                section.getBoundingClientRect();
+
+
+            const totalScroll =
+                section.offsetHeight -
+                window.innerHeight;
+
+
+            let progress =
+                -rect.top /
+                totalScroll;
+
+
+            progress =
+                Math.max(
+                    0,
+                    Math.min(
+                        1,
+                        progress
+                    )
+                );
+
+
+            /* FRAME */
+
+            const frameIndex =
+                Math.round(
+                    progress *
+                    (TOTAL_FRAMES - 1)
+                );
+
+
+            showFrame(
+                frameIndex
+            );
+
+
+            /* PERCENTAGE */
+
             const percent =
-                Math.floor(
+                Math.round(
                     progress * 100
                 );
 
 
-            if (loaderNumber) {
-
-                loaderNumber.textContent =
-                    `${percent}%`;
-
-            }
+            progressFill.style.width =
+                percent + "%";
 
 
-            if (loaderProgress) {
-
-                loaderProgress.style.width =
-                    `${percent}%`;
-
-            }
+            progressNumber.textContent =
+                percent + "%";
 
 
-            if (progress < 1) {
+            /* STORY */
 
-                requestAnimationFrame(run);
+            updateStory(
+                progress
+            );
 
-            } else {
 
-                loader.classList.add(
-                    "hide"
-                );
-
-                website.style.visibility =
-                    "visible";
-
-                website.style.opacity =
-                    "1";
-
-            }
+            ticking = false;
 
         }
 
 
-        requestAnimationFrame(run);
+        /* =============================================
+           SCROLL EVENT
+        ============================================= */
+
+        window.addEventListener(
+            "scroll",
+            function () {
+
+                if (!ticking) {
+
+                    window.requestAnimationFrame(
+                        updateAnimation
+                    );
+
+                    ticking = true;
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        /* =============================================
+           INITIAL FRAME
+        ============================================= */
+
+        showFrame(0);
+
+        updateAnimation();
+
+
+        /* =============================================
+           PRELOAD STATUS
+        ============================================= */
+
+        const preloadChecker =
+            setInterval(
+                function () {
+
+                    if (
+                        loadedFrames >=
+                        TOTAL_FRAMES
+                    ) {
+
+                        clearInterval(
+                            preloadChecker
+                        );
+
+                    }
+
+                },
+                200
+            );
+
 
     }
 
