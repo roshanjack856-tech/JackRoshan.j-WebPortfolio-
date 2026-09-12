@@ -1,595 +1,1098 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Jack Roshan Portfolio</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  color:white;
-  overflow-x:hidden;
-  min-height:100vh;
-  font-family:'Outfit',sans-serif;
-  position:relative;
-  background:#000;
-}
-
-/* FIXED BACKGROUND IMAGE */
-
-body::before{
-  content:'';
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-
-  background:url("WhatsApp Image 2026-06-08 at 3.30.33 PM.jpeg") no-repeat center center;
-
-  background-size:cover;
-
-  z-index:-2;
-
-  transform:scale(1);
-
-  will-change:transform;
-}
-
-/* REMOVE EXTRA EFFECT */
-
-body::after{
-  display:none;
-}
-
-/* NAVBAR */
-
-nav{
-  width:100%;
-  padding:22px 8%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  position:sticky;
-  top:0;
-  z-index:1000;
-
-  backdrop-filter:blur(12px);
-
-  background:rgba(0,0,0,.35);
-
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.logo{
-  font-size:1.7rem;
-  font-weight:700;
-  color:#ffffff;
-  font-family:'Cormorant Garamond',serif;
-  letter-spacing:1px;
-}
-
-.nav-links{
-  display:flex;
-  gap:30px;
-  list-style:none;
-}
-
-.nav-links a{
-  color:white;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:500;
-  transition:.3s;
-}
-
-.nav-links a:hover,
-.nav-links a.active{
-  color:#58b6ff;
-}
-
-/* HAMBURGER */
-
-.hamburger{
-  display:none;
-  flex-direction:column;
-  gap:5px;
-  background:none;
-  border:none;
-  cursor:pointer;
-}
-
-.hamburger span{
-  width:26px;
-  height:2px;
-  background:white;
-  border-radius:3px;
-}
-
-/* MOBILE MENU */
-
-.mob-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:1000;
-}
-
-.mob-overlay.open{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.mob-menu{
-  position:fixed;
-  top:0;
-  left:-100%;
-
-  width:280px;
-  height:100vh;
-
-  background:rgba(0,0,0,.92);
-
-  backdrop-filter:blur(12px);
-
-  transition:.4s;
-  z-index:1200;
-
-  display:flex;
-  flex-direction:column;
-}
-
-.mob-menu.open{
-  left:0;
-}
-
-.mob-head{
-  padding:25px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.mob-avatar{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:#58b6ff;
-  color:black;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-weight:700;
-}
-
-.mob-head-name{
-  font-size:15px;
-  font-weight:700;
-}
-
-.mob-head-role{
-  font-size:11px;
-  opacity:.6;
-}
-
-.mob-x{
-  font-size:22px;
-  cursor:pointer;
-}
-
-.mob-nav-links{
-  display:flex;
-  flex-direction:column;
-}
-
-.mob-nav-links a{
-  color:white;
-  text-decoration:none;
-  padding:18px 25px;
-  border-bottom:1px solid rgba(255,255,255,.05);
-  transition:.3s;
-}
-
-.mob-nav-links a:hover{
-  background:rgba(255,255,255,.05);
-  color:#58b6ff;
-}
-
-/* HOME */
-
-.home{
-  min-height:calc(100vh - 90px);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  padding:20px 8%;
-}
-
-.home-container{
-  width:100%;
-  max-width:1350px;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  gap:60px;
-}
-
-.home-text{
-  flex:1;
-}
-
-.mini-title{
-  color:#58b6ff;
-  letter-spacing:5px;
-  font-size:13px;
-  margin-bottom:20px;
-  font-weight:600;
-}
-
-.hero-title{
-  font-size:5rem;
-  line-height:1;
-  margin-bottom:25px;
-  font-family:'Cormorant Garamond',serif;
-}
-
-.hero-title span{
-  color:#58b6ff;
-  font-style:italic;
-}
-
-.home-text p{
-  max-width:620px;
-  color:#f1f1f1;
-  line-height:1.8;
-  margin-bottom:14px;
-  font-size:15px;
-}
-
-.skill-tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:25px;
-  margin-bottom:30px;
-}
-
-.skill-tags span{
-  padding:10px 18px;
-  border-radius:30px;
-
-  background:rgba(255,255,255,.06);
-
-  border:1px solid rgba(255,255,255,.1);
-
-  backdrop-filter:blur(8px);
-
-  font-size:13px;
-}
-
-.btn{
-  display:inline-block;
-  padding:14px 32px;
-
-  background:#58b6ff;
-  color:black;
-
-  text-decoration:none;
-  border-radius:8px;
-  font-weight:700;
-
-  transition:.3s;
-}
-
-.btn:hover{
-  transform:translateY(-4px);
-  box-shadow:0 0 25px rgba(88,182,255,.5);
-}
-
-.social-row{
-  display:flex;
-  gap:15px;
-  margin-top:30px;
-}
-
-.soc{
-  width:46px;
-  height:46px;
-  border-radius:50%;
-
-  background:rgba(255,255,255,.06);
-
-  border:1px solid rgba(255,255,255,.1);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  text-decoration:none;
-  color:white;
-
-  transition:.3s;
-}
-
-.soc:hover{
-  background:#58b6ff;
-  color:black;
-  transform:translateY(-4px);
-}
-
-/* IMAGE */
-
-.home-image{
-  flex:1;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-
-  margin-top:-80px;
-}
-
-.image-box{
-  width:420px;
-  height:420px;
-
-  position:relative;
-  top:-70px;
-
-  border-radius:50%;
-  overflow:hidden;
-
-  border:4px solid rgba(255,255,255,.2);
-
-  box-shadow:
-  0 0 40px rgba(88,182,255,.35),
-  0 0 90px rgba(88,182,255,.2);
-}
-
-.image-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:950px){
-
-  .nav-links{
-    display:none;
-  }
-
-  .hamburger{
-    display:flex;
-  }
-
-  .home{
-    padding:50px 8%;
-  }
-
-  .home-container{
-    flex-direction:column-reverse;
-    text-align:center;
-  }
-
-  .hero-title{
-    font-size:3rem;
-  }
-
-  .home-text p{
-    margin:auto auto 14px;
-  }
-
-  .skill-tags{
-    justify-content:center;
-  }
-
-  .social-row{
-    justify-content:center;
-  }
-
-  .image-box{
-    width:250px;
-    height:250px;
-    top:0;
-  }
-
-  .home-image{
-    margin-top:0;
-  }
-}
-
-@media(max-width:480px){
-
-  nav{
-    padding:16px 5%;
-  }
-
-  .logo{
-    font-size:1.2rem;
-  }
-
-  .hero-title{
-    font-size:2.2rem;
-  }
-
-  .home{
-    padding:40px 5%;
-  }
-}
-
-</style>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Jack Roshan - Web Developer and UI/UX Designer Portfolio"
+    >
+
+    <meta
+        name="author"
+        content="Jack Roshan"
+    >
+
+    <title>Jack Roshan | Web Developer & UI/UX Designer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        defer>
+    </script>
+
+    <!-- ScrollTrigger -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+        defer>
+    </script>
+
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 
-<div class="mob-overlay" id="overlay"></div>
+    <!-- =========================================
+         NAVBAR
+    ========================================== -->
 
-<!-- MOBILE MENU -->
+    <header class="navbar">
 
-<div class="mob-menu" id="mobMenu">
+        <div class="nav-container">
 
-  <div class="mob-head">
+            <a href="#home" class="logo">
+                <span>J</span>
+                <span class="logo-name">Jack Roshan</span>
+            </a>
 
-    <div style="display:flex;align-items:center;gap:12px;">
+            <!-- Desktop Navigation -->
 
-      <div class="mob-avatar">JR</div>
+            <nav class="desktop-nav">
 
-      <div>
-        <div class="mob-head-name">Jack Roshan J</div>
-        <div class="mob-head-role">Web Developer</div>
-      </div>
+                <a href="#home" class="active">
+                    Home
+                </a>
 
-    </div>
+                <a href="#about">
+                    About
+                </a>
 
-    <div class="mob-x" id="mobClose">✕</div>
+                <a href="#skills">
+                    Skills
+                </a>
 
-  </div>
+                <a href="#services">
+                    Services
+                </a>
 
-  <div class="mob-nav-links">
-    <a href="index.html">🏠 Home</a>
-    <a href="about.html">👤 About</a>
-    <a href="services.html">⚡ Services</a>
-    <a href="project.html">🗂 Projects</a>
-    <a href="contact.html">✉ Contact</a>
-  </div>
+                <a href="#projects">
+                    Projects
+                </a>
 
-</div>
+                <a href="#experience">
+                    Experience
+                </a>
 
-<!-- NAVBAR -->
+                <a href="#contact">
+                    Contact
+                </a>
 
-<nav>
+            </nav>
 
-  <div class="logo">JACK ROSHAN J</div>
 
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="project.html">Projects</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
+            <!-- Mobile Menu Button -->
 
-  <button class="hamburger" id="ham">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+            <button
+                class="menu-btn"
+                id="menuBtn"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
 
-</nav>
+        </div>
 
-<!-- HOME -->
+    </header>
 
-<section class="home">
 
-  <div class="home-container">
+    <!-- =========================================
+         MOBILE MENU
+    ========================================== -->
 
-    <div class="home-text">
+    <div
+        class="mobile-menu"
+        id="mobileMenu"
+    >
 
-      <div class="mini-title">WHO I AM</div>
+        <button
+            class="close-btn"
+            id="closeBtn"
+            aria-label="Close menu"
+        >
+            ×
+        </button>
 
-      <h1 class="hero-title">
-        JACK ROSHAN<br>
-        <span>Web Developer</span>
-      </h1>
+        <nav>
 
-      <p>
-        B.Sc. Computer Science graduate from Loyola College with strong interest in UI/UX design, web development, freelancing, and digital solutions.
-      </p>
+            <a href="#home">
+                Home
+            </a>
 
-      <p>
-        Skilled in HTML, CSS, JavaScript, Figma, Canva, GitHub, Vercel Deployment, MS Word, PowerPoint, and Excel.
-      </p>
+            <a href="#about">
+                About
+            </a>
 
-      <p>
-        Passionate about building responsive websites, user-friendly UI designs, and modern business websites.
-      </p>
+            <a href="#skills">
+                Skills
+            </a>
 
-      <div class="skill-tags">
-        <span>HTML</span>
-        <span>CSS</span>
-        <span>JavaScript</span>
-        <span>UI/UX</span>
-        <span>Figma</span>
-        <span>GitHub</span>
-        <span>Vercel</span>
-      </div>
+            <a href="#services">
+                Services
+            </a>
 
-      <a href="contact.html" class="btn">Let's Connect</a>
+            <a href="#projects">
+                Projects
+            </a>
 
-      <div class="social-row">
+            <a href="#experience">
+                Experience
+            </a>
 
-        <a href="mailto:roshanjack856@gmail.com" class="soc">✉</a>
+            <a href="#contact">
+                Contact
+            </a>
 
-        <a href="tel:9082844086" class="soc">📞</a>
-
-        <a href="https://fb-group.vercel.app/" target="_blank" class="soc">🌐</a>
-
-        <a href="https://github.com/roshanjack856-tech" target="_blank" class="soc">⌨</a>
-
-      </div>
-
-    </div>
-
-    <div class="home-image">
-
-      <div class="image-box">
-        <img src="Picsart_26-06-05_14-14-31-226.png" alt="Jack Roshan">
-      </div>
+        </nav>
 
     </div>
 
-  </div>
 
-</section>
+    <!-- =========================================
+         HERO / HOME
+    ========================================== -->
 
-<script>
+    <main>
 
-const ham = document.getElementById('ham');
-const mobMenu = document.getElementById('mobMenu');
-const overlay = document.getElementById('overlay');
-const mobClose = document.getElementById('mobClose');
+        <section
+            class="hero"
+            id="home"
+        >
 
-function openMenu(){
-  mobMenu.classList.add('open');
-  overlay.classList.add('open');
-}
+            <div class="hero-container">
 
-function closeMenu(){
-  mobMenu.classList.remove('open');
-  overlay.classList.remove('open');
-}
 
-ham.addEventListener('click', openMenu);
-mobClose.addEventListener('click', closeMenu);
-overlay.addEventListener('click', closeMenu);
+                <!-- LEFT CONTENT -->
 
-</script>
+                <div class="hero-content">
+
+                    <p class="hero-small">
+                        HELLO, I'M
+                    </p>
+
+                    <h1>
+                        Jack
+                        <span>Roshan</span>
+                    </h1>
+
+                    <h2>
+                        Web Developer
+                        <span>&</span>
+                        UI/UX Designer
+                    </h2>
+
+                    <p class="hero-description">
+                        I create clean, responsive and
+                        user-friendly websites with modern
+                        web technologies and creative UI/UX
+                        design.
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="#projects"
+                            class="btn btn-primary"
+                        >
+                            View My Work
+                        </a>
+
+                        <a
+                            href="resume.pdf"
+                            class="btn btn-outline"
+                            download
+                        >
+                            Download Resume
+                        </a>
+
+                    </div>
+
+
+                    <div class="hero-social">
+
+                        <a
+                            href="https://github.com/roshanjack856-tech"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            GitHub
+                        </a>
+
+                        <span>•</span>
+
+                        <a href="#contact">
+                            Contact
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RIGHT PORTRAIT -->
+
+                <div class="hero-visual">
+
+                    <div class="portrait-container">
+
+                        <div class="portrait-glow"></div>
+
+
+                        <div
+                            class="portrait-3d"
+                            id="portrait3D"
+                        >
+
+                            <!--
+                                IMPORTANT:
+                                Your 300 images are in the
+                                same folder as index.html.
+                            -->
+
+                            <img
+                                id="portraitFrame"
+                                src="ezgif-frame-001.jpg"
+                                alt="Jack Roshan"
+                                draggable="false"
+                            >
+
+                        </div>
+
+
+                        <div
+                            class="scroll-hint"
+                            id="scrollHint"
+                        >
+
+                            <span>
+                                SCROLL TO ROTATE
+                            </span>
+
+                            <strong>
+                                ↓
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             ABOUT
+        ========================================== -->
+
+        <section
+            class="section about-section"
+            id="about"
+        >
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <span>
+                        01
+                    </span>
+
+                    <h2>
+                        About Me
+                    </h2>
+
+                </div>
+
+
+                <div class="about-grid">
+
+                    <div class="about-text">
+
+                        <p class="large-text">
+                            I'm a passionate
+                            <strong>Web Developer</strong>
+                            and
+                            <strong>UI/UX Designer</strong>
+                            who enjoys creating modern
+                            digital experiences.
+                        </p>
+
+                        <p>
+                            I completed my B.Sc. Computer
+                            Science at Loyola College.
+                            I have experience working with
+                            HTML, CSS, JavaScript, Figma,
+                            Canva, Firebase, GitHub and
+                            Vercel.
+                        </p>
+
+                        <p>
+                            I enjoy learning new technologies
+                            and building responsive websites
+                            that are simple, useful and
+                            visually attractive.
+                        </p>
+
+                        <a
+                            href="resume.pdf"
+                            class="text-link"
+                            download
+                        >
+                            Download My Resume →
+                        </a>
+
+                    </div>
+
+
+                    <div class="about-cards">
+
+                        <div class="info-card">
+
+                            <span>
+                                Education
+                            </span>
+
+                            <h3>
+                                B.Sc. Computer Science
+                            </h3>
+
+                            <p>
+                                Loyola College
+                            </p>
+
+                        </div>
+
+
+                        <div class="info-card">
+
+                            <span>
+                                Focus
+                            </span>
+
+                            <h3>
+                                Web Development
+                            </h3>
+
+                            <p>
+                                UI/UX Design
+                            </p>
+
+                        </div>
+
+
+                        <div class="info-card">
+
+                            <span>
+                                Location
+                            </span>
+
+                            <h3>
+                                Tamil Nadu
+                            </h3>
+
+                            <p>
+                                Bengaluru
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             SKILLS
+        ========================================== -->
+
+        <section
+            class="section skills-section"
+            id="skills"
+        >
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <span>
+                        02
+                    </span>
+
+                    <h2>
+                        Skills
+                    </h2>
+
+                </div>
+
+
+                <div class="skills-grid">
+
+                    <div class="skill-card">
+
+                        <div class="skill-number">
+                            01
+                        </div>
+
+                        <h3>
+                            HTML
+                        </h3>
+
+                        <p>
+                            Semantic and structured
+                            web page development.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card">
+
+                        <div class="skill-number">
+                            02
+                        </div>
+
+                        <h3>
+                            CSS
+                        </h3>
+
+                        <p>
+                            Responsive layouts,
+                            animations and modern styling.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card">
+
+                        <div class="skill-number">
+                            03
+                        </div>
+
+                        <h3>
+                            JavaScript
+                        </h3>
+
+                        <p>
+                            Interactive websites and
+                            dynamic functionality.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card">
+
+                        <div class="skill-number">
+                            04
+                        </div>
+
+                        <h3>
+                            Figma
+                        </h3>
+
+                        <p>
+                            UI design, wireframes and
+                            basic prototypes.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card">
+
+                        <div class="skill-number">
+                            05
+                        </div>
+
+                        <h3>
+                            Canva
+                        </h3>
+
+                        <p>
+                            Creative graphics,
+                            social media and visual design.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card">
+
+                        <div class="skill-number">
+                            06
+                        </div>
+
+                        <h3>
+                            Firebase
+                        </h3>
+
+                        <p>
+                            Database and backend services
+                            for web projects.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card">
+
+                        <div class="skill-number">
+                            07
+                        </div>
+
+                        <h3>
+                            GitHub
+                        </h3>
+
+                        <p>
+                            Source control and
+                            project deployment workflow.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card">
+
+                        <div class="skill-number">
+                            08
+                        </div>
+
+                        <h3>
+                            Vercel
+                        </h3>
+
+                        <p>
+                            Fast and simple website
+                            deployment.
+                        </p>
+
+                    </div>
+
+
+                    <div class="skill-card">
+
+                        <div class="skill-number">
+                            09
+                        </div>
+
+                        <h3>
+                            MS Office
+                        </h3>
+
+                        <p>
+                            Word, Excel and PowerPoint.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             SERVICES
+        ========================================== -->
+
+        <section
+            class="section services-section"
+            id="services"
+        >
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <span>
+                        03
+                    </span>
+
+                    <h2>
+                        Services
+                    </h2>
+
+                </div>
+
+
+                <div class="services-grid">
+
+                    <article class="service-card">
+
+                        <span class="service-icon">
+                            &lt;/&gt;
+                        </span>
+
+                        <h3>
+                            Web Development
+                        </h3>
+
+                        <p>
+                            Responsive and modern websites
+                            using HTML, CSS and JavaScript.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <span class="service-icon">
+                            ◇
+                        </span>
+
+                        <h3>
+                            UI/UX Design
+                        </h3>
+
+                        <p>
+                            Clean interfaces and user-friendly
+                            experiences using Figma.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <span class="service-icon">
+                            ✦
+                        </span>
+
+                        <h3>
+                            Graphic Design
+                        </h3>
+
+                        <p>
+                            Creative graphics and visual
+                            content using Canva.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <span class="service-icon">
+                            ↗
+                        </span>
+
+                        <h3>
+                            Website Deployment
+                        </h3>
+
+                        <p>
+                            Website deployment and project
+                            management using GitHub and Vercel.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             PROJECTS
+        ========================================== -->
+
+        <section
+            class="section projects-section"
+            id="projects"
+        >
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <span>
+                        04
+                    </span>
+
+                    <h2>
+                        Projects
+                    </h2>
+
+                </div>
+
+
+                <div class="projects-grid">
+
+
+                    <!-- PROJECT 1 -->
+
+                    <article class="project-card">
+
+                        <div class="project-top">
+
+                            <span>
+                                01
+                            </span>
+
+                            <span>
+                                Web Development
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            Foreign Bridge
+                            Export & Import Corp
+                        </h3>
+
+                        <p>
+                            A professional business website
+                            designed for an export and import
+                            company based in Chennai.
+                        </p>
+
+
+                        <div class="project-tech">
+
+                            <span>
+                                HTML
+                            </span>
+
+                            <span>
+                                CSS
+                            </span>
+
+                            <span>
+                                JavaScript
+                            </span>
+
+                            <span>
+                                Vercel
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="https://fb-group.vercel.app/"
+                            target="_blank"
+                            rel="noopener"
+                            class="project-link"
+                        >
+                            View Project →
+                        </a>
+
+                    </article>
+
+
+                    <!-- PROJECT 2 -->
+
+                    <article class="project-card">
+
+                        <div class="project-top">
+
+                            <span>
+                                02
+                            </span>
+
+                            <span>
+                                College Project
+                            </span>
+
+                        </div>
+
+
+                        <h3>
+                            Sports & Event
+                            Management System
+                        </h3>
+
+                        <p>
+                            A college project covering sports
+                            information, nutrition, game rules
+                            and event management.
+                        </p>
+
+
+                        <div class="project-tech">
+
+                            <span>
+                                HTML
+                            </span>
+
+                            <span>
+                                CSS
+                            </span>
+
+                            <span>
+                                JavaScript
+                            </span>
+
+                        </div>
+
+
+                        <a
+                            href="#contact"
+                            class="project-link"
+                        >
+                            Ask About Project →
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             EXPERIENCE
+        ========================================== -->
+
+        <section
+            class="section experience-section"
+            id="experience"
+        >
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <span>
+                        05
+                    </span>
+
+                    <h2>
+                        Experience
+                    </h2>
+
+                </div>
+
+
+                <div class="experience-card">
+
+                    <div class="experience-date">
+                        Internship
+                    </div>
+
+
+                    <div class="experience-content">
+
+                        <h3>
+                            Codsair Technologies
+                        </h3>
+
+                        <p class="experience-location">
+                            Calicut, Kerala
+                        </p>
+
+                        <p>
+                            During my internship, I improved
+                            my communication skills and gained
+                            practical knowledge of basic coding
+                            and website development.
+                        </p>
+
+
+                        <ul>
+
+                            <li>
+                                Basic coding knowledge
+                            </li>
+
+                            <li>
+                                Website development
+                            </li>
+
+                            <li>
+                                Websites with and without coding
+                            </li>
+
+                            <li>
+                                Communication skills
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             CONTACT
+        ========================================== -->
+
+        <section
+            class="section contact-section"
+            id="contact"
+        >
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <span>
+                        06
+                    </span>
+
+                    <h2>
+                        Let's Connect
+                    </h2>
+
+                </div>
+
+
+                <div class="contact-grid">
+
+
+                    <div class="contact-intro">
+
+                        <p class="contact-large">
+                            Have a project or
+                            opportunity?
+                        </p>
+
+                        <p>
+                            I'm currently looking for
+                            fresher opportunities in
+                            Web Development and UI/UX Design.
+                        </p>
+
+                    </div>
+
+
+                    <div class="contact-details">
+
+                        <a
+                            href="mailto:roshanjack856@gmail.com"
+                            class="contact-item"
+                        >
+
+                            <span>
+                                Email
+                            </span>
+
+                            <strong>
+                                roshanjack856@gmail.com
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="tel:+919082844086"
+                            class="contact-item"
+                        >
+
+                            <span>
+                                Phone
+                            </span>
+
+                            <strong>
+                                +91 90828 44086
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="https://github.com/roshanjack856-tech"
+                            target="_blank"
+                            rel="noopener"
+                            class="contact-item"
+                        >
+
+                            <span>
+                                GitHub
+                            </span>
+
+                            <strong>
+                                roshanjack856-tech
+                            </strong>
+
+                        </a>
+
+
+                        <div class="contact-item">
+
+                            <span>
+                                Location
+                            </span>
+
+                            <strong>
+                                Tamil Nadu / Bengaluru
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <p>
+                © 2026 Jack Roshan.
+                All Rights Reserved.
+            </p>
+
+            <p>
+                Web Developer & UI/UX Designer
+            </p>
+
+        </div>
+
+    </footer>
 
 </body>
 </html>
