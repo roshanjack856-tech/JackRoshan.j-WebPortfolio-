@@ -1,45 +1,67 @@
-/* =========================================
-   JACK ROSHAN PORTFOLIO
-   MAIN JAVASCRIPT
-========================================= */
+/* =====================================================
+   JACK ROSHAN PORTFOLIO JAVASCRIPT
+===================================================== */
 
 
-/* =========================================
+/* =====================================================
    LOADER
-========================================= */
+   EXACTLY ABOUT 3 SECONDS
+===================================================== */
 
 const loader = document.getElementById("loader");
-const website = document.getElementById("website");
-const loaderNumber = document.getElementById("loaderNumber");
-const loaderProgress = document.getElementById("loaderProgress");
 
-let loaderStart = performance.now();
+const website = document.getElementById("website");
+
+const loaderNumber =
+    document.getElementById("loaderNumber");
+
+const loaderProgress =
+    document.getElementById("loaderProgress");
+
+
+let loaderStartTime = performance.now();
 
 const loaderDuration = 3000;
 
 
-function runLoader(currentTime) {
+function loaderAnimation(currentTime) {
 
-    const elapsed = currentTime - loaderStart;
+    const elapsed =
+        currentTime - loaderStartTime;
 
-    const progress = Math.min(
-        elapsed / loaderDuration,
-        1
-    );
 
-    const percent = Math.floor(progress * 100);
+    const progress =
+        Math.min(
+            elapsed / loaderDuration,
+            1
+        );
+
+
+    const percent =
+        Math.floor(progress * 100);
+
 
     if (loaderNumber) {
-        loaderNumber.textContent = percent + "%";
+
+        loaderNumber.textContent =
+            percent + "%";
+
     }
 
+
     if (loaderProgress) {
-        loaderProgress.style.width = percent + "%";
+
+        loaderProgress.style.width =
+            percent + "%";
+
     }
+
 
     if (progress < 1) {
 
-        requestAnimationFrame(runLoader);
+        requestAnimationFrame(
+            loaderAnimation
+        );
 
     } else {
 
@@ -54,33 +76,36 @@ function finishLoader() {
 
     if (!loader) return;
 
+
     loader.style.transition =
-        "opacity 0.7s ease, visibility 0.7s ease";
+        "opacity 0.8s ease, visibility 0.8s ease";
+
 
     loader.style.opacity = "0";
 
     loader.style.visibility = "hidden";
 
+
     if (website) {
 
         website.style.transition =
-            "opacity 0.7s ease";
+            "opacity 0.8s ease";
 
         website.style.opacity = "1";
 
     }
 
-    startPortfolio();
-
 }
 
 
-requestAnimationFrame(runLoader);
+requestAnimationFrame(
+    loaderAnimation
+);
 
 
-/* =========================================
+/* =====================================================
    MOBILE MENU
-========================================= */
+===================================================== */
 
 const menuButton =
     document.getElementById("menuButton");
@@ -88,103 +113,149 @@ const menuButton =
 const mobileMenu =
     document.getElementById("mobileMenu");
 
+const closeMenu =
+    document.getElementById("closeMenu");
+
 
 if (menuButton && mobileMenu) {
 
     menuButton.addEventListener(
         "click",
-        () => {
+        function () {
 
-            mobileMenu.classList.toggle("open");
+            mobileMenu.classList.toggle(
+                "open"
+            );
 
         }
     );
 
-
-    const mobileLinks =
-        mobileMenu.querySelectorAll("a");
+}
 
 
-    mobileLinks.forEach(link => {
+if (closeMenu && mobileMenu) {
 
-        link.addEventListener(
-            "click",
-            () => {
+    closeMenu.addEventListener(
+        "click",
+        function () {
 
-                mobileMenu.classList.remove("open");
+            mobileMenu.classList.remove(
+                "open"
+            );
 
-            }
-        );
-
-    });
+        }
+    );
 
 }
 
 
-/* =========================================
-   PORTFOLIO
-========================================= */
+if (mobileMenu) {
 
-function startPortfolio() {
-
-    const portrait =
-        document.getElementById("portraitFrame");
-
-    const scene =
-        document.getElementById("home");
-
-    const frameNumber =
-        document.getElementById("frameNumber");
-
-    const textBlocks =
-        document.querySelectorAll(".scene-text");
+    const links =
+        mobileMenu.querySelectorAll("a");
 
 
-    /*
-        If this is About / Project / Contact page,
-        there is no portrait scene.
-    */
+    links.forEach(
+        function (link) {
 
-    if (!portrait || !scene) {
+            link.addEventListener(
+                "click",
+                function () {
 
-        return;
+                    mobileMenu.classList.remove(
+                        "open"
+                    );
 
-    }
+                }
+            );
+
+        }
+    );
+
+}
 
 
-    /* =====================================
-       FRAME SETTINGS
-    ===================================== */
+/* =====================================================
+   PORTRAIT SCROLL ANIMATION
+===================================================== */
+
+const portrait =
+    document.getElementById("portraitFrame");
+
+const scrollSection =
+    document.getElementById("home");
+
+const frameCounter =
+    document.getElementById("frameNumber");
+
+const textBlocks =
+    document.querySelectorAll(".scroll-text");
+
+
+/* If we are on About / Projects / Contact page,
+   there is no portrait animation.
+*/
+
+if (
+    portrait &&
+    scrollSection &&
+    textBlocks.length > 0
+) {
+
+
+    /* =================================================
+       SETTINGS
+    ================================================= */
 
     const TOTAL_FRAMES = 300;
 
-    const frameImages = [];
+    const images = [];
 
     let currentFrame = 0;
 
+    let ticking = false;
 
-    /* =====================================
-       CREATE IMAGE OBJECTS
-    ===================================== */
 
-    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+    /* =================================================
+       PRELOAD ALL 300 FRAMES
+    ================================================= */
 
-        const img = new Image();
+    for (
+        let i = 1;
+        i <= TOTAL_FRAMES;
+        i++
+    ) {
+
+        const image = new Image();
 
         const number =
             String(i).padStart(3, "0");
 
-        img.src =
+
+        /*
+            IMPORTANT:
+
+            Images are in ROOT folder.
+
+            Correct:
+            ezgif-frame-001.jpg
+
+            Wrong:
+            portrait-frames/ezgif-frame-001.jpg
+        */
+
+        image.src =
             `ezgif-frame-${number}.jpg`;
 
-        frameImages.push(img);
+
+        images.push(image);
 
     }
 
 
-    /* =====================================
+    /* =================================================
        SHOW FRAME
-    ===================================== */
+    ================================================= */
 
     function showFrame(frame) {
 
@@ -198,65 +269,93 @@ function startPortfolio() {
             );
 
 
-        const img =
-            frameImages[frame];
+        if (frame === currentFrame) {
 
-
-        if (img && img.complete) {
-
-            portrait.src = img.src;
+            return;
 
         }
 
 
-        if (frameNumber) {
+        const image =
+            images[frame];
 
-            frameNumber.textContent =
-                `${String(frame + 1).padStart(3, "0")} / 300`;
+
+        if (image) {
+
+            /*
+                Browser uses cached preloaded image
+                when available.
+            */
+
+            portrait.src =
+                image.src;
 
         }
 
-        currentFrame = frame;
+
+        if (frameCounter) {
+
+            frameCounter.textContent =
+                `FRAME ${String(frame + 1).padStart(3, "0")} / 300`;
+
+        }
+
+
+        currentFrame =
+            frame;
 
     }
 
 
-    /* =====================================
-       TEXT STEP
-    ===================================== */
+    /* =================================================
+       CHANGE TEXT
+    ================================================= */
 
-    function updateText(progress) {
+    function changeText(progress) {
 
-        const totalSteps =
+        const total =
             textBlocks.length;
 
 
-        if (!totalSteps) return;
+        /*
+            Example:
 
+            0.00 - 0.166 = Text 01
+            0.166 - 0.333 = Text 02
+            0.333 - 0.500 = Text 03
+            0.500 - 0.666 = Text 04
+            0.666 - 0.833 = Text 05
+            0.833 - 1.000 = Text 06
+        */
 
-        let step =
+        let index =
             Math.floor(
-                progress * totalSteps
+                progress * total
             );
 
 
-        if (step >= totalSteps) {
+        if (index >= total) {
 
-            step = totalSteps - 1;
+            index =
+                total - 1;
 
         }
 
 
         textBlocks.forEach(
-            (block, index) => {
+            function (text, i) {
 
-                if (index === step) {
+                if (i === index) {
 
-                    block.classList.add("active");
+                    text.classList.add(
+                        "active"
+                    );
 
                 } else {
 
-                    block.classList.remove("active");
+                    text.classList.remove(
+                        "active"
+                    );
 
                 }
 
@@ -266,21 +365,18 @@ function startPortfolio() {
     }
 
 
-    /* =====================================
-       SCROLL CONTROL
-    ===================================== */
-
-    let ticking = false;
-
+    /* =================================================
+       UPDATE SCROLL
+    ================================================= */
 
     function updateScroll() {
 
         const rect =
-            scene.getBoundingClientRect();
+            scrollSection.getBoundingClientRect();
 
 
-        const sceneHeight =
-            scene.offsetHeight;
+        const sectionHeight =
+            scrollSection.offsetHeight;
 
 
         const viewportHeight =
@@ -288,11 +384,13 @@ function startPortfolio() {
 
 
         const scrollDistance =
-            sceneHeight - viewportHeight;
+            sectionHeight -
+            viewportHeight;
 
 
         let progress =
-            -rect.top / scrollDistance;
+            -rect.top /
+            scrollDistance;
 
 
         progress =
@@ -305,22 +403,15 @@ function startPortfolio() {
             );
 
 
-        /*
+        /* =============================================
+           FRAME CALCULATION
 
-        SCROLL DOWN:
+           Scroll Down:
+           001 → 300
 
-        Frame 1
-           ↓
-        Frame 300
-
-
-        SCROLL UP:
-
-        Frame 300
-           ↓
-        Frame 1
-
-        */
+           Scroll Up:
+           300 → 001
+        ============================================= */
 
         const frame =
             Math.round(
@@ -329,16 +420,16 @@ function startPortfolio() {
             );
 
 
-        if (frame !== currentFrame) {
-
-            showFrame(frame);
-
-        }
+        showFrame(frame);
 
 
-        /* Text changes at same time */
+        /* =============================================
+           TEXT CALCULATION
 
-        updateText(progress);
+           Text changes at same scroll position.
+        ============================================= */
+
+        changeText(progress);
 
 
         ticking = false;
@@ -346,9 +437,13 @@ function startPortfolio() {
     }
 
 
+    /* =================================================
+       SCROLL EVENT
+    ================================================= */
+
     window.addEventListener(
         "scroll",
-        () => {
+        function () {
 
             if (!ticking) {
 
@@ -367,78 +462,85 @@ function startPortfolio() {
     );
 
 
-    /* =====================================
-       INITIAL FRAME
-    ===================================== */
+    /* =================================================
+       INITIAL STATE
+    ================================================= */
 
-    showFrame(0);
-
-    updateText(0);
-
-
-    /* =====================================
-       PRELOAD PROGRESS
-    ===================================== */
-
-    let loaded = 0;
+    portrait.src =
+        "ezgif-frame-001.jpg";
 
 
-    frameImages.forEach(img => {
+    if (frameCounter) {
 
-        if (img.complete) {
+        frameCounter.textContent =
+            "FRAME 001 / 300";
 
-            loaded++;
+    }
 
-        } else {
 
-            img.addEventListener(
-                "load",
-                () => {
+    textBlocks.forEach(
+        function (text, index) {
 
-                    loaded++;
+            if (index === 0) {
 
-                },
-                {
-                    once: true
-                }
-            );
+                text.classList.add(
+                    "active"
+                );
+
+            } else {
+
+                text.classList.remove(
+                    "active"
+                );
+
+            }
 
         }
+    );
 
-    });
+
+    /* =================================================
+       RUN ONCE
+    ================================================= */
+
+    updateScroll();
 
 }
 
 
-/* =========================================
+/* =====================================================
    ACTIVE NAVIGATION
-========================================= */
+===================================================== */
 
-const currentPage =
+const currentFile =
     window.location.pathname
         .split("/")
         .pop() || "index.html";
 
 
-const navLinks =
+const navigationLinks =
     document.querySelectorAll(
         ".desktop-nav a"
     );
 
 
-navLinks.forEach(link => {
+navigationLinks.forEach(
+    function (link) {
 
-    const href =
-        link.getAttribute("href");
+        const href =
+            link.getAttribute("href");
 
 
-    if (
-        href &&
-        href.endsWith(currentPage)
-    ) {
+        if (
+            href &&
+            href === currentFile
+        ) {
 
-        link.classList.add("active");
+            link.classList.add(
+                "active"
+            );
+
+        }
 
     }
-
-});
+);
