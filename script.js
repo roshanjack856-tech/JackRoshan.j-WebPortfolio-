@@ -1,274 +1,157 @@
 /* =====================================================
-   JACK ROSHAN PORTFOLIO
-   300 FRAME SCROLL ANIMATION
+   JACK ROSHAN J PORTFOLIO
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-    /* =================================================
-       ELEMENTS
-    ================================================= */
+        /* =================================================
+           ELEMENTS
+        ================================================= */
 
-    const loader = document.getElementById("loader");
+        const loader =
+            document.getElementById("loader");
 
-    const website = document.getElementById("website");
 
-    const loaderNumber =
-        document.getElementById("loaderNumber");
+        const website =
+            document.getElementById("website");
 
-    const loaderProgress =
-        document.getElementById("loaderProgress");
 
-    const loaderStatus =
-        document.getElementById("loaderStatus");
+        const loaderNumber =
+            document.getElementById("loaderNumber");
 
 
-    /* =================================================
-       LOADER - EXACTLY ABOUT 3 SECONDS
-    ================================================= */
-
-    function startLoader() {
-
-        const startTime = performance.now();
-
-        const duration = 3000;
-
-        function loaderAnimation(currentTime) {
-
-            const elapsed =
-                currentTime - startTime;
-
-            const progress =
-                Math.min(
-                    elapsed / duration,
-                    1
-                );
-
-            const percent =
-                Math.floor(progress * 100);
-
-            loaderNumber.textContent =
-                percent + "%";
-
-            loaderProgress.style.width =
-                percent + "%";
-
-
-            if (progress < 1) {
-
-                requestAnimationFrame(
-                    loaderAnimation
-                );
-
-            } else {
-
-                loaderNumber.textContent =
-                    "100%";
-
-                loaderProgress.style.width =
-                    "100%";
-
-                loaderStatus.textContent =
-                    "COMPLETE";
-
-
-                setTimeout(function () {
-
-                    loader.style.transition =
-                        "opacity 0.7s ease";
-
-                    loader.style.opacity =
-                        "0";
-
-                    loader.style.visibility =
-                        "hidden";
-
-
-                    website.style.transition =
-                        "opacity 0.7s ease";
-
-                    website.style.opacity =
-                        "1";
-
-                    website.style.visibility =
-                        "visible";
-
-
-                    startPortfolio();
-
-                }, 250);
-
-            }
-
-        }
-
-        requestAnimationFrame(
-            loaderAnimation
-        );
-
-    }
-
-
-    /* =================================================
-       START LOADER
-    ================================================= */
-
-    startLoader();
-
-
-    /* =================================================
-       MOBILE MENU
-    ================================================= */
-
-    const menuButton =
-        document.getElementById("menuButton");
-
-    const mobileMenu =
-        document.getElementById("mobileMenu");
-
-    const mobileClose =
-        document.getElementById("mobileClose");
-
-
-    if (menuButton) {
-
-        menuButton.addEventListener(
-            "click",
-            function () {
-
-                mobileMenu.classList.add(
-                    "open"
-                );
-
-            }
-        );
-
-    }
-
-
-    if (mobileClose) {
-
-        mobileClose.addEventListener(
-            "click",
-            function () {
-
-                mobileMenu.classList.remove(
-                    "open"
-                );
-
-            }
-        );
-
-    }
-
-
-    const mobileLinks =
-        document.querySelectorAll(
-            ".mobile-menu a"
-        );
-
-
-    mobileLinks.forEach(function (link) {
-
-        link.addEventListener(
-            "click",
-            function () {
-
-                mobileMenu.classList.remove(
-                    "open"
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =================================================
-       PORTFOLIO
-    ================================================= */
-
-    function startPortfolio() {
+        const loaderProgress =
+            document.getElementById("loaderProgress");
 
 
         const portrait =
-            document.getElementById(
-                "portraitFrame"
+            document.getElementById("portraitFrame");
+
+
+        const frameCounter =
+            document.getElementById("frameCounter");
+
+
+        const scrollScene =
+            document.querySelector(".scroll-scene");
+
+
+        const textBlocks =
+            document.querySelectorAll(".scene-text");
+
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+
+        const mobileMenu =
+            document.getElementById("mobileMenu");
+
+
+        const closeMenu =
+            document.getElementById("closeMenu");
+
+
+        /* =================================================
+           MOBILE MENU
+        ================================================= */
+
+        if (menuButton && mobileMenu) {
+
+            menuButton.addEventListener(
+                "click",
+                function () {
+
+                    mobileMenu.classList.add(
+                        "open"
+                    );
+
+                }
             );
 
-
-        if (!portrait) {
-            return;
         }
 
 
-        const progressFill =
-            document.getElementById(
-                "progressFill"
+        if (closeMenu && mobileMenu) {
+
+            closeMenu.addEventListener(
+                "click",
+                function () {
+
+                    mobileMenu.classList.remove(
+                        "open"
+                    );
+
+                }
             );
 
+        }
 
-        const progressNumber =
-            document.getElementById(
-                "progressNumber"
+
+        if (mobileMenu) {
+
+            const mobileLinks =
+                mobileMenu.querySelectorAll("a");
+
+
+            mobileLinks.forEach(
+                function (link) {
+
+                    link.addEventListener(
+                        "click",
+                        function () {
+
+                            mobileMenu.classList.remove(
+                                "open"
+                            );
+
+                        }
+                    );
+
+                }
             );
 
-
-        const stories =
-            document.querySelectorAll(
-                ".story"
-            );
+        }
 
 
-        /* =============================================
+        /* =================================================
+           HOME PAGE CHECK
+        ================================================= */
+
+        if (!portrait || !scrollScene) {
+
+            startSimpleLoader();
+
+            return;
+
+        }
+
+
+        /* =================================================
            300 FRAMES
-        ============================================= */
+        ================================================= */
 
         const TOTAL_FRAMES = 300;
 
-
-        /* =============================================
-           IMAGE PRELOAD
-        ============================================= */
-
         const frames = [];
 
-        let loadedFrames = 0;
+        let currentFrame = -1;
 
 
-        function framePath(number) {
+        /* =================================================
+           FIRST FRAME
+        ================================================= */
 
-            const frameNumber =
-                String(number).padStart(
-                    3,
-                    "0"
-                );
-
-            /*
-              IMPORTANT:
-
-              Images are in GitHub ROOT folder.
-
-              NOT:
-              portrait-frames/
-
-              Correct:
-              ezgif-frame-001.jpg
-            */
-
-            return (
-                "ezgif-frame-" +
-                frameNumber +
-                ".jpg"
-            );
-
-        }
+        portrait.src =
+            "ezgif-frame-001.jpg";
 
 
-        /* =============================================
-           PRELOAD IMAGES
-        ============================================= */
+        /* =================================================
+           PRELOAD ALL 300 IMAGES
+        ================================================= */
 
         for (
             let i = 1;
@@ -276,177 +159,205 @@ document.addEventListener("DOMContentLoaded", function () {
             i++
         ) {
 
-            const img =
+            const image =
                 new Image();
 
-            img.src =
-                framePath(i);
 
-            frames[i - 1] =
-                img;
-
-
-            img.onload = function () {
-
-                loadedFrames++;
-
-            };
-
-
-            img.onerror = function () {
-
-                console.warn(
-                    "Could not load:",
-                    framePath(i)
+            const number =
+                String(i).padStart(
+                    3,
+                    "0"
                 );
 
-            };
+
+            image.src =
+                `ezgif-frame-${number}.jpg`;
+
+
+            frames.push(image);
 
         }
 
 
-        /* =============================================
+        /* =================================================
            SHOW FRAME
-        ============================================= */
+        ================================================= */
 
-        function showFrame(frameIndex) {
+        function showFrame(frame) {
 
-            frameIndex =
+
+            frame =
                 Math.max(
                     0,
                     Math.min(
                         TOTAL_FRAMES - 1,
-                        frameIndex
+                        frame
                     )
                 );
 
 
-            const frame =
-                frames[frameIndex];
+            /* Don't update the same frame again */
+
+            if (frame === currentFrame) {
+
+                return;
+
+            }
+
+
+            currentFrame = frame;
+
+
+            const image =
+                frames[frame];
 
 
             if (
-                frame &&
-                frame.complete &&
-                frame.naturalWidth > 0
+                image &&
+                image.complete &&
+                image.naturalWidth > 0
             ) {
 
                 portrait.src =
-                    frame.src;
+                    image.src;
 
-            } else {
+            }
 
-                /*
-                  If image is still loading,
-                  load it directly.
-                */
 
-                const img =
-                    new Image();
+            if (frameCounter) {
 
-                img.src =
-                    framePath(
-                        frameIndex + 1
-                    );
-
-                img.onload =
-                    function () {
-
-                        portrait.src =
-                            img.src;
-
-                    };
+                frameCounter.textContent =
+                    `FRAME ${String(frame + 1).padStart(3, "0")} / 300`;
 
             }
 
         }
 
 
-        /* =============================================
-           STORY CHANGE
-        ============================================= */
+        /* =================================================
+           CHANGE TEXT
+        ================================================= */
 
-        function updateStory(progress) {
-
-
-            let storyIndex = 0;
+        function updateText(progress) {
 
 
-            if (progress < 0.20) {
+            if (!textBlocks.length) {
 
-                storyIndex = 0;
-
-            } else if (progress < 0.40) {
-
-                storyIndex = 1;
-
-            } else if (progress < 0.60) {
-
-                storyIndex = 2;
-
-            } else if (progress < 0.80) {
-
-                storyIndex = 3;
-
-            } else {
-
-                storyIndex = 4;
+                return;
 
             }
 
 
-            stories.forEach(function (
-                story,
-                index
-            ) {
+            let index = 0;
 
-                if (index === storyIndex) {
 
-                    story.classList.add(
-                        "active-story"
-                    );
+            /*
+                0% - 25%
+                Hi, I'm Jack Roshan
 
-                } else {
 
-                    story.classList.remove(
-                        "active-story"
-                    );
+                25% - 50%
+                Viluppuram, Tamil Nadu
+
+
+                50% - 75%
+                B.Sc. Computer Science
+
+
+                75% - 100%
+                Skills
+
+
+                100%
+                Let's Work Together
+            */
+
+
+            if (progress < 0.25) {
+
+                index = 0;
+
+            }
+
+            else if (progress < 0.50) {
+
+                index = 1;
+
+            }
+
+            else if (progress < 0.75) {
+
+                index = 2;
+
+            }
+
+            else if (progress < 1) {
+
+                index = 3;
+
+            }
+
+            else {
+
+                index = 4;
+
+            }
+
+
+            textBlocks.forEach(
+                function (text, i) {
+
+                    if (i === index) {
+
+                        text.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                    else {
+
+                        text.classList.remove(
+                            "active"
+                        );
+
+                    }
 
                 }
-
-            });
+            );
 
         }
 
 
-        /* =============================================
+        /* =================================================
            SCROLL ANIMATION
-        ============================================= */
+        ================================================= */
 
         let ticking = false;
 
 
-        function updateAnimation() {
-
-
-            const section =
-                document.querySelector(
-                    ".scroll-experience"
-                );
+        function updateScroll() {
 
 
             const rect =
-                section.getBoundingClientRect();
+                scrollScene.getBoundingClientRect();
 
 
-            const totalScroll =
-                section.offsetHeight -
+            const totalDistance =
+                scrollScene.offsetHeight -
                 window.innerHeight;
+
+
+            if (totalDistance <= 0) {
+
+                return;
+
+            }
 
 
             let progress =
                 -rect.top /
-                totalScroll;
+                totalDistance;
 
 
             progress =
@@ -459,51 +370,32 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-            /* FRAME */
+            /* =================================================
+               FRAME
+               001 → 300
+            ================================================= */
 
-            const frameIndex =
+            const frame =
                 Math.round(
                     progress *
                     (TOTAL_FRAMES - 1)
                 );
 
 
-            showFrame(
-                frameIndex
-            );
+            showFrame(frame);
 
 
-            /* PERCENTAGE */
+            /* =================================================
+               TEXT
+            ================================================= */
 
-            const percent =
-                Math.round(
-                    progress * 100
-                );
-
-
-            progressFill.style.width =
-                percent + "%";
-
-
-            progressNumber.textContent =
-                percent + "%";
-
-
-            /* STORY */
-
-            updateStory(
-                progress
-            );
+            updateText(progress);
 
 
             ticking = false;
 
         }
 
-
-        /* =============================================
-           SCROLL EVENT
-        ============================================= */
 
         window.addEventListener(
             "scroll",
@@ -512,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!ticking) {
 
                     window.requestAnimationFrame(
-                        updateAnimation
+                        updateScroll
                     );
 
                     ticking = true;
@@ -526,40 +418,237 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-        /* =============================================
-           INITIAL FRAME
-        ============================================= */
+        /* =================================================
+           RESIZE
+        ================================================= */
+
+        window.addEventListener(
+            "resize",
+            function () {
+
+                updateScroll();
+
+            }
+        );
+
+
+        /* =================================================
+           INITIAL
+        ================================================= */
 
         showFrame(0);
 
-        updateAnimation();
+        updateText(0);
 
 
-        /* =============================================
-           PRELOAD STATUS
-        ============================================= */
+        /* =================================================
+           LOADER
+           EXACTLY ABOUT 3 SECONDS
+        ================================================= */
 
-        const preloadChecker =
-            setInterval(
-                function () {
+        startLoader();
 
-                    if (
-                        loadedFrames >=
-                        TOTAL_FRAMES
-                    ) {
 
-                        clearInterval(
-                            preloadChecker
-                        );
+        function startLoader() {
 
-                    }
 
-                },
-                200
+            const start =
+                performance.now();
+
+
+            const duration =
+                3000;
+
+
+            function animateLoader(now) {
+
+
+                const elapsed =
+                    now - start;
+
+
+                const progress =
+                    Math.min(
+                        elapsed / duration,
+                        1
+                    );
+
+
+                const percent =
+                    Math.floor(
+                        progress * 100
+                    );
+
+
+                if (loaderNumber) {
+
+                    loaderNumber.textContent =
+                        `${percent}%`;
+
+                }
+
+
+                if (loaderProgress) {
+
+                    loaderProgress.style.width =
+                        `${percent}%`;
+
+                }
+
+
+                if (progress < 1) {
+
+                    requestAnimationFrame(
+                        animateLoader
+                    );
+
+                }
+
+                else {
+
+                    finishLoader();
+
+                }
+
+            }
+
+
+            requestAnimationFrame(
+                animateLoader
+            );
+
+        }
+
+
+        /* =================================================
+           FINISH LOADER
+        ================================================= */
+
+        function finishLoader() {
+
+
+            if (!loader || !website) {
+
+                return;
+
+            }
+
+
+            loader.classList.add(
+                "hide"
             );
 
 
+            website.style.visibility =
+                "visible";
+
+
+            website.style.opacity =
+                "1";
+
+
+            setTimeout(
+                function () {
+
+                    loader.style.display =
+                        "none";
+
+                },
+                800
+            );
+
+        }
+
+
+        /* =================================================
+           SIMPLE LOADER
+           FOR ABOUT / PROJECT / CONTACT
+        ================================================= */
+
+        function startSimpleLoader() {
+
+
+            if (!loader || !website) {
+
+                return;
+
+            }
+
+
+            const start =
+                performance.now();
+
+
+            const duration =
+                1800;
+
+
+            function run(now) {
+
+
+                const progress =
+                    Math.min(
+                        (now - start) /
+                        duration,
+                        1
+                    );
+
+
+                const percent =
+                    Math.floor(
+                        progress * 100
+                    );
+
+
+                if (loaderNumber) {
+
+                    loaderNumber.textContent =
+                        `${percent}%`;
+
+                }
+
+
+                if (loaderProgress) {
+
+                    loaderProgress.style.width =
+                        `${percent}%`;
+
+                }
+
+
+                if (progress < 1) {
+
+                    requestAnimationFrame(
+                        run
+                    );
+
+                }
+
+                else {
+
+                    loader.classList.add(
+                        "hide"
+                    );
+
+
+                    website.style.visibility =
+                        "visible";
+
+
+                    website.style.opacity =
+                        "1";
+
+                }
+
+            }
+
+
+            requestAnimationFrame(
+                run
+            );
+
+        }
+
+
     }
-
-
-});
+);
