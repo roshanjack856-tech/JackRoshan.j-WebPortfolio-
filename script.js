@@ -1,526 +1,444 @@
-document.addEventListener("DOMContentLoaded", () => {
+/* =========================================
+   JACK ROSHAN PORTFOLIO
+   MAIN JAVASCRIPT
+========================================= */
 
-    /* =====================================================
-       MOBILE MENU
-    ====================================================== */
 
-    const menuBtn = document.getElementById("menuBtn");
-    const closeBtn = document.getElementById("closeBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
+/* =========================================
+   LOADER
+========================================= */
 
-    if (menuBtn && closeBtn && mobileMenu) {
+const loader = document.getElementById("loader");
+const website = document.getElementById("website");
+const loaderNumber = document.getElementById("loaderNumber");
+const loaderProgress = document.getElementById("loaderProgress");
 
-        menuBtn.addEventListener("click", () => {
-            mobileMenu.classList.add("open");
-        });
+let loaderStart = performance.now();
 
-        closeBtn.addEventListener("click", () => {
-            mobileMenu.classList.remove("open");
-        });
+const loaderDuration = 3000;
 
-        mobileMenu.querySelectorAll("a").forEach(link => {
 
-            link.addEventListener("click", () => {
-                mobileMenu.classList.remove("open");
-            });
+function runLoader(currentTime) {
 
-        });
+    const elapsed = currentTime - loaderStart;
+
+    const progress = Math.min(
+        elapsed / loaderDuration,
+        1
+    );
+
+    const percent = Math.floor(progress * 100);
+
+    if (loaderNumber) {
+        loaderNumber.textContent = percent + "%";
     }
 
+    if (loaderProgress) {
+        loaderProgress.style.width = percent + "%";
+    }
 
-    /* =====================================================
-       LOADING SCREEN
-       0% → 100% IN 3 SECONDS
-    ====================================================== */
+    if (progress < 1) {
 
-    const loader = document.getElementById("loader");
-    const website = document.getElementById("website");
+        requestAnimationFrame(runLoader);
 
-    const loaderNumber =
-        document.getElementById("loaderNumber");
+    } else {
 
-    const loaderProgress =
-        document.getElementById("loaderProgress");
+        finishLoader();
 
-    const loaderStatus =
-        document.getElementById("loaderStatus");
+    }
+
+}
 
 
-    let loadingPercent = 0;
+function finishLoader() {
 
-    const loadingInterval = setInterval(() => {
+    if (!loader) return;
 
-        loadingPercent++;
+    loader.style.transition =
+        "opacity 0.7s ease, visibility 0.7s ease";
 
-        if (loaderNumber) {
-            loaderNumber.textContent =
-                loadingPercent + "%";
+    loader.style.opacity = "0";
+
+    loader.style.visibility = "hidden";
+
+    if (website) {
+
+        website.style.transition =
+            "opacity 0.7s ease";
+
+        website.style.opacity = "1";
+
+    }
+
+    startPortfolio();
+
+}
+
+
+requestAnimationFrame(runLoader);
+
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+const menuButton =
+    document.getElementById("menuButton");
+
+const mobileMenu =
+    document.getElementById("mobileMenu");
+
+
+if (menuButton && mobileMenu) {
+
+    menuButton.addEventListener(
+        "click",
+        () => {
+
+            mobileMenu.classList.toggle("open");
+
         }
+    );
 
-        if (loaderProgress) {
-            loaderProgress.style.width =
-                loadingPercent + "%";
-        }
 
-        if (loadingPercent >= 100) {
+    const mobileLinks =
+        mobileMenu.querySelectorAll("a");
 
-            clearInterval(loadingInterval);
 
-            if (loaderStatus) {
-                loaderStatus.textContent =
-                    "COMPLETE";
+    mobileLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                mobileMenu.classList.remove("open");
+
             }
+        );
 
-            setTimeout(() => {
+    });
 
-                if (loader) {
+}
 
-                    loader.style.transition =
-                        "opacity 0.8s ease";
 
-                    loader.style.opacity = "0";
+/* =========================================
+   PORTFOLIO
+========================================= */
 
-                    loader.style.visibility =
-                        "hidden";
-                }
+function startPortfolio() {
 
-                if (website) {
+    const portrait =
+        document.getElementById("portraitFrame");
 
-                    website.style.transition =
-                        "opacity 0.8s ease";
+    const scene =
+        document.getElementById("home");
 
-                    website.style.opacity = "1";
+    const frameNumber =
+        document.getElementById("frameNumber");
 
-                    website.style.visibility =
-                        "visible";
-                }
+    const textBlocks =
+        document.querySelectorAll(".scene-text");
 
-                startPortfolio();
 
-            }, 250);
-        }
-
-    }, 30);
     /*
-       100 × 30ms = approximately 3 seconds
+        If this is About / Project / Contact page,
+        there is no portrait scene.
     */
 
+    if (!portrait || !scene) {
 
-    /* =====================================================
-       START PORTFOLIO
-    ====================================================== */
+        return;
 
-    function startPortfolio() {
-
-        if (
-            typeof gsap === "undefined" ||
-            typeof ScrollTrigger === "undefined"
-        ) {
-
-            console.error(
-                "GSAP or ScrollTrigger is not loaded."
-            );
-
-            startPortraitFallback();
-
-            return;
-        }
-
-        gsap.registerPlugin(ScrollTrigger);
-
-        initPortraitAnimation();
-        initScrollHint();
-        initNavigation();
-
-        setTimeout(() => {
-            ScrollTrigger.refresh();
-        }, 100);
     }
 
 
-    /* =====================================================
-       PORTRAIT FRAME ANIMATION
-    ====================================================== */
+    /* =====================================
+       FRAME SETTINGS
+    ===================================== */
 
-    function initPortraitAnimation() {
+    const TOTAL_FRAMES = 300;
 
-        const portrait =
-            document.getElementById("portrait3D");
+    const frameImages = [];
 
-        const portraitFrame =
-            document.getElementById("portraitFrame");
+    let currentFrame = 0;
 
 
-        if (!portrait || !portraitFrame) {
+    /* =====================================
+       CREATE IMAGE OBJECTS
+    ===================================== */
 
-            console.error(
-                "Portrait elements not found."
-            );
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
 
-            return;
-        }
+        const img = new Image();
 
+        const number =
+            String(i).padStart(3, "0");
 
-        /* =================================================
-           IMPORTANT
+        img.src =
+            `ezgif-frame-${number}.jpg`;
 
-           Your GitHub screenshot shows:
+        frameImages.push(img);
 
-           ezgif-frame-001.jpg
-           ezgif-frame-002.jpg
-           ezgif-frame-003.jpg
-           ...
-           ezgif-frame-300.jpg
-
-           They are in the ROOT.
-
-           Therefore DO NOT use:
-
-           portrait-frames/
-
-           We use:
-
-           ezgif-frame-001.jpg
-        ================================================== */
-
-        const TOTAL_FRAMES = 300;
-
-        const frames = [];
-
-        let currentFrame = -1;
+    }
 
 
-        /* =================================================
-           CREATE IMAGE OBJECTS
-        ================================================== */
+    /* =====================================
+       SHOW FRAME
+    ===================================== */
 
-        for (
-            let i = 1;
-            i <= TOTAL_FRAMES;
-            i++
-        ) {
+    function showFrame(frame) {
 
-            const image = new Image();
-
-            const frameNumber =
-                String(i).padStart(3, "0");
-
-            image.src =
-                `ezgif-frame-${frameNumber}.jpg`;
-
-            image.loading = "eager";
-
-            frames.push(image);
-        }
-
-
-        /* =================================================
-           SHOW FRAME
-        ================================================== */
-
-        function showFrame(frameIndex) {
-
-            frameIndex = Math.max(
+        frame =
+            Math.max(
                 0,
                 Math.min(
                     TOTAL_FRAMES - 1,
-                    frameIndex
+                    frame
                 )
             );
 
 
-            if (frameIndex === currentFrame) {
-                return;
-            }
+        const img =
+            frameImages[frame];
 
 
-            const frame =
-                frames[frameIndex];
+        if (img && img.complete) {
 
+            portrait.src = img.src;
 
-            if (!frame) {
-                return;
-            }
-
-
-            if (
-                frame.complete &&
-                frame.naturalWidth > 0
-            ) {
-
-                portraitFrame.src =
-                    frame.src;
-
-                currentFrame =
-                    frameIndex;
-
-            } else {
-
-                frame.onload = () => {
-
-                    portraitFrame.src =
-                        frame.src;
-
-                    currentFrame =
-                        frameIndex;
-                };
-            }
         }
 
 
-        /* =================================================
-           FIRST IMAGE
-        ================================================== */
+        if (frameNumber) {
 
-        showFrame(0);
+            frameNumber.textContent =
+                `${String(frame + 1).padStart(3, "0")} / 300`;
 
-
-        /* =================================================
-           DO NOT ROTATE WITH CSS
-
-           The JPG itself contains the rotation.
-        ================================================== */
-
-        gsap.set(portrait, {
-
-            x: 0,
-            y: 0,
-            scale: 1,
-
-            rotation: 0,
-            rotationX: 0,
-            rotationY: 0,
-
-            transformOrigin: "50% 50%"
-        });
-
-
-        /* =================================================
-           SCROLL → 300 FRAMES
-        ================================================== */
-
-        const animation = {
-            frame: 0
-        };
-
-
-        gsap.to(animation, {
-
-            frame: TOTAL_FRAMES - 1,
-
-            ease: "none",
-
-            scrollTrigger: {
-
-                trigger: "#home",
-
-                start: "top top",
-
-                /*
-                   Increase this value for slower rotation.
-                   Decrease it for faster rotation.
-                */
-
-                end: "+=2200",
-
-                scrub: 0.25,
-
-                pin: true,
-
-                anticipatePin: 1,
-
-                invalidateOnRefresh: true,
-
-                onUpdate: self => {
-
-                    const frameIndex =
-                        Math.round(
-                            self.progress *
-                            (TOTAL_FRAMES - 1)
-                        );
-
-                    showFrame(frameIndex);
-                }
-            }
-        });
-    }
-
-
-    /* =====================================================
-       FALLBACK
-    ====================================================== */
-
-    function startPortraitFallback() {
-
-        const portraitFrame =
-            document.getElementById("portraitFrame");
-
-        if (portraitFrame) {
-
-            portraitFrame.src =
-                "ezgif-frame-001.jpg";
-        }
-    }
-
-
-    /* =====================================================
-       SCROLL HINT
-    ====================================================== */
-
-    function initScrollHint() {
-
-        const scrollHint =
-            document.getElementById("scrollHint");
-
-        if (!scrollHint) {
-            return;
         }
 
+        currentFrame = frame;
 
-        gsap.to(scrollHint, {
-
-            opacity: 0,
-
-            y: 20,
-
-            ease: "none",
-
-            scrollTrigger: {
-
-                trigger: "#home",
-
-                start: "top top",
-
-                end: "+=300",
-
-                scrub: true
-            }
-        });
     }
 
 
-    /* =====================================================
-       ACTIVE NAVIGATION
-    ====================================================== */
+    /* =====================================
+       TEXT STEP
+    ===================================== */
 
-    function initNavigation() {
+    function updateText(progress) {
 
-        const sections =
-            document.querySelectorAll(
-                "section[id]"
-            );
+        const totalSteps =
+            textBlocks.length;
 
-        const navLinks =
-            document.querySelectorAll(
-                ".desktop-nav a"
+
+        if (!totalSteps) return;
+
+
+        let step =
+            Math.floor(
+                progress * totalSteps
             );
 
 
-        function updateActiveNavigation() {
+        if (step >= totalSteps) {
 
-            let current = "";
+            step = totalSteps - 1;
 
-            const scrollPosition =
-                window.scrollY + 180;
-
-
-            sections.forEach(section => {
-
-                const sectionTop =
-                    section.offsetTop;
-
-                const sectionHeight =
-                    section.offsetHeight;
-
-
-                if (
-                    scrollPosition >=
-                    sectionTop &&
-
-                    scrollPosition <
-                    sectionTop +
-                    sectionHeight
-                ) {
-
-                    current =
-                        section.getAttribute(
-                            "id"
-                        );
-                }
-            });
-
-
-            navLinks.forEach(link => {
-
-                link.classList.remove(
-                    "active"
-                );
-
-
-                if (
-                    link.getAttribute("href") ===
-                    "#" + current
-                ) {
-
-                    link.classList.add(
-                        "active"
-                    );
-                }
-            });
         }
 
 
-        window.addEventListener(
-            "scroll",
-            updateActiveNavigation
+        textBlocks.forEach(
+            (block, index) => {
+
+                if (index === step) {
+
+                    block.classList.add("active");
+
+                } else {
+
+                    block.classList.remove("active");
+
+                }
+
+            }
         );
 
-
-        updateActiveNavigation();
     }
 
 
-    /* =====================================================
-       WINDOW LOAD
-    ====================================================== */
+    /* =====================================
+       SCROLL CONTROL
+    ===================================== */
 
-    window.addEventListener("load", () => {
+    let ticking = false;
 
-        if (
-            typeof ScrollTrigger !== "undefined"
-        ) {
 
-            ScrollTrigger.refresh();
+    function updateScroll() {
+
+        const rect =
+            scene.getBoundingClientRect();
+
+
+        const sceneHeight =
+            scene.offsetHeight;
+
+
+        const viewportHeight =
+            window.innerHeight;
+
+
+        const scrollDistance =
+            sceneHeight - viewportHeight;
+
+
+        let progress =
+            -rect.top / scrollDistance;
+
+
+        progress =
+            Math.max(
+                0,
+                Math.min(
+                    1,
+                    progress
+                )
+            );
+
+
+        /*
+
+        SCROLL DOWN:
+
+        Frame 1
+           ↓
+        Frame 300
+
+
+        SCROLL UP:
+
+        Frame 300
+           ↓
+        Frame 1
+
+        */
+
+        const frame =
+            Math.round(
+                progress *
+                (TOTAL_FRAMES - 1)
+            );
+
+
+        if (frame !== currentFrame) {
+
+            showFrame(frame);
+
+        }
+
+
+        /* Text changes at same time */
+
+        updateText(progress);
+
+
+        ticking = false;
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (!ticking) {
+
+                window.requestAnimationFrame(
+                    updateScroll
+                );
+
+                ticking = true;
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    /* =====================================
+       INITIAL FRAME
+    ===================================== */
+
+    showFrame(0);
+
+    updateText(0);
+
+
+    /* =====================================
+       PRELOAD PROGRESS
+    ===================================== */
+
+    let loaded = 0;
+
+
+    frameImages.forEach(img => {
+
+        if (img.complete) {
+
+            loaded++;
+
+        } else {
+
+            img.addEventListener(
+                "load",
+                () => {
+
+                    loaded++;
+
+                },
+                {
+                    once: true
+                }
+            );
+
         }
 
     });
 
+}
 
-    /* =====================================================
-       WINDOW RESIZE
-    ====================================================== */
 
-    let resizeTimer;
+/* =========================================
+   ACTIVE NAVIGATION
+========================================= */
 
-    window.addEventListener(
-        "resize",
-        () => {
+const currentPage =
+    window.location.pathname
+        .split("/")
+        .pop() || "index.html";
 
-            clearTimeout(resizeTimer);
 
-            resizeTimer = setTimeout(() => {
-
-                if (
-                    typeof ScrollTrigger !==
-                    "undefined"
-                ) {
-
-                    ScrollTrigger.refresh();
-                }
-
-            }, 250);
-
-        }
+const navLinks =
+    document.querySelectorAll(
+        ".desktop-nav a"
     );
+
+
+navLinks.forEach(link => {
+
+    const href =
+        link.getAttribute("href");
+
+
+    if (
+        href &&
+        href.endsWith(currentPage)
+    ) {
+
+        link.classList.add("active");
+
+    }
 
 });
