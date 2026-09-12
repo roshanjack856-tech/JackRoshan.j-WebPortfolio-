@@ -8,14 +8,14 @@
         content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-        content="Jack Roshan - Web Developer and UI/UX Designer">
+        content="Jack Roshan - Web Developer and UI/UX Designer Portfolio">
 
     <meta name="author"
         content="Jack Roshan">
 
     <title>Jack Roshan | Web Developer & UI/UX Designer</title>
 
-    <!-- GOOGLE FONTS -->
+    <!-- Google Fonts -->
     <link rel="preconnect"
         href="https://fonts.googleapis.com">
 
@@ -23,23 +23,12 @@
         href="https://fonts.gstatic.com"
         crossorigin>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- GSAP -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
-    </script>
-
-    <!-- GSAP SCROLLTRIGGER -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
-    </script>
-
+    <link rel="stylesheet"
+        href="style.css">
 </head>
 
 <body>
@@ -48,49 +37,34 @@
          LOADING SCREEN
     ====================================================== -->
 
-    <div class="loading-screen" id="loadingScreen">
+    <div id="loader">
 
-        <div class="loading-content">
+        <div class="loader-content">
 
-            <div class="loading-small">
-                PORTFOLIO SYSTEM
+            <div class="loader-small">
+                WELCOME
             </div>
 
             <h1>
-                WELCOME TO
+                JACK ROSHAN
             </h1>
 
-            <h2>
-                JACK ROSHAN
-            </h2>
-
             <p>
-                WEB DEVELOPER & UI/UX DESIGNER
+                WELCOME TO MY PORTFOLIO
             </p>
 
-            <div class="loading-percentage"
-                id="loadingPercentage">
-                0%
+            <div class="loader-percentage">
+                <span id="percentage">0</span>%
             </div>
 
-            <div class="loading-bar">
+            <div class="loader-line">
 
-                <div class="loading-bar-fill"
-                    id="loadingBarFill">
-                </div>
+                <div id="loaderProgress"></div>
 
             </div>
 
-            <div class="loading-bottom">
-
-                <span>
-                    LOADING MODULES...
-                </span>
-
-                <span>
-                    SECURE CONNECTION
-                </span>
-
+            <div class="loader-status">
+                LOADING PORTFOLIO...
             </div>
 
         </div>
@@ -104,50 +78,56 @@
 
     <header class="navbar">
 
-        <div class="nav-logo">
-            JACK<span>ROSHAN</span>
+        <div class="nav-container">
+
+            <a href="#home"
+                class="logo">
+                JACK<span>ROSHAN</span>
+            </a>
+
+            <nav class="desktop-nav">
+
+                <a href="#home"
+                    class="active">
+                    Home
+                </a>
+
+                <a href="#about">
+                    About
+                </a>
+
+                <a href="#skills">
+                    Skills
+                </a>
+
+                <a href="#services">
+                    Services
+                </a>
+
+                <a href="#projects">
+                    Projects
+                </a>
+
+                <a href="#experience">
+                    Experience
+                </a>
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+            </nav>
+
+
+            <button class="menu-btn"
+                id="menuBtn"
+                aria-label="Open menu">
+
+                ☰
+
+            </button>
+
         </div>
-
-        <nav class="desktop-nav">
-
-            <a href="#home" class="active">
-                Home
-            </a>
-
-            <a href="#about">
-                About
-            </a>
-
-            <a href="#skills">
-                Skills
-            </a>
-
-            <a href="#services">
-                Services
-            </a>
-
-            <a href="#projects">
-                Projects
-            </a>
-
-            <a href="#experience">
-                Experience
-            </a>
-
-            <a href="#contact">
-                Contact
-            </a>
-
-        </nav>
-
-        <button
-            class="menu-button"
-            id="menuBtn"
-            aria-label="Open Menu">
-
-            ☰
-
-        </button>
 
     </header>
 
@@ -159,8 +139,7 @@
     <div class="mobile-menu"
         id="mobileMenu">
 
-        <button
-            class="close-button"
+        <button class="close-btn"
             id="closeBtn">
 
             ×
@@ -199,99 +178,90 @@
 
 
     <!-- =====================================================
-         HOME
+         HOME / 300 FRAME ANIMATION
     ====================================================== -->
 
     <main>
 
-        <section
-            class="hero"
+        <section class="hero"
             id="home">
 
-            <div class="hero-container">
+            <div class="hero-sticky">
+
+                <div class="hero-container">
 
 
-                <!-- LEFT SIDE -->
+                    <!-- LEFT SIDE -->
 
-                <div class="hero-content">
+                    <div class="hero-content">
 
-                    <div class="hero-small">
-                        HELLO, I'M
-                    </div>
+                        <div class="hero-label">
+                            WEB DEVELOPER
+                        </div>
 
-                    <h1>
-                        Jack
-                        <span>Roshan</span>
-                    </h1>
+                        <h1>
+                            Jack
+                            <span>Roshan</span>
+                        </h1>
 
-                    <h2>
-                        Web Developer
-                        <br>
-                        & UI/UX Designer
-                    </h2>
+                        <h2>
+                            Web Developer &
+                            <br>
+                            UI/UX Designer
+                        </h2>
 
-                    <p>
-                        I create modern, responsive and
-                        user-friendly websites with clean
-                        design and practical functionality.
-                    </p>
+                        <p>
+                            I create modern, responsive and
+                            user-friendly websites with clean
+                            design and practical functionality.
+                        </p>
 
-                    <div class="hero-buttons">
+                        <div class="hero-buttons">
 
-                        <a
-                            href="#projects"
-                            class="btn primary-btn">
+                            <a href="#projects"
+                                class="btn btn-primary">
+                                View My Work
+                            </a>
 
-                            View My Work
+                            <a href="#contact"
+                                class="btn btn-outline">
+                                Contact Me
+                            </a>
 
-                        </a>
-
-                        <a
-                            href="#contact"
-                            class="btn secondary-btn">
-
-                            Contact Me
-
-                        </a>
+                        </div>
 
                     </div>
 
-                </div>
 
+                    <!-- RIGHT SIDE / ANIME CHARACTER -->
 
-                <!-- RIGHT SIDE -->
+                    <div class="portrait-area">
 
-                <div class="portrait-container">
+                        <div class="portrait-glow"></div>
 
-                    <div class="portrait-glow">
-                    </div>
+                        <div class="portrait-3d"
+                            id="portrait3D">
 
-                    <div
-                        class="portrait-3d"
-                        id="portrait3D">
+                            <img
+                                id="portraitFrame"
+                                src="portrait-frames/ezgif-frame-001.jpg"
+                                alt="Jack Roshan 3D portrait"
+                                draggable="false">
 
-                        <!--
-                            IMPORTANT:
-                            Frame 001 is the first image.
-                        -->
+                        </div>
 
-                        <img
-                            id="portraitFrame"
-                            src="portrait-frames/ezgif-frame-001.jpg"
-                            alt="Jack Roshan"
-                            draggable="false">
+                        <div class="scroll-hint"
+                            id="scrollHint">
 
-                    </div>
+                            <span>
+                                SCROLL TO ROTATE
+                            </span>
 
-                    <div
-                        class="scroll-hint"
-                        id="scrollHint">
+                            <b>
+                                ↓
+                            </b>
 
-                        SCROLL TO ROTATE
-
-                        <span>
-                            ↓
-                        </span>
+                        </div>
 
                     </div>
 
@@ -302,65 +272,93 @@
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              ABOUT
-        ====================================================== -->
+        ================================================== -->
 
-        <section
-            class="section"
+        <section class="section"
             id="about">
 
             <div class="section-container">
 
-                <div class="section-label">
-                    01 — ABOUT ME
-                </div>
+                <div class="section-title">
 
-                <h2 class="section-title">
-                    Building digital
-                    <span>experiences.</span>
-                </h2>
+                    <span>
+                        01
+                    </span>
+
+                    <h2>
+                        About Me
+                    </h2>
+
+                </div>
 
                 <div class="about-grid">
 
                     <div class="about-text">
 
+                        <h3>
+                            Building digital experiences
+                            with creativity and purpose.
+                        </h3>
+
                         <p>
-                            I am Jack Roshan, a B.Sc. Computer
-                            Science graduate from Loyola College.
+                            I am Jack Roshan, a B.Sc.
+                            Computer Science graduate from
+                            Loyola College.
                         </p>
 
                         <p>
-                            I am interested in web development
-                            and UI/UX design. I enjoy creating
-                            responsive websites with clean
-                            interfaces and simple user experiences.
+                            I am interested in Web Development
+                            and UI/UX Design. I enjoy creating
+                            responsive websites, clean interfaces
+                            and simple digital experiences.
                         </p>
 
                         <p>
-                            I am currently looking for a
-                            fresher opportunity where I can
-                            learn, improve my technical skills
-                            and contribute to real projects.
+                            I am continuously improving my
+                            HTML, CSS, JavaScript, UI/UX and
+                            modern web development skills.
                         </p>
 
                     </div>
 
                     <div class="about-card">
 
-                        <div class="about-card-number">
-                            01
+                        <div class="info-row">
+                            <span>Education</span>
+                            <strong>
+                                B.Sc. Computer Science
+                            </strong>
                         </div>
 
-                        <h3>
-                            Never Give Up
-                        </h3>
+                        <div class="info-row">
+                            <span>College</span>
+                            <strong>
+                                Loyola College
+                            </strong>
+                        </div>
 
-                        <p>
-                            I believe continuous learning and
-                            consistent effort are the keys to
-                            improving every day.
-                        </p>
+                        <div class="info-row">
+                            <span>Role</span>
+                            <strong>
+                                Web Developer
+                            </strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Also</span>
+                            <strong>
+                                UI/UX Designer
+                            </strong>
+                        </div>
+
+                        <div class="info-row">
+                            <span>Location</span>
+                            <strong>
+                                Tamil Nadu / Bengaluru
+                            </strong>
+                        </div>
 
                     </div>
 
@@ -371,70 +369,99 @@
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              SKILLS
-        ====================================================== -->
+        ================================================== -->
 
-        <section
-            class="section dark-section"
+        <section class="section dark-section"
             id="skills">
 
             <div class="section-container">
 
-                <div class="section-label">
-                    02 — SKILLS
-                </div>
+                <div class="section-title">
 
-                <h2 class="section-title">
-                    My technical
-                    <span>skills.</span>
-                </h2>
+                    <span>
+                        02
+                    </span>
+
+                    <h2>
+                        Skills
+                    </h2>
+
+                </div>
 
                 <div class="skills-grid">
 
                     <div class="skill-card">
+                        <span>01</span>
                         <h3>HTML</h3>
-                        <p>Good</p>
+                        <p>
+                            Semantic and structured web pages.
+                        </p>
                     </div>
 
                     <div class="skill-card">
+                        <span>02</span>
                         <h3>CSS</h3>
-                        <p>Good</p>
+                        <p>
+                            Responsive layouts and modern styling.
+                        </p>
                     </div>
 
                     <div class="skill-card">
+                        <span>03</span>
                         <h3>JavaScript</h3>
-                        <p>Basic / Learning</p>
+                        <p>
+                            Interactive website functionality.
+                        </p>
                     </div>
 
                     <div class="skill-card">
+                        <span>04</span>
                         <h3>Figma</h3>
-                        <p>UI/UX Basics</p>
+                        <p>
+                            UI design and basic prototyping.
+                        </p>
                     </div>
 
                     <div class="skill-card">
+                        <span>05</span>
                         <h3>Canva</h3>
-                        <p>Advanced</p>
+                        <p>
+                            Advanced graphic and visual design.
+                        </p>
                     </div>
 
                     <div class="skill-card">
+                        <span>06</span>
                         <h3>Firebase</h3>
-                        <p>Basic</p>
+                        <p>
+                            Basic backend and database services.
+                        </p>
                     </div>
 
                     <div class="skill-card">
+                        <span>07</span>
                         <h3>GitHub</h3>
-                        <p>Version Control</p>
+                        <p>
+                            Source control and project hosting.
+                        </p>
                     </div>
 
                     <div class="skill-card">
+                        <span>08</span>
                         <h3>Vercel</h3>
-                        <p>Deployment</p>
+                        <p>
+                            Website deployment and hosting.
+                        </p>
                     </div>
 
                     <div class="skill-card">
+                        <span>09</span>
                         <h3>MS Office</h3>
-                        <p>Word / Excel / PowerPoint</p>
+                        <p>
+                            Word, Excel and PowerPoint.
+                        </p>
                     </div>
 
                 </div>
@@ -444,32 +471,34 @@
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              SERVICES
-        ====================================================== -->
+        ================================================== -->
 
-        <section
-            class="section"
+        <section class="section"
             id="services">
 
             <div class="section-container">
 
-                <div class="section-label">
-                    03 — SERVICES
-                </div>
+                <div class="section-title">
 
-                <h2 class="section-title">
-                    What I can
-                    <span>do.</span>
-                </h2>
+                    <span>
+                        03
+                    </span>
+
+                    <h2>
+                        Services
+                    </h2>
+
+                </div>
 
                 <div class="services-grid">
 
-                    <div class="service-card">
+                    <article class="service-card">
 
-                        <span class="service-number">
+                        <div class="service-number">
                             01
-                        </span>
+                        </div>
 
                         <h3>
                             Web Development
@@ -480,62 +509,61 @@
                             using HTML, CSS and JavaScript.
                         </p>
 
-                    </div>
+                    </article>
 
 
-                    <div class="service-card">
+                    <article class="service-card">
 
-                        <span class="service-number">
+                        <div class="service-number">
                             02
-                        </span>
+                        </div>
 
                         <h3>
                             UI/UX Design
                         </h3>
 
                         <p>
-                            Clean and simple interfaces
-                            designed with usability in mind.
+                            Clean and user-friendly interfaces
+                            focused on simple user experiences.
                         </p>
 
-                    </div>
+                    </article>
 
 
-                    <div class="service-card">
+                    <article class="service-card">
 
-                        <span class="service-number">
+                        <div class="service-number">
                             03
-                        </span>
+                        </div>
 
                         <h3>
-                            Canva Design
+                            Graphic Design
                         </h3>
 
                         <p>
-                            Social media graphics, promotional
-                            designs and visual content.
+                            Social media graphics, posters,
+                            banners and visual content.
                         </p>
 
-                    </div>
+                    </article>
 
 
-                    <div class="service-card">
+                    <article class="service-card">
 
-                        <span class="service-number">
+                        <div class="service-number">
                             04
-                        </span>
+                        </div>
 
                         <h3>
                             Website Deployment
                         </h3>
 
                         <p>
-                            Website deployment and basic
-                            project management using GitHub
-                            and Vercel.
+                            GitHub based project management
+                            and Vercel deployment.
                         </p>
 
-                    </div>
+                    </article>
 
                 </div>
 
@@ -544,32 +572,45 @@
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              PROJECTS
-        ====================================================== -->
+        ================================================== -->
 
-        <section
-            class="section dark-section"
+        <section class="section dark-section"
             id="projects">
 
             <div class="section-container">
 
-                <div class="section-label">
-                    04 — PROJECTS
+                <div class="section-title">
+
+                    <span>
+                        04
+                    </span>
+
+                    <h2>
+                        Projects
+                    </h2>
+
                 </div>
 
-                <h2 class="section-title">
-                    Selected
-                    <span>projects.</span>
-                </h2>
 
                 <div class="projects-grid">
 
 
+                    <!-- PROJECT 1 -->
+
                     <article class="project-card">
 
-                        <div class="project-number">
-                            01
+                        <div class="project-top">
+
+                            <span>
+                                01
+                            </span>
+
+                            <span>
+                                WEB DEVELOPMENT
+                            </span>
+
                         </div>
 
                         <h3>
@@ -578,15 +619,24 @@
                         </h3>
 
                         <p>
-                            A modern business website and
-                            product catalogue created for
-                            an export and import company.
+                            A professional business website
+                            created for an export and import
+                            company based in Chennai.
                         </p>
+
+                        <div class="project-tags">
+
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                            <span>Vercel</span>
+
+                        </div>
 
                         <a
                             href="https://fb-group.vercel.app/"
                             target="_blank"
-                            rel="noopener">
+                            rel="noopener noreferrer">
 
                             View Project →
 
@@ -595,10 +645,20 @@
                     </article>
 
 
+                    <!-- PROJECT 2 -->
+
                     <article class="project-card">
 
-                        <div class="project-number">
-                            02
+                        <div class="project-top">
+
+                            <span>
+                                02
+                            </span>
+
+                            <span>
+                                COLLEGE PROJECT
+                            </span>
+
                         </div>
 
                         <h3>
@@ -607,10 +667,23 @@
                         </h3>
 
                         <p>
-                            A college project covering sports
-                            information, nutrition information,
-                            game rules and event management.
+                            A college project designed to
+                            provide sports information,
+                            nutrition information, game rules
+                            and event management features.
                         </p>
+
+                        <div class="project-tags">
+
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+
+                        </div>
+
+                        <a href="#contact">
+                            Project Details →
+                        </a>
 
                     </article>
 
@@ -621,78 +694,72 @@
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              EXPERIENCE
-        ====================================================== -->
+        ================================================== -->
 
-        <section
-            class="section"
+        <section class="section"
             id="experience">
 
             <div class="section-container">
 
-                <div class="section-label">
-                    05 — EXPERIENCE
+                <div class="section-title">
+
+                    <span>
+                        05
+                    </span>
+
+                    <h2>
+                        Experience
+                    </h2>
+
                 </div>
 
-                <h2 class="section-title">
-                    My learning
-                    <span>journey.</span>
-                </h2>
+                <div class="experience-card">
 
-                <div class="timeline">
+                    <div class="experience-date">
+                        INTERNSHIP
+                    </div>
 
-                    <div class="timeline-item">
+                    <div>
 
-                        <div class="timeline-dot">
-                        </div>
+                        <h3>
+                            Codsair Technologies
+                        </h3>
 
-                        <div class="timeline-content">
+                        <p class="experience-location">
+                            Calicut, Kerala
+                        </p>
 
-                            <span>
-                                Internship
-                            </span>
-
-                            <h3>
-                                Codsair Technologies
-                            </h3>
-
-                            <p>
-                                Calicut, Kerala
-                            </p>
-
-                            <p>
-                                Developed communication skills,
-                                improved basic coding knowledge
-                                and learned website development
-                                with and without coding.
-                            </p>
-
-                        </div>
+                        <p>
+                            Developed communication skills,
+                            improved basic coding knowledge and
+                            learned how to create websites with
+                            and without coding.
+                        </p>
 
                     </div>
 
+                </div>
 
-                    <div class="timeline-item">
 
-                        <div class="timeline-dot">
-                        </div>
+                <div class="experience-card">
 
-                        <div class="timeline-content">
+                    <div class="experience-date">
+                        ACTIVITY
+                    </div>
 
-                            <span>
-                                Education
-                            </span>
+                    <div>
 
-                            <h3>
-                                B.Sc. Computer Science
-                            </h3>
+                        <h3>
+                            College Football Representative
+                        </h3>
 
-                            <p>
-                                Loyola College
-                            </p>
-
-                        </div>
+                        <p>
+                            Represented college football team
+                            and participated in competitive
+                            football activities.
+                        </p>
 
                     </div>
 
@@ -703,74 +770,78 @@
         </section>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              CONTACT
-        ====================================================== -->
+        ================================================== -->
 
-        <section
-            class="section contact-section"
+        <section class="section contact-section"
             id="contact">
 
             <div class="section-container">
 
-                <div class="section-label">
-                    06 — CONTACT
-                </div>
+                <div class="section-title">
 
-                <h2 class="section-title">
-                    Let's work
-                    <span>together.</span>
-                </h2>
+                    <span>
+                        06
+                    </span>
+
+                    <h2>
+                        Contact
+                    </h2>
+
+                </div>
 
                 <div class="contact-grid">
 
                     <div>
 
-                        <p class="contact-text">
-                            I am currently looking for
-                            fresher opportunities in Web
-                            Development and UI/UX Design.
+                        <h3>
+                            Let's work together.
+                        </h3>
+
+                        <p>
+                            Looking for a fresher opportunity
+                            in Web Development or UI/UX Design.
                         </p>
 
-                        <a
-                            href="mailto:roshanjack856@gmail.com"
-                            class="contact-email">
+                    </div>
+
+                    <div class="contact-details">
+
+                        <a href="mailto:roshanjack856@gmail.com">
+
+                            <span>Email</span>
 
                             roshanjack856@gmail.com
 
                         </a>
 
-                    </div>
+                        <a href="tel:+919082844086">
 
+                            <span>Phone</span>
 
-                    <div class="contact-details">
-
-                        <p>
-                            <strong>Phone</strong>
-                            <br>
                             +91 90828 44086
-                        </p>
 
-                        <p>
-                            <strong>Location</strong>
-                            <br>
+                        </a>
+
+                        <a
+                            href="https://github.com/roshanjack856-tech"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            <span>GitHub</span>
+
+                            roshanjack856-tech
+
+                        </a>
+
+                        <div>
+
+                            <span>Location</span>
+
                             Tamil Nadu / Bengaluru
-                        </p>
 
-                        <p>
-                            <strong>GitHub</strong>
-                            <br>
-
-                            <a
-                                href="https://github.com/roshanjack856-tech"
-                                target="_blank"
-                                rel="noopener">
-
-                                github.com/roshanjack856-tech
-
-                            </a>
-
-                        </p>
+                        </div>
 
                     </div>
 
@@ -789,18 +860,20 @@
 
     <footer>
 
-        <div>
-            JACK ROSHAN
-        </div>
+        <p>
+            © 2026 Jack Roshan.
+            All Rights Reserved.
+        </p>
 
         <p>
-            © 2026 Jack Roshan. All Rights Reserved.
+            Web Developer & UI/UX Designer
         </p>
 
     </footer>
 
 
     <!-- JAVASCRIPT -->
+
     <script src="script.js"></script>
 
 </body>
