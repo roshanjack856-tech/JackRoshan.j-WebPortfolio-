@@ -1,83 +1,78 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-
     /* =====================================================
-       PRELOADER
+       LOADING SCREEN
+       0% → 100% in exactly 3 seconds
     ====================================================== */
 
-    const preloader =
-        document.getElementById("preloader");
-
-    const loadingPercent =
-        document.getElementById("loadingPercent");
-
+    const loader = document.getElementById("loader");
+    const percentage = document.getElementById("percentage");
     const loaderProgress =
         document.getElementById("loaderProgress");
 
-
     document.body.classList.add("loading");
 
+    const LOADER_TIME = 3000;
 
-    let progress = 0;
-
-
-    const loadingTimer = setInterval(() => {
-
-        progress++;
+    const startTime = performance.now();
 
 
-        if (loadingPercent) {
+    function updateLoader(currentTime) {
 
-            loadingPercent.textContent =
-                progress;
+        const elapsed = currentTime - startTime;
 
+        let progress =
+            (elapsed / LOADER_TIME) * 100;
+
+        progress = Math.min(100, progress);
+
+        const roundedProgress =
+            Math.floor(progress);
+
+        if (percentage) {
+            percentage.textContent =
+                roundedProgress;
         }
-
 
         if (loaderProgress) {
-
             loaderProgress.style.width =
                 progress + "%";
-
         }
 
+        if (progress < 100) {
 
-        if (progress >= 100) {
+            requestAnimationFrame(updateLoader);
 
-            clearInterval(loadingTimer);
+        } else {
 
+            if (percentage) {
+                percentage.textContent = "100";
+            }
+
+            if (loaderProgress) {
+                loaderProgress.style.width = "100%";
+            }
+
+            /*
+                Give the user a small moment
+                to see 100%.
+            */
 
             setTimeout(() => {
 
-                if (preloader) {
-
-                    preloader.classList.add("loaded");
-
+                if (loader) {
+                    loader.classList.add("finished");
                 }
 
+                document.body.classList.remove("loading");
 
-                document.body.classList.remove(
-                    "loading"
-                );
-
-
-                setTimeout(() => {
-
-                    if (preloader) {
-
-                        preloader.style.display =
-                            "none";
-
-                    }
-
-                }, 1400);
-
-
-            }, 500);
+            }, 150);
 
         }
+    }
 
-    }, 25);
+
+    requestAnimationFrame(updateLoader);
 
 
 
@@ -101,14 +96,11 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileMenu
     ) {
 
-
         menuBtn.addEventListener(
             "click",
             () => {
 
-                mobileMenu.classList.add(
-                    "open"
-                );
+                mobileMenu.classList.add("open");
 
             }
         );
@@ -118,9 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             () => {
 
-                mobileMenu.classList.remove(
-                    "open"
-                );
+                mobileMenu.classList.remove("open");
 
             }
         );
@@ -150,43 +140,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CHECK GSAP
-    ====================================================== */
-
-    if (
-        typeof gsap === "undefined" ||
-        typeof ScrollTrigger === "undefined"
-    ) {
-
-        console.error(
-            "GSAP or ScrollTrigger is not loaded."
-        );
-
-        return;
-
-    }
-
-
-    gsap.registerPlugin(
-        ScrollTrigger
-    );
-
-
-
-    /* =====================================================
-       PORTRAIT ELEMENTS
+       300 FRAME PORTRAIT ANIMATION
     ====================================================== */
 
     const portrait =
-        document.getElementById(
-            "portrait3D"
-        );
-
+        document.getElementById("portrait3D");
 
     const portraitFrame =
-        document.getElementById(
-            "portraitFrame"
-        );
+        document.getElementById("portraitFrame");
 
 
     if (
@@ -203,10 +164,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /*
+       IMPORTANT:
 
-    /* =====================================================
-       300 IMAGE FRAMES
-    ====================================================== */
+       Your GitHub structure must be:
+
+       portfolio/
+       │
+       ├── index.html
+       ├── style.css
+       ├── script.js
+       │
+       └── portrait-frames/
+           ├── ezgif-frame-001.jpg
+           ├── ezgif-frame-002.jpg
+           ├── ezgif-frame-003.jpg
+           ├── ...
+           └── ezgif-frame-300.jpg
+    */
+
 
     const TOTAL_FRAMES = 300;
 
@@ -219,9 +195,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentFrame = -1;
 
 
-
     /* =====================================================
-       PRELOAD ALL 300 JPG IMAGES
+       PRELOAD 300 IMAGES
     ====================================================== */
 
     for (
@@ -230,16 +205,11 @@ document.addEventListener("DOMContentLoaded", () => {
         i++
     ) {
 
-
         const image =
             new Image();
 
-
         const frameNumber =
-            String(i).padStart(
-                3,
-                "0"
-            );
+            String(i).padStart(3, "0");
 
 
         image.src =
@@ -257,7 +227,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ====================================================== */
 
     function showFrame(frameIndex) {
-
 
         frameIndex = Math.max(
             0,
@@ -282,38 +251,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (!frame) {
-
             return;
-
         }
 
+
+        /*
+           If image already loaded,
+           show it immediately.
+        */
 
         if (
             frame.complete &&
             frame.naturalWidth > 0
         ) {
 
-
             portraitFrame.src =
                 frame.src;
-
 
             currentFrame =
                 frameIndex;
 
-
         } else {
 
+            /*
+               Wait until this frame loads.
+            */
 
             frame.onload = () => {
 
+                /*
+                   Only change the image if
+                   this is still the requested frame.
+                */
 
-                portraitFrame.src =
-                    frame.src;
+                if (
+                    frameIndex !== currentFrame
+                ) {
 
+                    portraitFrame.src =
+                        frame.src;
 
-                currentFrame =
-                    frameIndex;
+                    currentFrame =
+                        frameIndex;
+
+                }
 
             };
 
@@ -324,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       SHOW FIRST IMAGE
+       FIRST FRAME
     ====================================================== */
 
     showFrame(0);
@@ -332,160 +313,244 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       DO NOT ROTATE IMAGE WITH CSS
-       
-       The 300 JPG frames already contain
-       the character rotation.
+       HERO SCROLL → 300 FRAMES
     ====================================================== */
 
-    gsap.set(
-        portrait,
-        {
+    const hero =
+        document.getElementById("home");
 
-            x: 0,
 
-            y: 0,
+    if (!hero) {
+        return;
+    }
 
-            scale: 1,
 
-            rotation: 0,
+    function updatePortraitFromScroll() {
 
-            rotationX: 0,
+        const rect =
+            hero.getBoundingClientRect();
 
-            rotationY: 0,
 
-            transformOrigin:
-                "50% 50%"
+        const heroHeight =
+            hero.offsetHeight;
 
+
+        /*
+           Hero has 230vh height.
+
+           Sticky content stays on screen.
+
+           We calculate how far the user has
+           travelled through the hero section.
+        */
+
+        const scrollDistance =
+            heroHeight - window.innerHeight;
+
+
+        if (scrollDistance <= 0) {
+            return;
         }
-    );
 
 
+        /*
+           rect.top starts at 0.
 
-    /* =====================================================
-       SCROLL → 300 FRAMES
-    ====================================================== */
+           As user scrolls down:
 
-    const animation = {
+           rect.top becomes negative.
 
-        frame: 0
+           Example:
 
-    };
+           0
+           -100
+           -500
+           -1000
+        */
 
-
-    gsap.to(
-        animation,
-        {
-
-            frame:
-                TOTAL_FRAMES - 1,
-
-
-            ease:
-                "none",
+        let progress =
+            (-rect.top) /
+            scrollDistance;
 
 
-            scrollTrigger: {
-
-                trigger:
-                    "#home",
-
-
-                start:
-                    "top top",
+        progress = Math.max(
+            0,
+            Math.min(1, progress)
+        );
 
 
-                end:
-                    "+=1800",
+        /*
+           Convert 0 → 1
+           into
+           0 → 299
+        */
+
+        const frameIndex =
+            Math.round(
+                progress *
+                (TOTAL_FRAMES - 1)
+            );
 
 
-                scrub:
-                    0.5,
+        showFrame(frameIndex);
 
 
-                pin:
-                    true,
+        /*
+           Hide scroll hint after user starts scrolling.
+        */
+
+        const scrollHint =
+            document.getElementById(
+                "scrollHint"
+            );
 
 
-                anticipatePin:
-                    1,
+        if (scrollHint) {
 
+            if (progress > 0.04) {
 
-                invalidateOnRefresh:
-                    true,
+                scrollHint.style.opacity =
+                    "0";
 
+            } else {
 
-                onUpdate:
-                    (self) => {
-
-
-                        const frameIndex =
-                            Math.round(
-                                self.progress *
-                                (TOTAL_FRAMES - 1)
-                            );
-
-
-                        showFrame(
-                            frameIndex
-                        );
-
-                    }
+                scrollHint.style.opacity =
+                    "1";
 
             }
 
         }
-    );
-
-
-
-    /* =====================================================
-       SCROLL HINT
-    ====================================================== */
-
-    const scrollHint =
-        document.getElementById(
-            "scrollHint"
-        );
-
-
-    if (scrollHint) {
-
-
-        gsap.to(
-            scrollHint,
-            {
-
-                opacity: 0,
-
-                y: 20,
-
-                ease: "none",
-
-
-                scrollTrigger: {
-
-                    trigger:
-                        "#home",
-
-
-                    start:
-                        "top top",
-
-
-                    end:
-                        "+=300",
-
-
-                    scrub:
-                        true
-
-                }
-
-            }
-        );
 
     }
+
+
+
+    /* =====================================================
+       SCROLL EVENT
+    ====================================================== */
+
+    let ticking = false;
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (!ticking) {
+
+                window.requestAnimationFrame(
+                    () => {
+
+                        updatePortraitFromScroll();
+
+                        updateActiveNavigation();
+
+                        ticking = false;
+
+                    }
+                );
+
+                ticking = true;
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+
+    /* =====================================================
+       MOUSE WHEEL SUPPORT
+    ====================================================== */
+
+    /*
+       Normal browser scrolling controls
+       the frame animation.
+
+       DOWN:
+
+       001
+       002
+       003
+       ...
+       150
+       ...
+       300
+
+
+       UP:
+
+       300
+       299
+       298
+       ...
+       150
+       ...
+       001
+    */
+
+
+    window.addEventListener(
+        "wheel",
+        () => {
+
+            /*
+               Let normal browser scrolling happen.
+               The scroll event above updates frames.
+            */
+
+            updatePortraitFromScroll();
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+
+    /* =====================================================
+       TOUCH / MOBILE SUPPORT
+    ====================================================== */
+
+    let touchStartY = 0;
+
+
+    window.addEventListener(
+        "touchstart",
+        (event) => {
+
+            if (
+                event.touches &&
+                event.touches.length > 0
+            ) {
+
+                touchStartY =
+                    event.touches[0].clientY;
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    window.addEventListener(
+        "touchmove",
+        () => {
+
+            updatePortraitFromScroll();
+
+        },
+        {
+            passive: true
+        }
+    );
 
 
 
@@ -507,7 +572,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateActiveNavigation() {
 
-
         let current = "";
 
 
@@ -515,91 +579,68 @@ document.addEventListener("DOMContentLoaded", () => {
             window.scrollY + 180;
 
 
-        sections.forEach(
-            section => {
+        sections.forEach(section => {
+
+            const sectionTop =
+                section.offsetTop;
+
+            const sectionHeight =
+                section.offsetHeight;
 
 
-                const sectionTop =
-                    section.offsetTop;
+            if (
+                scrollPosition >= sectionTop &&
+                scrollPosition <
+                sectionTop + sectionHeight
+            ) {
 
-
-                const sectionHeight =
-                    section.offsetHeight;
-
-
-                if (
-                    scrollPosition >=
-                        sectionTop &&
-
-                    scrollPosition <
-                        sectionTop +
-                        sectionHeight
-                ) {
-
-
-                    current =
-                        section.getAttribute(
-                            "id"
-                        );
-
-                }
+                current =
+                    section.getAttribute(
+                        "id"
+                    );
 
             }
-        );
+
+        });
 
 
-        navLinks.forEach(
-            link => {
+        navLinks.forEach(link => {
+
+            link.classList.remove(
+                "active"
+            );
 
 
-                link.classList.remove(
+            if (
+                link.getAttribute("href") ===
+                "#" + current
+            ) {
+
+                link.classList.add(
                     "active"
                 );
 
-
-                if (
-                    link.getAttribute(
-                        "href"
-                    ) ===
-                    "#" + current
-                ) {
-
-
-                    link.classList.add(
-                        "active"
-                    );
-
-                }
-
             }
-        );
+
+        });
 
     }
 
 
-    window.addEventListener(
-        "scroll",
-        updateActiveNavigation
-    );
 
+    /* =====================================================
+       INITIAL UPDATE
+    ====================================================== */
 
     updateActiveNavigation();
+
+    updatePortraitFromScroll();
 
 
 
     /* =====================================================
-       REFRESH SCROLLTRIGGER
+       RESIZE
     ====================================================== */
-
-    window.addEventListener(
-        "load",
-        () => {
-
-            ScrollTrigger.refresh();
-
-        }
-    );
-
 
     let resizeTimer;
 
@@ -608,23 +649,59 @@ document.addEventListener("DOMContentLoaded", () => {
         "resize",
         () => {
 
-
             clearTimeout(
                 resizeTimer
             );
 
 
             resizeTimer =
-                setTimeout(
-                    () => {
+                setTimeout(() => {
 
-                        ScrollTrigger.refresh();
+                    updatePortraitFromScroll();
 
-                    },
-                    250
-                );
+                    updateActiveNavigation();
+
+                }, 150);
 
         }
+    );
+
+
+
+    /* =====================================================
+       IMAGE ERROR CHECK
+    ====================================================== */
+
+    portraitFrame.addEventListener(
+        "error",
+        () => {
+
+            console.error(
+                "Could not load portrait image:"
+            );
+
+            console.error(
+                portraitFrame.src
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       DEBUG MESSAGE
+    ====================================================== */
+
+    console.log(
+        "Jack Roshan Portfolio loaded."
+    );
+
+    console.log(
+        "300 portrait frames are being preloaded."
+    );
+
+    console.log(
+        "Frame path: portrait-frames/ezgif-frame-001.jpg"
     );
 
 });
