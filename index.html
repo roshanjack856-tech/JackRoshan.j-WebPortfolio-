@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Jack Roshan J | Web Developer & UI/UX Designer</title>
 
@@ -12,17 +16,20 @@
     >
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
 
 <body>
+
 
 <!-- =====================================================
      LOADER
@@ -32,10 +39,6 @@
 
     <div class="loader-content">
 
-        <div class="loader-logo">
-            JR
-        </div>
-
         <div class="loader-name">
             JACK ROSHAN J
         </div>
@@ -44,16 +47,20 @@
             PORTFOLIO
         </div>
 
-        <div class="loader-percent" id="loaderNumber">
+        <div
+            class="loader-number"
+            id="loaderNumber"
+        >
             0%
         </div>
 
         <div class="loader-line">
-            <div id="loaderProgress"></div>
-        </div>
 
-        <div class="loader-status" id="loaderStatus">
-            LOADING PORTFOLIO
+            <div
+                class="loader-progress"
+                id="loaderProgress"
+            ></div>
+
         </div>
 
     </div>
@@ -69,64 +76,46 @@
 
 
 <!-- =====================================================
-     TOP RUNNING BAR
-===================================================== -->
-
-<div class="running-bar">
-
-    <div class="running-track">
-
-        <span>Hi, I'm Jack Roshan</span>
-        <span>Web Developer</span>
-        <span>UI/UX Designer</span>
-        <span>Viluppuram, Tamil Nadu</span>
-        <span>B.Sc. Computer Science</span>
-        <span>Figma</span>
-        <span>Canva</span>
-        <span>JavaScript</span>
-
-        <span>Hi, I'm Jack Roshan</span>
-        <span>Web Developer</span>
-        <span>UI/UX Designer</span>
-        <span>Viluppuram, Tamil Nadu</span>
-        <span>B.Sc. Computer Science</span>
-        <span>Figma</span>
-        <span>Canva</span>
-        <span>JavaScript</span>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
      NAVBAR
 ===================================================== -->
 
 <header class="navbar">
 
-    <a href="index.html" class="logo">
-
-        <span class="logo-jr">JR</span>
-
-        <span class="logo-text">
-            JACK ROSHAN J
-        </span>
-
+    <a
+        href="index.html"
+        class="logo"
+    >
+        JACK ROSHAN J
     </a>
 
 
     <nav class="desktop-nav">
 
-        <a href="index.html" class="active">Home</a>
+        <a
+            href="index.html"
+            class="active"
+        >
+            Home
+        </a>
 
-        <a href="about.html">About</a>
+        <a href="about.html">
+            About
+        </a>
 
-        <a href="project.html">Projects</a>
+        <a href="project.html">
+            Projects
+        </a>
 
-        <a href="contact.html">Contact</a>
+        <a href="contact.html">
+            Contact
+        </a>
 
-        <a href="resume.pdf" target="_blank">Resume</a>
+        <a
+            href="resume.pdf"
+            target="_blank"
+        >
+            Resume
+        </a>
 
     </nav>
 
@@ -146,222 +135,391 @@
      MOBILE MENU
 ===================================================== -->
 
-<div class="mobile-menu" id="mobileMenu">
+<div
+    class="mobile-menu"
+    id="mobileMenu"
+>
 
     <button
-        class="mobile-close"
-        id="mobileClose"
+        class="close-menu"
+        id="closeMenu"
     >
         ×
     </button>
 
-    <a href="index.html">Home</a>
 
-    <a href="about.html">About</a>
+    <div class="mobile-menu-links">
 
-    <a href="project.html">Projects</a>
+        <a href="index.html">
+            Home
+        </a>
 
-    <a href="contact.html">Contact</a>
+        <a href="about.html">
+            About
+        </a>
 
-    <a href="resume.pdf" target="_blank">Resume</a>
+        <a href="project.html">
+            Projects
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
+
+        <a
+            href="resume.pdf"
+            target="_blank"
+        >
+            Resume
+        </a>
+
+    </div>
 
 </div>
 
 
 <!-- =====================================================
-     HERO SCROLL EXPERIENCE
+     HOME SCROLL SCENE
 ===================================================== -->
 
-<section class="scroll-experience" id="home">
-
-    <div class="sticky-stage">
-
-
-        <!-- LEFT CONTENT -->
-
-        <div class="hero-content">
+<section
+    class="scroll-scene"
+    id="home"
+>
 
 
-            <div class="system-label">
-                <span></span>
-                SYSTEM PROFILE
-            </div>
+    <div class="scene-sticky">
 
 
-            <!-- 0% -->
+        <!-- =================================================
+             TOP RUNNING BAR
+        ================================================= -->
 
-            <div
-                class="story story-0 active-story"
-                data-story="0"
-            >
+        <div class="profile-running-bar">
 
-                <div class="story-percent">
-                    00%
-                </div>
+            <div class="profile-running-track">
 
-                <h1>
-                    Hi, I'm
-                    <strong>Jack Roshan J</strong>
-                </h1>
+                <span>
+                    Hi, I'm Jack Roshan
+                </span>
 
-                <p>
-                    I'm a Web Developer & UI/UX Designer.
-                </p>
+                <span>•</span>
 
-            </div>
+                <span>
+                    I'm a Web Developer & UI/UX Designer
+                </span>
 
+                <span>•</span>
 
-            <!-- 25% -->
+                <span>
+                    I'm from Viluppuram, Tamil Nadu
+                </span>
 
-            <div
-                class="story story-1"
-                data-story="1"
-            >
+                <span>•</span>
 
-                <div class="story-percent">
-                    25%
-                </div>
+                <span>
+                    B.Sc. Computer Science
+                </span>
 
-                <h2>
-                    I'm from
-                    <strong>Viluppuram, Tamil Nadu</strong>
-                </h2>
+                <span>•</span>
 
-                <p>
-                    I'm passionate about creating modern
-                    and responsive websites.
-                </p>
+                <span>
+                    Web Development
+                </span>
 
-            </div>
+                <span>•</span>
 
+                <span>
+                    UI/UX Design
+                </span>
 
-            <!-- 50% -->
+                <span>•</span>
 
-            <div
-                class="story story-2"
-                data-story="2"
-            >
+                <span>
+                    Figma
+                </span>
 
-                <div class="story-percent">
-                    50%
-                </div>
+                <span>•</span>
 
-                <h2>
-                    I completed my
-                    <strong>B.Sc. Computer Science</strong>
-                </h2>
+                <span>
+                    Canva
+                </span>
 
-                <p>
-                    From Loyola College.
-                </p>
+                <span>•</span>
 
-            </div>
+                <span>
+                    JavaScript
+                </span>
+
+                <span>•</span>
+
+                <span>
+                    Let's Work Together
+                </span>
 
 
-            <!-- 75% -->
+                <!-- duplicate -->
 
-            <div
-                class="story story-3"
-                data-story="3"
-            >
+                <span>
+                    Hi, I'm Jack Roshan
+                </span>
 
-                <div class="story-percent">
-                    75%
-                </div>
+                <span>•</span>
 
-                <h2>
-                    My
-                    <strong>Skills</strong>
-                </h2>
+                <span>
+                    I'm a Web Developer & UI/UX Designer
+                </span>
 
-                <p>
-                    Web Development • UI/UX Design •
-                    Figma • Canva • JavaScript
-                </p>
+                <span>•</span>
 
-            </div>
+                <span>
+                    I'm from Viluppuram, Tamil Nadu
+                </span>
 
+                <span>•</span>
 
-            <!-- 100% -->
+                <span>
+                    B.Sc. Computer Science
+                </span>
 
-            <div
-                class="story story-4"
-                data-story="4"
-            >
+                <span>•</span>
 
-                <div class="story-percent">
-                    100%
-                </div>
+                <span>
+                    Web Development
+                </span>
 
-                <h2>
-                    Let's
-                    <strong>Work Together</strong>
-                </h2>
+                <span>•</span>
 
-                <p>
-                    I'm ready to start my career and build
-                    creative digital experiences.
-                </p>
+                <span>
+                    UI/UX Design
+                </span>
 
-                <div class="hero-buttons">
+                <span>•</span>
 
-                    <a
-                        href="project.html"
-                        class="btn primary-btn"
-                    >
-                        View Projects
-                    </a>
+                <span>
+                    Figma
+                </span>
 
-                    <a
-                        href="contact.html"
-                        class="btn outline-btn"
-                    >
-                        Contact Me
-                    </a>
+                <span>•</span>
 
-                </div>
+                <span>
+                    Canva
+                </span>
 
-            </div>
+                <span>•</span>
 
+                <span>
+                    JavaScript
+                </span>
 
-            <!-- PROGRESS -->
+                <span>•</span>
 
-            <div class="scroll-progress">
-
-                <div class="progress-label">
-                    SCROLL TO EXPLORE
-                </div>
-
-                <div class="progress-track">
-
-                    <div
-                        class="progress-fill"
-                        id="progressFill"
-                    ></div>
-
-                </div>
-
-                <div
-                    class="progress-number"
-                    id="progressNumber"
-                >
-                    0%
-                </div>
+                <span>
+                    Let's Work Together
+                </span>
 
             </div>
 
         </div>
 
 
-        <!-- RIGHT PORTRAIT -->
+        <!-- =================================================
+             MAIN HERO CONTENT
+        ================================================= -->
 
-        <div class="portrait-area">
+        <div class="hero-layout">
 
-            <div class="portrait-glow"></div>
 
-            <div class="portrait-frame">
+            <!-- =================================================
+                 LEFT TEXT
+            ================================================= -->
 
-                <div class="portrait-inner">
+            <div class="hero-copy">
+
+
+                <div class="system-label">
+
+                    <span></span>
+
+                    SYSTEM PROFILE
+
+                </div>
+
+
+                <div class="scene-text-wrapper">
+
+
+                    <!-- 0% -->
+
+                    <div
+                        class="scene-text active"
+                        data-progress="0"
+                    >
+
+                        <div class="scene-percent">
+                            00%
+                        </div>
+
+                        <h1>
+                            Hi, I'm
+                            <strong>
+                                Jack Roshan
+                            </strong>
+                        </h1>
+
+                        <p>
+                            I'm a Web Developer & UI/UX Designer.
+                        </p>
+
+                    </div>
+
+
+                    <!-- 25% -->
+
+                    <div
+                        class="scene-text"
+                        data-progress="25"
+                    >
+
+                        <div class="scene-percent">
+                            25%
+                        </div>
+
+                        <h2>
+                            I'm from
+                            <strong>
+                                Viluppuram,
+                                Tamil Nadu
+                            </strong>
+                        </h2>
+
+                        <p>
+                            I'm passionate about creating
+                            modern and responsive websites.
+                        </p>
+
+                    </div>
+
+
+                    <!-- 50% -->
+
+                    <div
+                        class="scene-text"
+                        data-progress="50"
+                    >
+
+                        <div class="scene-percent">
+                            50%
+                        </div>
+
+                        <h2>
+                            I completed my
+                            <strong>
+                                B.Sc. Computer Science
+                            </strong>
+                        </h2>
+
+                        <p>
+                            from Loyola College.
+                        </p>
+
+                    </div>
+
+
+                    <!-- 75% -->
+
+                    <div
+                        class="scene-text"
+                        data-progress="75"
+                    >
+
+                        <div class="scene-percent">
+                            75%
+                        </div>
+
+                        <h2>
+                            My
+                            <strong>
+                                Skills
+                            </strong>
+                        </h2>
+
+                        <p>
+                            Web Development • UI/UX Design
+                            • Figma • Canva • JavaScript
+                        </p>
+
+                    </div>
+
+
+                    <!-- 100% -->
+
+                    <div
+                        class="scene-text"
+                        data-progress="100"
+                    >
+
+                        <div class="scene-percent">
+                            100%
+                        </div>
+
+                        <h2>
+                            Let's Work
+                            <strong>
+                                Together
+                            </strong>
+                        </h2>
+
+                        <p>
+                            I'm ready to start my career
+                            and build creative digital
+                            experiences.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="project.html"
+                        class="primary-button"
+                    >
+                        View My Work
+                    </a>
+
+                    <a
+                        href="contact.html"
+                        class="secondary-button"
+                    >
+                        Contact Me
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 PORTRAIT
+            ================================================= -->
+
+            <div class="portrait-container">
+
+
+                <div class="portrait-glow"></div>
+
+
+                <div
+                    class="portrait-3d"
+                    id="portrait3D"
+                >
 
                     <img
                         id="portraitFrame"
@@ -373,26 +531,42 @@
                 </div>
 
 
-                <div class="portrait-label">
+                <div
+                    class="portrait-info"
+                >
 
-                    <span class="status-dot"></span>
+                    <span class="portrait-status"></span>
 
-                    AVAILABLE FOR OPPORTUNITIES
+                    JACK ROSHAN J
 
-                    <span class="portrait-year">
+                    <span>
                         2026
                     </span>
 
                 </div>
 
+
+                <div
+                    class="frame-counter"
+                    id="frameCounter"
+                >
+                    FRAME 001 / 300
+                </div>
+
+
+                <div class="scroll-hint">
+
+                    SCROLL TO EXPLORE
+
+                    <span>
+                        ↓
+                    </span>
+
+                </div>
+
+
             </div>
 
-
-            <!-- JR MARK -->
-
-            <div class="jr-watermark">
-                JR
-            </div>
 
         </div>
 
@@ -403,34 +577,203 @@
 
 
 <!-- =====================================================
-     AFTER ANIMATION
+     ABOUT PREVIEW
 ===================================================== -->
 
-<section class="after-hero">
+<section class="content-section">
 
-    <div class="after-inner">
+    <div class="section-number">
+        01 / ABOUT
+    </div>
 
-        <div class="after-label">
-            PROFILE / 01
+    <div class="content-grid">
+
+        <div>
+
+            <h2>
+                About
+                <span>Me</span>
+            </h2>
+
         </div>
 
-        <h2>
-            Building digital experiences
-            with code & design.
-        </h2>
+        <div>
 
-        <p>
-            I create modern, responsive and
-            user-friendly websites with a focus
-            on clean design and practical
-            development.
-        </p>
+            <p class="large-text">
+                I'm Jack Roshan J, a Web Developer
+                and UI/UX Designer from Viluppuram,
+                Tamil Nadu.
+            </p>
 
-        <a href="about.html" class="text-link">
-            Explore About Me →
-        </a>
+            <p>
+                I enjoy creating modern, responsive
+                and user-friendly digital experiences.
+                I focus on clean layouts, practical
+                design and functional websites.
+            </p>
+
+            <a
+                href="about.html"
+                class="text-link"
+            >
+                More About Me →
+            </a>
+
+        </div>
 
     </div>
+
+</section>
+
+
+<!-- =====================================================
+     SKILLS
+===================================================== -->
+
+<section class="content-section skills-section">
+
+    <div class="section-number">
+        02 / SKILLS
+    </div>
+
+    <h2>
+        What I
+        <span>Do</span>
+    </h2>
+
+
+    <div class="skills-grid">
+
+        <div class="skill-card">
+            <span>01</span>
+            <h3>
+                Web Development
+            </h3>
+            <p>
+                HTML, CSS and JavaScript
+                for modern responsive websites.
+            </p>
+        </div>
+
+
+        <div class="skill-card">
+            <span>02</span>
+            <h3>
+                UI/UX Design
+            </h3>
+            <p>
+                User-focused interfaces,
+                layouts and digital experiences.
+            </p>
+        </div>
+
+
+        <div class="skill-card">
+            <span>03</span>
+            <h3>
+                Figma & Canva
+            </h3>
+            <p>
+                Wireframes, visual design,
+                graphics and creative content.
+            </p>
+        </div>
+
+
+        <div class="skill-card">
+            <span>04</span>
+            <h3>
+                Deployment
+            </h3>
+            <p>
+                GitHub, Firebase and Vercel
+                for project deployment.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROJECT PREVIEW
+===================================================== -->
+
+<section class="content-section">
+
+    <div class="section-number">
+        03 / PROJECTS
+    </div>
+
+    <div class="project-preview">
+
+        <div>
+
+            <h2>
+                Selected
+                <span>Projects</span>
+            </h2>
+
+        </div>
+
+
+        <div class="project-preview-card">
+
+            <div class="project-number">
+                PROJECT 01
+            </div>
+
+            <h3>
+                Foreign Bridge
+                Export & Import Corp
+            </h3>
+
+            <p>
+                A business website created for
+                an export and import company.
+            </p>
+
+            <a
+                href="project.html"
+                class="text-link"
+            >
+                View Projects →
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT CTA
+===================================================== -->
+
+<section class="contact-cta">
+
+    <div class="section-number">
+        04 / CONTACT
+    </div>
+
+    <h2>
+        Let's build something
+        <span>great.</span>
+    </h2>
+
+    <p>
+        I'm ready to start my career and
+        work on creative digital experiences.
+    </p>
+
+    <a
+        href="contact.html"
+        class="primary-button"
+    >
+        Get In Touch
+    </a>
 
 </section>
 
@@ -439,21 +782,18 @@
      FOOTER
 ===================================================== -->
 
-<footer class="footer">
-
-    <div class="footer-name">
-        JACK ROSHAN J
-    </div>
-
-    <div>
-        Web Developer & UI/UX Designer
-    </div>
+<footer>
 
     <div>
         © 2026 Jack Roshan J
     </div>
 
+    <div>
+        Web Developer • UI/UX Designer
+    </div>
+
 </footer>
+
 
 </div>
 
