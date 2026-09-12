@@ -112,18 +112,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       300 PORTRAIT FRAMES
+       300 FRAMES
     ================================================= */
 
     const TOTAL_FRAMES = 300;
 
     const frames = [];
 
-    let loadedFrames = 0;
+    let currentFrame = -1;
 
 
     /* =================================================
-       FIRST FRAME
+       FIRST IMAGE
     ================================================= */
 
     portrait.src =
@@ -143,34 +143,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const image =
             new Image();
 
-
         const number =
             String(i).padStart(3, "0");
 
-
-        /*
-           IMPORTANT:
-
-           Images are in ROOT folder.
-
-           NOT:
-
-           portrait-frames/
-
-           Correct:
-        */
-
         image.src =
             `ezgif-frame-${number}.jpg`;
-
-
-        image.onload =
-            function () {
-
-                loadedFrames++;
-
-            };
-
 
         frames.push(image);
 
@@ -193,20 +170,61 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
+        /*
+         * Don't reload the same frame
+         */
+
+        if (frame === currentFrame) {
+            return;
+        }
+
+
         const image =
             frames[frame];
 
 
-        if (
-            image &&
-            image.complete
-        ) {
+        if (image) {
 
-            portrait.src =
-                image.src;
+            /*
+             * If already loaded use immediately.
+             */
+
+            if (image.complete) {
+
+                portrait.src =
+                    image.src;
+
+            } else {
+
+                image.onload =
+                    function () {
+
+                        /*
+                         * Only update if this
+                         * is still the requested frame.
+                         */
+
+                        if (
+                            frame === currentFrame
+                        ) {
+
+                            portrait.src =
+                                image.src;
+
+                        }
+
+                    };
+
+            }
 
         }
 
+
+        currentFrame =
+            frame;
+
+
+        /* Frame counter */
 
         if (frameCounter) {
 
@@ -219,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       CHANGE TEXT
+       TEXT CHANGE
     ================================================= */
 
     function updateText(progress) {
@@ -229,45 +247,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        /*
-            Timeline:
-
-            0%   = Hi, I'm Jack Roshan
-            25%  = Viluppuram
-            50%  = B.Sc Computer Science
-            75%  = Skills
-            100% = Let's Work Together
-        */
-
-
         let index;
 
+
+        /*
+         * 0%       = Intro
+         * 25%      = Viluppuram
+         * 50%      = Education
+         * 75%      = Skills
+         * 100%     = Let's Work Together
+         */
 
         if (progress < 0.125) {
 
             index = 0;
 
-        }
-
-        else if (progress < 0.375) {
+        } else if (progress < 0.375) {
 
             index = 1;
 
-        }
-
-        else if (progress < 0.625) {
+        } else if (progress < 0.625) {
 
             index = 2;
 
-        }
-
-        else if (progress < 0.875) {
+        } else if (progress < 0.875) {
 
             index = 3;
 
-        }
-
-        else {
+        } else {
 
             index = 4;
 
@@ -283,9 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         "active"
                     );
 
-                }
-
-                else {
+                } else {
 
                     text.classList.remove(
                         "active"
@@ -347,7 +352,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         /* =============================================
-           TEXT CHANGES AT SAME TIME
+           CHANGE TEXT
         ============================================= */
 
         updateText(progress);
@@ -380,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       INITIAL STATE
+       INITIAL FRAME
     ================================================= */
 
     showFrame(0);
@@ -400,7 +405,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const start =
             performance.now();
-
 
         const duration =
             3000;
@@ -447,9 +451,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     animateLoader
                 );
 
-            }
-
-            else {
+            } else {
 
                 finishLoader();
 
@@ -517,7 +519,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const start =
             performance.now();
 
-
         const duration =
             1800;
 
@@ -526,7 +527,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const progress =
                 Math.min(
-                    (now - start) / duration,
+                    (now - start) /
+                    duration,
                     1
                 );
 
@@ -559,18 +561,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     run
                 );
 
-            }
-
-            else {
+            } else {
 
                 loader.classList.add(
                     "hide"
                 );
 
-
                 website.style.visibility =
                     "visible";
-
 
                 website.style.opacity =
                     "1";
