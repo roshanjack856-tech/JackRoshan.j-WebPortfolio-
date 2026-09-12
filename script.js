@@ -80,22 +80,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const mobileLinks =
             mobileMenu.querySelectorAll("a");
 
-        mobileLinks.forEach(
-            function (link) {
+        mobileLinks.forEach(function (link) {
 
-                link.addEventListener(
-                    "click",
-                    function () {
+            link.addEventListener(
+                "click",
+                function () {
 
-                        mobileMenu.classList.remove(
-                            "open"
-                        );
+                    mobileMenu.classList.remove(
+                        "open"
+                    );
 
-                    }
-                );
+                }
+            );
 
-            }
-        );
+        });
 
     }
 
@@ -114,14 +112,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       300 FRAMES
+       300 PORTRAIT FRAMES
     ================================================= */
 
     const TOTAL_FRAMES = 300;
 
     const frames = [];
 
-    let currentFrame = -1;
+    let loadedFrames = 0;
 
 
     /* =================================================
@@ -145,11 +143,34 @@ document.addEventListener("DOMContentLoaded", function () {
         const image =
             new Image();
 
+
         const number =
             String(i).padStart(3, "0");
 
+
+        /*
+           IMPORTANT:
+
+           Images are in ROOT folder.
+
+           NOT:
+
+           portrait-frames/
+
+           Correct:
+        */
+
         image.src =
             `ezgif-frame-${number}.jpg`;
+
+
+        image.onload =
+            function () {
+
+                loadedFrames++;
+
+            };
+
 
         frames.push(image);
 
@@ -172,43 +193,17 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        if (frame === currentFrame) {
-            return;
-        }
-
-
-        currentFrame =
-            frame;
-
-
         const image =
             frames[frame];
 
 
-        if (image) {
+        if (
+            image &&
+            image.complete
+        ) {
 
-            if (image.complete) {
-
-                portrait.src =
-                    image.src;
-
-            } else {
-
-                image.onload =
-                    function () {
-
-                        if (
-                            currentFrame === frame
-                        ) {
-
-                            portrait.src =
-                                image.src;
-
-                        }
-
-                    };
-
-            }
+            portrait.src =
+                image.src;
 
         }
 
@@ -224,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       CHANGE TEXT WITH SCROLL
+       CHANGE TEXT
     ================================================= */
 
     function updateText(progress) {
@@ -234,35 +229,45 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        let index;
-
-
         /*
-            0%   = Hello
-            25%  = Location
-            50%  = Education
+            Timeline:
+
+            0%   = Hi, I'm Jack Roshan
+            25%  = Viluppuram
+            50%  = B.Sc Computer Science
             75%  = Skills
-            100% = Work Together
+            100% = Let's Work Together
         */
+
+
+        let index;
 
 
         if (progress < 0.125) {
 
             index = 0;
 
-        } else if (progress < 0.375) {
+        }
+
+        else if (progress < 0.375) {
 
             index = 1;
 
-        } else if (progress < 0.625) {
+        }
+
+        else if (progress < 0.625) {
 
             index = 2;
 
-        } else if (progress < 0.875) {
+        }
+
+        else if (progress < 0.875) {
 
             index = 3;
 
-        } else {
+        }
+
+        else {
 
             index = 4;
 
@@ -278,7 +283,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         "active"
                     );
 
-                } else {
+                }
+
+                else {
 
                     text.classList.remove(
                         "active"
@@ -310,11 +317,6 @@ document.addEventListener("DOMContentLoaded", function () {
             window.innerHeight;
 
 
-        if (totalDistance <= 0) {
-            return;
-        }
-
-
         let progress =
             -rect.top /
             totalDistance;
@@ -330,9 +332,9 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        /* =================================================
+        /* =============================================
            001 → 300
-        ================================================= */
+        ============================================= */
 
         const frame =
             Math.round(
@@ -344,9 +346,9 @@ document.addEventListener("DOMContentLoaded", function () {
         showFrame(frame);
 
 
-        /* =================================================
+        /* =============================================
            TEXT CHANGES AT SAME TIME
-        ================================================= */
+        ============================================= */
 
         updateText(progress);
 
@@ -355,10 +357,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
-    /* =================================================
-       SCROLL LISTENER
-    ================================================= */
 
     window.addEventListener(
         "scroll",
@@ -382,28 +380,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
-       RESIZE
-    ================================================= */
-
-    window.addEventListener(
-        "resize",
-        function () {
-
-            updateScroll();
-
-        }
-    );
-
-
-    /* =================================================
-       INITIAL
+       INITIAL STATE
     ================================================= */
 
     showFrame(0);
 
     updateText(0);
-
-    updateScroll();
 
 
     /* =================================================
@@ -418,6 +400,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const start =
             performance.now();
+
 
         const duration =
             3000;
@@ -464,7 +447,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     animateLoader
                 );
 
-            } else {
+            }
+
+            else {
 
                 finishLoader();
 
@@ -491,16 +476,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        website.style.visibility =
-            "visible";
-
-        website.style.opacity =
-            "1";
-
-
         loader.classList.add(
             "hide"
         );
+
+
+        website.style.visibility =
+            "visible";
+
+
+        website.style.opacity =
+            "1";
 
 
         setTimeout(
@@ -530,6 +516,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const start =
             performance.now();
+
 
         const duration =
             1800;
@@ -572,28 +559,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     run
                 );
 
-            } else {
+            }
 
-                website.style.visibility =
-                    "visible";
-
-                website.style.opacity =
-                    "1";
+            else {
 
                 loader.classList.add(
                     "hide"
                 );
 
 
-                setTimeout(
-                    function () {
+                website.style.visibility =
+                    "visible";
 
-                        loader.style.display =
-                            "none";
 
-                    },
-                    800
-                );
+                website.style.opacity =
+                    "1";
 
             }
 
