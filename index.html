@@ -9,19 +9,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- LOADER -->
+<!-- ================= LOADER ================= -->
+
 <div class="loader" id="loader">
 
-    <div class="loader-content">
+    <div class="loader-inner">
 
-        <div class="loader-name">
+        <div class="loader-brand">
             JACK ROSHAN
         </div>
 
@@ -29,7 +30,7 @@
             <span id="loaderProgress"></span>
         </div>
 
-        <div class="loader-bottom">
+        <div class="loader-meta">
             <span>PORTFOLIO</span>
             <span id="loaderNumber">0%</span>
         </div>
@@ -39,15 +40,19 @@
 </div>
 
 
-<!-- WEBSITE -->
-<div id="website" class="website">
+<!-- ================= WEBSITE ================= -->
 
-    <!-- NAVBAR -->
+<div class="website" id="website">
+
+
+    <!-- ================= NAVBAR ================= -->
+
     <header class="navbar">
 
-        <a href="index.html" class="logo">
-            <span>J</span>R
+        <a href="index.html" class="brand">
+            <span>J</span>R<span class="brand-dot">.</span>
         </a>
+
 
         <nav class="desktop-nav">
 
@@ -59,24 +64,35 @@
 
             <a href="contact.html">Contact</a>
 
-            <a href="resume.pdf" target="_blank" class="resume-btn">
+            <a href="resume.pdf" target="_blank" class="nav-resume">
                 Resume
             </a>
 
         </nav>
 
 
-        <button class="menu-button" id="menuButton">
+        <button class="menu-button" id="menuButton" aria-label="Open menu">
+
             <span></span>
             <span></span>
             <span></span>
+
         </button>
 
     </header>
 
 
-    <!-- MOBILE MENU -->
+    <!-- ================= MOBILE MENU ================= -->
+
     <div class="mobile-menu" id="mobileMenu">
+
+        <div class="mobile-menu-head">
+            <span>MENU</span>
+
+            <button id="closeMenu">
+                ×
+            </button>
+        </div>
 
         <a href="index.html">Home</a>
 
@@ -91,185 +107,375 @@
     </div>
 
 
-    <!-- HOME SCROLL EXPERIENCE -->
+    <!-- ================= MAIN SCROLL EXPERIENCE ================= -->
+
     <main>
 
-        <section class="scroll-scene" id="home">
+        <section class="scroll-section" id="home">
 
-            <div class="scene-sticky">
+            <div class="sticky-screen">
 
-                <!-- LEFT TEXT -->
-                <div class="scene-content">
 
-                    <!-- STEP 1 -->
-                    <div class="scene-text active" data-step="0">
+                <!-- ================= LEFT PORTRAIT ================= -->
 
-                        <div class="small-label">
-                            01 / INTRODUCTION
+                <div class="portrait-side">
+
+                    <div class="portrait-card">
+
+                        <div class="portrait-top">
+
+                            <span>
+                                ● SYSTEM PROFILE
+                            </span>
+
+                            <span>
+                                JR-2026
+                            </span>
+
                         </div>
 
-                        <h1>
-                            Hi, I'm
-                            <strong>Jack Roshan</strong>
-                        </h1>
 
-                        <p>
-                            I'm a Web Developer and UI/UX Designer
-                            passionate about creating modern,
-                            responsive and user-friendly digital experiences.
-                        </p>
+                        <div class="portrait-image-wrap">
 
-                        <a href="about.html" class="primary-btn">
-                            Explore My Profile
-                        </a>
+                            <div class="portrait-light"></div>
 
-                    </div>
+                            <img
+                                id="portraitFrame"
+                                src="ezgif-frame-001.jpg"
+                                alt="Jack Roshan"
+                                draggable="false"
+                            >
 
-
-                    <!-- STEP 2 -->
-                    <div class="scene-text" data-step="1">
-
-                        <div class="small-label">
-                            02 / LOCATION
                         </div>
 
-                        <h2>
-                            I'm from
-                            <strong>Viluppuram, Tamil Nadu</strong>
-                        </h2>
 
-                        <p>
-                            I am interested in technology, website development,
-                            creative design and building useful digital products.
-                        </p>
+                        <div class="portrait-status">
 
-                    </div>
+                            <div class="status-left">
 
+                                <span class="status-dot"></span>
 
-                    <!-- STEP 3 -->
-                    <div class="scene-text" data-step="2">
+                                <span>
+                                    OPEN TO OPPORTUNITIES
+                                </span>
 
-                        <div class="small-label">
-                            03 / EDUCATION
-                        </div>
+                            </div>
 
-                        <h2>
-                            B.Sc.
-                            <strong>Computer Science</strong>
-                        </h2>
-
-                        <p>
-                            I completed my B.Sc. Computer Science
-                            from Loyola College.
-                        </p>
-
-                    </div>
-
-
-                    <!-- STEP 4 -->
-                    <div class="scene-text" data-step="3">
-
-                        <div class="small-label">
-                            04 / MY SKILLS
-                        </div>
-
-                        <h2>
-                            My
-                            <strong>Skills</strong>
-                        </h2>
-
-                        <p>
-                            Web Development and UI/UX Design are my
-                            main areas of interest.
-                        </p>
-
-                        <div class="mini-skills">
-
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>JavaScript</span>
-                            <span>Figma</span>
-                            <span>Canva</span>
-                            <span>Firebase</span>
+                            <span>
+                                2026
+                            </span>
 
                         </div>
 
                     </div>
 
 
-                    <!-- STEP 5 -->
-                    <div class="scene-text" data-step="4">
-
-                        <div class="small-label">
-                            05 / WHAT I DO
-                        </div>
-
-                        <h2>
-                            I build
-                            <strong>Digital Experiences</strong>
-                        </h2>
-
-                        <p>
-                            I create responsive websites, modern interfaces
-                            and clean visual designs.
-                        </p>
-
-                        <a href="project.html" class="primary-btn">
-                            View My Projects
-                        </a>
-
+                    <div class="frame-counter" id="frameNumber">
+                        FRAME 001 / 300
                     </div>
 
+                </div>
 
-                    <!-- STEP 6 -->
-                    <div class="scene-text" data-step="5">
 
-                        <div class="small-label">
-                            06 / LET'S CONNECT
-                        </div>
+                <!-- ================= RIGHT CONTENT ================= -->
 
-                        <h2>
-                            Let's
-                            <strong>Work Together</strong>
-                        </h2>
+                <div class="content-side">
 
-                        <p>
-                            I'm looking for opportunities where I can learn,
-                            grow and contribute as a Web Developer or UI/UX Designer.
-                        </p>
+                    <div class="content-wrapper">
 
-                        <a href="contact.html" class="primary-btn">
-                            Contact Me
-                        </a>
+
+                        <!-- TEXT 01 -->
+
+                        <article class="scroll-text active">
+
+                            <div class="system-label">
+                                <span>●</span>
+                                01 / SYSTEM PROFILE
+                            </div>
+
+                            <h1>
+                                Hello, I'm
+                                <strong>Jack Roshan</strong>
+                            </h1>
+
+                            <p>
+                                A passionate Web Developer and UI/UX Designer
+                                focused on creating clean, modern, responsive
+                                and user-friendly digital experiences.
+                            </p>
+
+
+                            <div class="skill-cards">
+
+                                <div class="skill-card">
+
+                                    <strong>Web Development</strong>
+
+                                    <small>
+                                        CORE SKILL
+                                    </small>
+
+                                </div>
+
+                                <div class="skill-card">
+
+                                    <strong>UI/UX Design</strong>
+
+                                    <small>
+                                        DESIGN
+                                    </small>
+
+                                </div>
+
+                                <div class="skill-card">
+
+                                    <strong>Responsive</strong>
+
+                                    <small>
+                                        WEB
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- TEXT 02 -->
+
+                        <article class="scroll-text">
+
+                            <div class="system-label">
+                                <span>●</span>
+                                02 / LOCATION
+                            </div>
+
+                            <h2>
+                                I'm from
+                                <strong>Viluppuram, Tamil Nadu</strong>
+                            </h2>
+
+                            <p>
+                                I'm from Viluppuram, Tamil Nadu, and I'm
+                                interested in technology, website development,
+                                creative design and digital experiences.
+                            </p>
+
+
+                            <div class="info-line">
+
+                                <span>LOCATION</span>
+
+                                <strong>
+                                    VILUPPURAM, TAMIL NADU
+                                </strong>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- TEXT 03 -->
+
+                        <article class="scroll-text">
+
+                            <div class="system-label">
+                                <span>●</span>
+                                03 / EDUCATION
+                            </div>
+
+                            <h2>
+                                I completed
+                                <strong>B.Sc. Computer Science</strong>
+                            </h2>
+
+                            <p>
+                                I completed my B.Sc. Computer Science
+                                from Loyola College.
+                            </p>
+
+
+                            <div class="skill-cards">
+
+                                <div class="skill-card">
+
+                                    <strong>B.Sc.</strong>
+
+                                    <small>
+                                        DEGREE
+                                    </small>
+
+                                </div>
+
+                                <div class="skill-card">
+
+                                    <strong>Computer Science</strong>
+
+                                    <small>
+                                        FIELD
+                                    </small>
+
+                                </div>
+
+                                <div class="skill-card">
+
+                                    <strong>Loyola College</strong>
+
+                                    <small>
+                                        COLLEGE
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- TEXT 04 -->
+
+                        <article class="scroll-text">
+
+                            <div class="system-label">
+                                <span>●</span>
+                                04 / SKILLS
+                            </div>
+
+                            <h2>
+                                My
+                                <strong>Skills</strong>
+                            </h2>
+
+                            <p>
+                                My main skills are Web Development and UI/UX
+                                Design, supported by modern design and
+                                development tools.
+                            </p>
+
+
+                            <div class="mini-tags">
+
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                                <span>Figma</span>
+                                <span>Canva</span>
+                                <span>Firebase</span>
+                                <span>GitHub</span>
+                                <span>Vercel</span>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- TEXT 05 -->
+
+                        <article class="scroll-text">
+
+                            <div class="system-label">
+                                <span>●</span>
+                                05 / WHAT I DO
+                            </div>
+
+                            <h2>
+                                I create
+                                <strong>Digital Experiences</strong>
+                            </h2>
+
+                            <p>
+                                I create responsive websites and clean user
+                                interfaces with a focus on usability,
+                                visual design and functionality.
+                            </p>
+
+
+                            <div class="skill-cards">
+
+                                <div class="skill-card">
+
+                                    <strong>Websites</strong>
+
+                                    <small>
+                                        DEVELOPMENT
+                                    </small>
+
+                                </div>
+
+                                <div class="skill-card">
+
+                                    <strong>UI/UX</strong>
+
+                                    <small>
+                                        DESIGN
+                                    </small>
+
+                                </div>
+
+                                <div class="skill-card">
+
+                                    <strong>Responsive</strong>
+
+                                    <small>
+                                        MOBILE
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <a href="project.html" class="main-button">
+                                View My Projects
+                            </a>
+
+                        </article>
+
+
+                        <!-- TEXT 06 -->
+
+                        <article class="scroll-text">
+
+                            <div class="system-label">
+                                <span>●</span>
+                                06 / OPPORTUNITY
+                            </div>
+
+                            <h2>
+                                Let's
+                                <strong>Work Together</strong>
+                            </h2>
+
+                            <p>
+                                I'm looking for an opportunity where I can
+                                learn, grow and contribute as a Web Developer
+                                or UI/UX Designer.
+                            </p>
+
+
+                            <a href="contact.html" class="main-button">
+                                Contact Me
+                            </a>
+
+                        </article>
+
 
                     </div>
 
                 </div>
 
 
-                <!-- RIGHT PORTRAIT -->
-                <div class="portrait-area">
+                <!-- ================= SCROLL INDICATOR ================= -->
 
-                    <div class="portrait-glow"></div>
+                <div class="scroll-indicator">
 
-                    <div class="portrait-frame">
+                    <span>
+                        SCROLL TO EXPLORE
+                    </span>
 
-                        <img
-                            id="portraitFrame"
-                            src="ezgif-frame-001.jpg"
-                            alt="Jack Roshan"
-                            draggable="false"
-                        >
-
-                    </div>
-
-                    <div class="frame-number" id="frameNumber">
-                        001 / 300
-                    </div>
-
-                    <div class="scroll-hint">
-                        <span>SCROLL</span>
-                        <span class="arrow">↓</span>
+                    <div class="scroll-arrow">
+                        ↓
                     </div>
 
                 </div>
@@ -279,33 +485,33 @@
         </section>
 
 
-        <!-- AFTER ANIMATION -->
-        <section class="after-scene">
+        <!-- ================= AFTER SCROLL ================= -->
 
-            <div class="after-inner">
+        <section class="home-end">
 
-                <div class="small-label">
-                    JACK ROSHAN
+            <div class="home-end-content">
+
+                <div class="system-label">
+                    ● PROFILE COMPLETE
                 </div>
 
                 <h2>
-                    Web Developer
-                    <span>&</span>
-                    UI/UX Designer
+                    Ready to build
+                    <strong>something great.</strong>
                 </h2>
 
                 <p>
-                    Building modern websites and meaningful digital experiences.
+                    Explore my projects or get in touch with me.
                 </p>
 
-                <div class="after-buttons">
+                <div class="button-group">
 
-                    <a href="project.html" class="primary-btn">
-                        View Projects
+                    <a href="project.html" class="main-button">
+                        Projects
                     </a>
 
-                    <a href="contact.html" class="secondary-btn">
-                        Contact Me
+                    <a href="contact.html" class="outline-button">
+                        Contact
                     </a>
 
                 </div>
@@ -317,16 +523,17 @@
     </main>
 
 
-    <!-- FOOTER -->
+    <!-- ================= FOOTER ================= -->
+
     <footer>
 
-        <div>
+        <span>
             © 2026 Jack Roshan
-        </div>
+        </span>
 
-        <div>
+        <span>
             Web Developer & UI/UX Designer
-        </div>
+        </span>
 
     </footer>
 
