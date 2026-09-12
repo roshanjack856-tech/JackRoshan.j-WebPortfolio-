@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Jack Roshan J | Portfolio</title>
+    <title>Jack Roshan J | Web Developer & UI/UX Designer</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,23 +16,26 @@
 
 <body>
 
-<!-- LOADER -->
+<!-- ================= LOADER ================= -->
 
 <div class="loader" id="loader">
 
-    <div class="loader-inner">
+    <div class="loader-content">
 
-        <div class="loader-brand">
+        <div class="loader-name">
             JACK ROSHAN J
+        </div>
+
+        <div class="loader-title">
+            PORTFOLIO
+        </div>
+
+        <div class="loader-number" id="loaderNumber">
+            0%
         </div>
 
         <div class="loader-line">
             <span id="loaderProgress"></span>
-        </div>
-
-        <div class="loader-meta">
-            <span>PORTFOLIO</span>
-            <span id="loaderNumber">0%</span>
         </div>
 
     </div>
@@ -40,39 +43,46 @@
 </div>
 
 
-<!-- WEBSITE -->
+<!-- ================= WEBSITE ================= -->
 
 <div class="website" id="website">
 
 
-    <!-- NAVBAR -->
+    <!-- ================= NAVBAR ================= -->
 
     <header class="navbar">
 
-        <a href="index.html" class="brand-name">
+        <a href="index.html" class="logo">
             Jack Roshan J
         </a>
 
+
         <nav class="desktop-nav">
 
-            <a href="index.html" class="active">Home</a>
+            <a href="index.html" class="active">
+                Home
+            </a>
 
-            <a href="about.html">About</a>
+            <a href="about.html">
+                About
+            </a>
 
-            <a href="project.html">Projects</a>
+            <a href="project.html">
+                Projects
+            </a>
 
-            <a href="contact.html">Contact</a>
+            <a href="contact.html">
+                Contact
+            </a>
 
-            <a href="resume.pdf"
-               target="_blank"
-               class="resume-link">
+            <a href="resume.pdf" target="_blank">
                 Resume
             </a>
 
         </nav>
 
 
-        <div class="jr-logo">
+        <div class="jr">
             JR
         </div>
 
@@ -92,13 +102,15 @@
     </header>
 
 
-    <!-- MOBILE MENU -->
+    <!-- ================= MOBILE MENU ================= -->
 
     <div class="mobile-menu" id="mobileMenu">
 
-        <div class="mobile-menu-head">
+        <div class="mobile-menu-header">
 
-            <span>MENU</span>
+            <span>
+                MENU
+            </span>
 
             <button id="closeMenu">
                 ×
@@ -106,13 +118,22 @@
 
         </div>
 
-        <a href="index.html">Home</a>
 
-        <a href="about.html">About</a>
+        <a href="index.html">
+            Home
+        </a>
 
-        <a href="project.html">Projects</a>
+        <a href="about.html">
+            About
+        </a>
 
-        <a href="contact.html">Contact</a>
+        <a href="project.html">
+            Projects
+        </a>
+
+        <a href="contact.html">
+            Contact
+        </a>
 
         <a href="resume.pdf" target="_blank">
             Resume
@@ -121,64 +142,88 @@
     </div>
 
 
-    <!-- SCROLL EXPERIENCE -->
+    <!-- ================= HOME ================= -->
 
     <main>
 
-        <section
-            class="scroll-section"
-            id="home"
-        >
+        <section class="scroll-scene" id="home">
 
-            <div class="sticky-screen">
+            <div class="scene-sticky">
 
 
-                <!-- FULL SCREEN FRAME BACKGROUND -->
+                <!-- ===== DESKTOP PORTRAIT ===== -->
 
-                <div class="frame-background">
+                <div class="portrait-area">
 
-                    <img
-                        id="portraitFrame"
-                        src="ezgif-frame-001.jpg"
-                        alt="Jack Roshan"
-                        draggable="false"
-                    >
+                    <div class="portrait-glow"></div>
+
+                    <div class="portrait-card">
+
+                        <img
+                            id="portraitFrame"
+                            src="ezgif-frame-001.jpg"
+                            alt="Jack Roshan J"
+                            draggable="false"
+                        >
+
+                        <div class="portrait-bottom">
+
+                            <span>
+                                <i></i>
+                                OPEN TO OPPORTUNITIES
+                            </span>
+
+                            <span>
+                                2026
+                            </span>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
 
-                <!-- DARK OVERLAY -->
+                <!-- ===== FRAME COUNTER ===== -->
 
-                <div class="frame-overlay"></div>
-
-
-                <!-- FRAME NUMBER -->
-
-                <div class="frame-counter" id="frameNumber">
+                <div
+                    class="frame-counter"
+                    id="frameCounter"
+                >
                     FRAME 001 / 300
                 </div>
 
 
-                <!-- LEFT / MAIN TEXT -->
+                <!-- ===== RIGHT TEXT ===== -->
 
-                <div class="content-side">
+                <div class="hero-content">
 
-                    <div class="content-wrapper">
+                    <div class="text-container">
 
 
-                        <!-- 01 -->
+                        <!-- TEXT 01 -->
 
-                        <article class="scroll-text active">
+                        <article class="scene-text active">
 
                             <div class="system-label">
+
                                 <span>●</span>
-                                01 / SYSTEM PROFILE
+
+                                // SYSTEM PROFILE
+
                             </div>
 
+
                             <h1>
+
                                 Hello, I'm
-                                <strong>Jack Roshan J</strong>
+
+                                <strong>
+                                    Jack Roshan J
+                                </strong>
+
                             </h1>
+
 
                             <p>
                                 I'm a Web Developer and UI/UX Designer
@@ -187,9 +232,10 @@
                             </p>
 
 
-                            <div class="skill-cards">
+                            <div class="feature-cards">
 
-                                <div class="skill-card">
+                                <div class="feature-card">
+
                                     <strong>
                                         Web Development
                                     </strong>
@@ -197,10 +243,12 @@
                                     <small>
                                         DEVELOPMENT
                                     </small>
+
                                 </div>
 
 
-                                <div class="skill-card">
+                                <div class="feature-card">
+
                                     <strong>
                                         UI/UX Design
                                     </strong>
@@ -208,17 +256,20 @@
                                     <small>
                                         DESIGN
                                     </small>
+
                                 </div>
 
 
-                                <div class="skill-card">
+                                <div class="feature-card">
+
                                     <strong>
-                                        Responsive
+                                        Responsive Web
                                     </strong>
 
                                     <small>
                                         WEB
                                     </small>
+
                                 </div>
 
                             </div>
@@ -226,32 +277,40 @@
                         </article>
 
 
-                        <!-- 02 -->
+                        <!-- TEXT 02 -->
 
-                        <article class="scroll-text">
+                        <article class="scene-text">
 
                             <div class="system-label">
+
                                 <span>●</span>
-                                02 / LOCATION
+
+                                // LOCATION
+
                             </div>
 
+
                             <h2>
+
                                 I'm from
+
                                 <strong>
                                     Viluppuram,
                                     Tamil Nadu
                                 </strong>
+
                             </h2>
 
+
                             <p>
-                                I'm from Viluppuram, Tamil Nadu.
-                                I'm interested in technology,
+                                I am from Viluppuram, Tamil Nadu.
+                                I am passionate about technology,
                                 website development, creative design
                                 and digital experiences.
                             </p>
 
 
-                            <div class="info-line">
+                            <div class="info-row">
 
                                 <span>
                                     LOCATION
@@ -266,21 +325,29 @@
                         </article>
 
 
-                        <!-- 03 -->
+                        <!-- TEXT 03 -->
 
-                        <article class="scroll-text">
+                        <article class="scene-text">
 
                             <div class="system-label">
+
                                 <span>●</span>
-                                03 / EDUCATION
+
+                                // EDUCATION
+
                             </div>
 
+
                             <h2>
+
                                 I completed
+
                                 <strong>
                                     B.Sc. Computer Science
                                 </strong>
+
                             </h2>
+
 
                             <p>
                                 I completed my B.Sc. Computer Science
@@ -288,25 +355,44 @@
                             </p>
 
 
-                            <div class="skill-cards">
+                            <div class="feature-cards">
 
-                                <div class="skill-card">
-                                    <strong>B.Sc.</strong>
-                                    <small>DEGREE</small>
+                                <div class="feature-card">
+
+                                    <strong>
+                                        B.Sc.
+                                    </strong>
+
+                                    <small>
+                                        DEGREE
+                                    </small>
+
                                 </div>
 
-                                <div class="skill-card">
+
+                                <div class="feature-card">
+
                                     <strong>
                                         Computer Science
                                     </strong>
-                                    <small>FIELD</small>
+
+                                    <small>
+                                        FIELD
+                                    </small>
+
                                 </div>
 
-                                <div class="skill-card">
+
+                                <div class="feature-card">
+
                                     <strong>
                                         Loyola College
                                     </strong>
-                                    <small>COLLEGE</small>
+
+                                    <small>
+                                        COLLEGE
+                                    </small>
+
                                 </div>
 
                             </div>
@@ -314,21 +400,29 @@
                         </article>
 
 
-                        <!-- 04 -->
+                        <!-- TEXT 04 -->
 
-                        <article class="scroll-text">
+                        <article class="scene-text">
 
                             <div class="system-label">
+
                                 <span>●</span>
-                                04 / SKILLS
+
+                                // SKILLS
+
                             </div>
 
+
                             <h2>
+
                                 My
+
                                 <strong>
                                     Skills
                                 </strong>
+
                             </h2>
+
 
                             <p>
                                 My main skills are Web Development
@@ -336,7 +430,7 @@
                             </p>
 
 
-                            <div class="mini-tags">
+                            <div class="tags">
 
                                 <span>HTML</span>
                                 <span>CSS</span>
@@ -352,56 +446,62 @@
                         </article>
 
 
-                        <!-- 05 -->
+                        <!-- TEXT 05 -->
 
-                        <article class="scroll-text">
+                        <article class="scene-text">
 
                             <div class="system-label">
+
                                 <span>●</span>
-                                05 / EXPERIENCE
+
+                                // PROJECTS
+
                             </div>
 
+
                             <h2>
-                                I build
+
+                                I create
+
                                 <strong>
                                     Modern Websites
                                 </strong>
+
                             </h2>
 
+
                             <p>
-                                I create responsive websites and
-                                clean user interfaces with a focus
-                                on usability, design and functionality.
+                                I build responsive websites with
+                                clean interfaces, useful features
+                                and modern web technologies.
                             </p>
 
 
-                            <div class="skill-cards">
+                            <div class="feature-cards">
 
-                                <div class="skill-card">
+                                <div class="feature-card">
+
                                     <strong>
-                                        Web Development
+                                        Foreign Bridge
                                     </strong>
+
                                     <small>
-                                        HTML / CSS / JS
+                                        BUSINESS WEBSITE
                                     </small>
+
                                 </div>
 
-                                <div class="skill-card">
-                                    <strong>
-                                        UI/UX Design
-                                    </strong>
-                                    <small>
-                                        FIGMA
-                                    </small>
-                                </div>
 
-                                <div class="skill-card">
+                                <div class="feature-card">
+
                                     <strong>
-                                        Deployment
+                                        Sports & Event
                                     </strong>
+
                                     <small>
-                                        VERCEL
+                                        COLLEGE PROJECT
                                     </small>
+
                                 </div>
 
                             </div>
@@ -409,54 +509,63 @@
 
                             <a
                                 href="project.html"
-                                class="main-button"
+                                class="button"
                             >
-                                View Projects
+                                VIEW PROJECTS
                             </a>
 
                         </article>
 
 
-                        <!-- 06 -->
+                        <!-- TEXT 06 -->
 
-                        <article class="scroll-text">
+                        <article class="scene-text">
 
                             <div class="system-label">
+
                                 <span>●</span>
-                                06 / OPPORTUNITY
+
+                                // OPPORTUNITY
+
                             </div>
 
+
                             <h2>
+
                                 Let's
+
                                 <strong>
                                     Work Together
                                 </strong>
+
                             </h2>
+
 
                             <p>
                                 I'm looking for an opportunity where
-                                I can learn, grow and contribute as
-                                a Web Developer or UI/UX Designer.
+                                I can learn, grow and contribute as a
+                                Web Developer or UI/UX Designer.
                             </p>
 
 
                             <a
                                 href="contact.html"
-                                class="main-button"
+                                class="button"
                             >
-                                Contact Me
+                                CONTACT ME
                             </a>
 
                         </article>
+
 
                     </div>
 
                 </div>
 
 
-                <!-- SCROLL INDICATOR -->
+                <!-- ===== SCROLL TEXT ===== -->
 
-                <div class="scroll-indicator">
+                <div class="scroll-hint">
 
                     <span>
                         SCROLL TO EXPLORE
@@ -473,42 +582,48 @@
         </section>
 
 
-        <!-- END -->
+        <!-- ================= END SECTION ================= -->
 
         <section class="home-end">
 
             <div>
 
                 <div class="system-label">
-                    ● PROFILE COMPLETE
+                    <span>●</span>
+                    PROFILE COMPLETE
                 </div>
 
+
                 <h2>
+
                     Ready to build
+
                     <strong>
                         something great.
                     </strong>
+
                 </h2>
+
 
                 <p>
                     Explore my projects or get in touch.
                 </p>
 
 
-                <div class="button-group">
+                <div class="end-buttons">
 
                     <a
                         href="project.html"
-                        class="main-button"
+                        class="button"
                     >
-                        Projects
+                        PROJECTS
                     </a>
 
                     <a
                         href="contact.html"
                         class="outline-button"
                     >
-                        Contact
+                        CONTACT
                     </a>
 
                 </div>
@@ -519,6 +634,8 @@
 
     </main>
 
+
+    <!-- ================= FOOTER ================= -->
 
     <footer>
 
