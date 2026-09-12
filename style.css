@@ -1,808 +1,1367 @@
-<!DOCTYPE html>
-<html lang="en">
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #05080f;
+    color: #ffffff;
+    font-family: "Outfit", sans-serif;
+    overflow-x: hidden;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+#loader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    background: #e5e5e5;
+    color: #111111;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        transform 1s cubic-bezier(0.77, 0, 0.18, 1),
+        opacity 0.5s ease;
+}
+
+#loader.finished {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-content {
+    width: min(700px, 88%);
+    text-align: center;
+}
+
+.loader-small {
+    font-size: 13px;
+    letter-spacing: 7px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.loader-content h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(55px, 10vw, 120px);
+    line-height: 0.85;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+.loader-content p {
+    margin-top: 18px;
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: #555555;
+}
 
-<head>
-    <meta charset="UTF-8">
+.loader-percentage {
+    margin-top: 65px;
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    font-size: clamp(70px, 13vw, 150px);
+    line-height: 1;
 
-    <meta name="description"
-        content="Jack Roshan - Web Developer and UI/UX Designer">
+    font-weight: 700;
+    letter-spacing: -5px;
+}
 
-    <meta name="author"
-        content="Jack Roshan">
+.loader-line {
+    width: 100%;
+    height: 4px;
 
-    <title>Jack Roshan | Web Developer & UI/UX Designer</title>
+    background: #c7c7c7;
 
-    <!-- GOOGLE FONTS -->
-    <link rel="preconnect"
-        href="https://fonts.googleapis.com">
+    margin-top: 35px;
+    overflow: hidden;
+}
 
-    <link rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
+#loaderProgress {
+    width: 0%;
+    height: 100%;
+    background: #111111;
+}
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+.loader-status {
+    margin-top: 14px;
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    font-size: 10px;
+    letter-spacing: 4px;
 
-    <!-- GSAP -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
-    </script>
+    color: #666666;
+}
 
-    <!-- GSAP SCROLLTRIGGER -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
-    </script>
 
-</head>
+/* =========================================================
+   NAVBAR
+========================================================= */
 
-<body>
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
 
-    <!-- =====================================================
-         LOADING SCREEN
-    ====================================================== -->
+    width: 100%;
 
-    <div class="loading-screen" id="loadingScreen">
+    z-index: 5000;
 
-        <div class="loading-content">
+    background: rgba(5, 8, 15, 0.65);
 
-            <div class="loading-small">
-                PORTFOLIO SYSTEM
-            </div>
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 
-            <h1>
-                WELCOME TO
-            </h1>
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
 
-            <h2>
-                JACK ROSHAN
-            </h2>
+.nav-container {
+    width: min(1250px, 92%);
+    height: 78px;
 
-            <p>
-                WEB DEVELOPER & UI/UX DESIGNER
-            </p>
+    margin: auto;
 
-            <div class="loading-percentage"
-                id="loadingPercentage">
-                0%
-            </div>
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-            <div class="loading-bar">
+.logo {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
 
-                <div class="loading-bar-fill"
-                    id="loadingBarFill">
-                </div>
+.logo span {
+    color: #58b6ff;
+    margin-left: 5px;
+}
 
-            </div>
+.desktop-nav {
+    display: flex;
+    gap: 30px;
+}
 
-            <div class="loading-bottom">
+.desktop-nav a {
+    position: relative;
 
-                <span>
-                    LOADING MODULES...
-                </span>
+    color: #b9c1cd;
 
-                <span>
-                    SECURE CONNECTION
-                </span>
+    font-size: 13px;
+    letter-spacing: 1px;
 
-            </div>
+    transition: color 0.3s ease;
+}
 
-        </div>
+.desktop-nav a::after {
+    content: "";
 
-    </div>
+    position: absolute;
 
+    left: 0;
+    bottom: -8px;
 
-    <!-- =====================================================
-         NAVBAR
-    ====================================================== -->
+    width: 0;
+    height: 1px;
 
-    <header class="navbar">
+    background: #58b6ff;
 
-        <div class="nav-logo">
-            JACK<span>ROSHAN</span>
-        </div>
+    transition: width 0.3s ease;
+}
 
-        <nav class="desktop-nav">
+.desktop-nav a:hover,
+.desktop-nav a.active {
+    color: #ffffff;
+}
 
-            <a href="#home" class="active">
-                Home
-            </a>
+.desktop-nav a:hover::after,
+.desktop-nav a.active::after {
+    width: 100%;
+}
 
-            <a href="#about">
-                About
-            </a>
+.menu-btn {
+    display: none;
 
-            <a href="#skills">
-                Skills
-            </a>
+    border: 0;
+    background: transparent;
 
-            <a href="#services">
-                Services
-            </a>
+    color: #ffffff;
 
-            <a href="#projects">
-                Projects
-            </a>
+    font-size: 28px;
 
-            <a href="#experience">
-                Experience
-            </a>
+    cursor: pointer;
+}
 
-            <a href="#contact">
-                Contact
-            </a>
 
-        </nav>
+/* =========================================================
+   MOBILE MENU
+========================================================= */
 
-        <button
-            class="menu-button"
-            id="menuBtn"
-            aria-label="Open Menu">
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
 
-            ☰
+    width: 100%;
+    height: 100vh;
 
-        </button>
+    z-index: 10000;
 
-    </header>
+    background: rgba(5, 8, 15, 0.97);
 
+    display: flex;
+    flex-direction: column;
 
-    <!-- =====================================================
-         MOBILE MENU
-    ====================================================== -->
+    align-items: center;
+    justify-content: center;
 
-    <div class="mobile-menu"
-        id="mobileMenu">
+    gap: 28px;
 
-        <button
-            class="close-button"
-            id="closeBtn">
+    transform: translateX(100%);
 
-            ×
+    transition:
+        transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+}
 
-        </button>
+.mobile-menu.open {
+    transform: translateX(0);
+}
 
-        <a href="#home">
-            Home
-        </a>
+.mobile-menu a {
+    font-size: 25px;
+    color: #ffffff;
+}
 
-        <a href="#about">
-            About
-        </a>
+.close-btn {
+    position: absolute;
 
-        <a href="#skills">
-            Skills
-        </a>
+    top: 25px;
+    right: 25px;
 
-        <a href="#services">
-            Services
-        </a>
+    border: 0;
+    background: transparent;
 
-        <a href="#projects">
-            Projects
-        </a>
+    color: #ffffff;
 
-        <a href="#experience">
-            Experience
-        </a>
+    font-size: 40px;
 
-        <a href="#contact">
-            Contact
-        </a>
+    cursor: pointer;
+}
 
-    </div>
 
+/* =========================================================
+   HERO
+========================================================= */
 
-    <!-- =====================================================
-         HOME
-    ====================================================== -->
+/*
+   The hero is intentionally taller than one screen.
 
-    <main>
+   The inside is sticky.
 
-        <section
-            class="hero"
-            id="home">
+   This creates the scroll-controlled 300-frame animation.
+*/
 
-            <div class="hero-container">
+.hero {
+    position: relative;
 
+    height: 230vh;
 
-                <!-- LEFT SIDE -->
+    background:
+        radial-gradient(
+            circle at 75% 45%,
+            rgba(43, 116, 177, 0.12),
+            transparent 35%
+        ),
+        #05080f;
+}
 
-                <div class="hero-content">
+.hero-sticky {
+    position: sticky;
 
-                    <div class="hero-small">
-                        HELLO, I'M
-                    </div>
+    top: 0;
 
-                    <h1>
-                        Jack
-                        <span>Roshan</span>
-                    </h1>
+    height: 100vh;
 
-                    <h2>
-                        Web Developer
-                        <br>
-                        & UI/UX Designer
-                    </h2>
+    overflow: hidden;
 
-                    <p>
-                        I create modern, responsive and
-                        user-friendly websites with clean
-                        design and practical functionality.
-                    </p>
+    display: flex;
+    align-items: center;
+}
 
-                    <div class="hero-buttons">
+.hero-container {
+    width: min(1250px, 92%);
 
-                        <a
-                            href="#projects"
-                            class="btn primary-btn">
+    margin: auto;
 
-                            View My Work
+    display: grid;
 
-                        </a>
+    grid-template-columns:
+        0.9fr
+        1.1fr;
 
-                        <a
-                            href="#contact"
-                            class="btn secondary-btn">
+    align-items: center;
 
-                            Contact Me
+    gap: 30px;
+}
 
-                        </a>
 
-                    </div>
+/* =========================================================
+   HERO TEXT
+========================================================= */
 
-                </div>
+.hero-content {
+    position: relative;
+    z-index: 5;
+}
 
+.hero-label {
+    color: #58b6ff;
 
-                <!-- RIGHT SIDE -->
+    font-size: 12px;
 
-                <div class="portrait-container">
+    letter-spacing: 5px;
 
-                    <div class="portrait-glow">
-                    </div>
+    margin-bottom: 22px;
+}
 
-                    <div
-                        class="portrait-3d"
-                        id="portrait3D">
+.hero-content h1 {
+    font-family: "Cormorant Garamond", serif;
 
-                        <!--
-                            IMPORTANT:
-                            Frame 001 is the first image.
-                        -->
+    font-size: clamp(70px, 9vw, 140px);
 
-                        <img
-                            id="portraitFrame"
-                            src="portrait-frames/ezgif-frame-001.jpg"
-                            alt="Jack Roshan"
-                            draggable="false">
+    line-height: 0.75;
 
-                    </div>
+    font-weight: 700;
 
-                    <div
-                        class="scroll-hint"
-                        id="scrollHint">
+    letter-spacing: -4px;
+}
 
-                        SCROLL TO ROTATE
+.hero-content h1 span {
+    display: block;
 
-                        <span>
-                            ↓
-                        </span>
+    color: #58b6ff;
+}
 
-                    </div>
+.hero-content h2 {
+    margin-top: 35px;
 
-                </div>
+    font-size: clamp(22px, 3vw, 42px);
 
-            </div>
+    line-height: 1.1;
 
-        </section>
+    font-weight: 400;
 
+    color: #e9edf2;
+}
 
-        <!-- =====================================================
-             ABOUT
-        ====================================================== -->
+.hero-content p {
+    max-width: 530px;
 
-        <section
-            class="section"
-            id="about">
+    margin-top: 25px;
 
-            <div class="section-container">
+    color: #9ba5b4;
 
-                <div class="section-label">
-                    01 — ABOUT ME
-                </div>
+    line-height: 1.8;
 
-                <h2 class="section-title">
-                    Building digital
-                    <span>experiences.</span>
-                </h2>
+    font-size: 15px;
+}
 
-                <div class="about-grid">
+.hero-buttons {
+    display: flex;
 
-                    <div class="about-text">
+    gap: 15px;
 
-                        <p>
-                            I am Jack Roshan, a B.Sc. Computer
-                            Science graduate from Loyola College.
-                        </p>
+    margin-top: 35px;
+}
 
-                        <p>
-                            I am interested in web development
-                            and UI/UX design. I enjoy creating
-                            responsive websites with clean
-                            interfaces and simple user experiences.
-                        </p>
+.btn {
+    display: inline-flex;
 
-                        <p>
-                            I am currently looking for a
-                            fresher opportunity where I can
-                            learn, improve my technical skills
-                            and contribute to real projects.
-                        </p>
+    align-items: center;
+    justify-content: center;
 
-                    </div>
+    min-height: 48px;
 
-                    <div class="about-card">
+    padding: 0 25px;
 
-                        <div class="about-card-number">
-                            01
-                        </div>
+    border-radius: 3px;
 
-                        <h3>
-                            Never Give Up
-                        </h3>
+    font-size: 12px;
 
-                        <p>
-                            I believe continuous learning and
-                            consistent effort are the keys to
-                            improving every day.
-                        </p>
+    letter-spacing: 1px;
 
-                    </div>
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease;
+}
 
-                </div>
+.btn:hover {
+    transform: translateY(-3px);
+}
 
-            </div>
+.btn-primary {
+    background: #58b6ff;
+    color: #06101c;
+}
 
-        </section>
+.btn-outline {
+    border: 1px solid #3a4859;
+    color: #ffffff;
+}
 
+.btn-outline:hover {
+    background: #ffffff;
+    color: #05080f;
+}
 
-        <!-- =====================================================
-             SKILLS
-        ====================================================== -->
 
-        <section
-            class="section dark-section"
-            id="skills">
+/* =========================================================
+   PORTRAIT AREA
+========================================================= */
 
-            <div class="section-container">
+.portrait-area {
+    position: relative;
 
-                <div class="section-label">
-                    02 — SKILLS
-                </div>
+    height: 100vh;
 
-                <h2 class="section-title">
-                    My technical
-                    <span>skills.</span>
-                </h2>
+    min-height: 600px;
 
-                <div class="skills-grid">
+    display: flex;
 
-                    <div class="skill-card">
-                        <h3>HTML</h3>
-                        <p>Good</p>
-                    </div>
+    align-items: center;
+    justify-content: center;
+}
 
-                    <div class="skill-card">
-                        <h3>CSS</h3>
-                        <p>Good</p>
-                    </div>
 
-                    <div class="skill-card">
-                        <h3>JavaScript</h3>
-                        <p>Basic / Learning</p>
-                    </div>
+/* Light behind character */
 
-                    <div class="skill-card">
-                        <h3>Figma</h3>
-                        <p>UI/UX Basics</p>
-                    </div>
+.portrait-glow {
+    position: absolute;
 
-                    <div class="skill-card">
-                        <h3>Canva</h3>
-                        <p>Advanced</p>
-                    </div>
+    width: 430px;
+    height: 600px;
 
-                    <div class="skill-card">
-                        <h3>Firebase</h3>
-                        <p>Basic</p>
-                    </div>
+    border-radius: 50%;
 
-                    <div class="skill-card">
-                        <h3>GitHub</h3>
-                        <p>Version Control</p>
-                    </div>
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(88, 182, 255, 0.20),
+            rgba(88, 182, 255, 0.04) 45%,
+            transparent 70%
+        );
 
-                    <div class="skill-card">
-                        <h3>Vercel</h3>
-                        <p>Deployment</p>
-                    </div>
+    filter: blur(25px);
 
-                    <div class="skill-card">
-                        <h3>MS Office</h3>
-                        <p>Word / Excel / PowerPoint</p>
-                    </div>
+    pointer-events: none;
 
-                </div>
+    z-index: 0;
+}
 
-            </div>
 
-        </section>
+/*
+   IMPORTANT:
 
+   We are NOT using rotateY().
 
-        <!-- =====================================================
-             SERVICES
-        ====================================================== -->
+   The 300 JPG images themselves contain
+   the anime/3D movement.
+*/
 
-        <section
-            class="section"
-            id="services">
+.portrait-3d {
+    position: relative;
 
-            <div class="section-container">
+    width: min(540px, 90%);
 
-                <div class="section-label">
-                    03 — SERVICES
-                </div>
+    z-index: 2;
 
-                <h2 class="section-title">
-                    What I can
-                    <span>do.</span>
-                </h2>
+    display: flex;
 
-                <div class="services-grid">
+    align-items: center;
+    justify-content: center;
 
-                    <div class="service-card">
+    user-select: none;
 
-                        <span class="service-number">
-                            01
-                        </span>
+    will-change: contents;
+}
 
-                        <h3>
-                            Web Development
-                        </h3>
+.portrait-3d img {
+    display: block;
 
-                        <p>
-                            Responsive and modern websites
-                            using HTML, CSS and JavaScript.
-                        </p>
+    width: 100%;
+    height: auto;
 
-                    </div>
+    object-fit: contain;
 
+    user-select: none;
 
-                    <div class="service-card">
+    pointer-events: none;
 
-                        <span class="service-number">
-                            02
-                        </span>
+    -webkit-user-drag: none;
 
-                        <h3>
-                            UI/UX Design
-                        </h3>
+    image-rendering: auto;
 
-                        <p>
-                            Clean and simple interfaces
-                            designed with usability in mind.
-                        </p>
+    filter:
+        drop-shadow(
+            0 35px 40px rgba(0, 0, 0, 0.65)
+        );
+}
 
-                    </div>
 
+/* =========================================================
+   SCROLL HINT
+========================================================= */
 
-                    <div class="service-card">
+.scroll-hint {
+    position: absolute;
 
-                        <span class="service-number">
-                            03
-                        </span>
+    left: 50%;
+    bottom: 50px;
 
-                        <h3>
-                            Canva Design
-                        </h3>
+    transform: translateX(-50%);
 
-                        <p>
-                            Social media graphics, promotional
-                            designs and visual content.
-                        </p>
+    display: flex;
+    flex-direction: column;
 
-                    </div>
+    align-items: center;
 
+    gap: 10px;
 
-                    <div class="service-card">
+    color: #8d99a8;
 
-                        <span class="service-number">
-                            04
-                        </span>
+    font-size: 9px;
 
-                        <h3>
-                            Website Deployment
-                        </h3>
+    letter-spacing: 4px;
 
-                        <p>
-                            Website deployment and basic
-                            project management using GitHub
-                            and Vercel.
-                        </p>
+    z-index: 10;
 
-                    </div>
+    transition:
+        opacity 0.4s ease;
+}
 
-                </div>
+.scroll-hint b {
+    font-size: 24px;
 
-            </div>
+    font-weight: 300;
 
-        </section>
+    animation: scrollArrow 1.5s infinite;
+}
 
+@keyframes scrollArrow {
 
-        <!-- =====================================================
-             PROJECTS
-        ====================================================== -->
+    0%,
+    100% {
+        transform: translateY(0);
+    }
 
-        <section
-            class="section dark-section"
-            id="projects">
+    50% {
+        transform: translateY(8px);
+    }
+}
 
-            <div class="section-container">
 
-                <div class="section-label">
-                    04 — PROJECTS
-                </div>
+/* =========================================================
+   COMMON SECTIONS
+========================================================= */
 
-                <h2 class="section-title">
-                    Selected
-                    <span>projects.</span>
-                </h2>
+.section {
+    position: relative;
 
-                <div class="projects-grid">
+    padding: 130px 0;
 
+    background: #080d16;
+}
 
-                    <article class="project-card">
+.dark-section {
+    background: #05080f;
+}
 
-                        <div class="project-number">
-                            01
-                        </div>
+.section-container {
+    width: min(1150px, 90%);
 
-                        <h3>
-                            Foreign Bridge
-                            Export & Import Corp
-                        </h3>
+    margin: auto;
+}
 
-                        <p>
-                            A modern business website and
-                            product catalogue created for
-                            an export and import company.
-                        </p>
+.section-title {
+    display: flex;
 
-                        <a
-                            href="https://fb-group.vercel.app/"
-                            target="_blank"
-                            rel="noopener">
+    align-items: center;
 
-                            View Project →
+    gap: 20px;
 
-                        </a>
+    margin-bottom: 70px;
+}
 
-                    </article>
+.section-title span {
+    color: #58b6ff;
 
+    font-size: 12px;
 
-                    <article class="project-card">
+    letter-spacing: 3px;
+}
 
-                        <div class="project-number">
-                            02
-                        </div>
+.section-title h2 {
+    font-family: "Cormorant Garamond", serif;
 
-                        <h3>
-                            Sports & Event
-                            Management System
-                        </h3>
+    font-size: clamp(48px, 6vw, 80px);
 
-                        <p>
-                            A college project covering sports
-                            information, nutrition information,
-                            game rules and event management.
-                        </p>
+    line-height: 1;
 
-                    </article>
+    font-weight: 600;
+}
 
-                </div>
 
-            </div>
+/* =========================================================
+   ABOUT
+========================================================= */
 
-        </section>
+.about-grid {
+    display: grid;
 
+    grid-template-columns:
+        1.2fr
+        0.8fr;
 
-        <!-- =====================================================
-             EXPERIENCE
-        ====================================================== -->
+    gap: 70px;
 
-        <section
-            class="section"
-            id="experience">
+    align-items: start;
+}
 
-            <div class="section-container">
+.about-text h3 {
+    font-family: "Cormorant Garamond", serif;
 
-                <div class="section-label">
-                    05 — EXPERIENCE
-                </div>
+    font-size: clamp(34px, 4vw, 55px);
 
-                <h2 class="section-title">
-                    My learning
-                    <span>journey.</span>
-                </h2>
+    line-height: 1.05;
 
-                <div class="timeline">
+    font-weight: 500;
 
-                    <div class="timeline-item">
+    margin-bottom: 35px;
+}
 
-                        <div class="timeline-dot">
-                        </div>
+.about-text p {
+    color: #9ba5b4;
 
-                        <div class="timeline-content">
+    line-height: 1.9;
 
-                            <span>
-                                Internship
-                            </span>
+    margin-bottom: 20px;
 
-                            <h3>
-                                Codsair Technologies
-                            </h3>
+    font-size: 15px;
+}
 
-                            <p>
-                                Calicut, Kerala
-                            </p>
+.about-card {
+    border: 1px solid #202a38;
 
-                            <p>
-                                Developed communication skills,
-                                improved basic coding knowledge
-                                and learned website development
-                                with and without coding.
-                            </p>
+    background: #0b111c;
 
-                        </div>
+    padding: 30px;
+}
 
-                    </div>
+.info-row {
+    padding: 20px 0;
 
+    border-bottom: 1px solid #202a38;
 
-                    <div class="timeline-item">
+    display: flex;
 
-                        <div class="timeline-dot">
-                        </div>
+    flex-direction: column;
 
-                        <div class="timeline-content">
+    gap: 6px;
+}
 
-                            <span>
-                                Education
-                            </span>
+.info-row:first-child {
+    padding-top: 0;
+}
 
-                            <h3>
-                                B.Sc. Computer Science
-                            </h3>
+.info-row:last-child {
+    border-bottom: 0;
 
-                            <p>
-                                Loyola College
-                            </p>
+    padding-bottom: 0;
+}
 
-                        </div>
+.info-row span {
+    color: #667385;
 
-                    </div>
+    font-size: 11px;
 
-                </div>
+    letter-spacing: 2px;
 
-            </div>
+    text-transform: uppercase;
+}
 
-        </section>
+.info-row strong {
+    color: #ffffff;
 
+    font-size: 15px;
 
-        <!-- =====================================================
-             CONTACT
-        ====================================================== -->
+    font-weight: 500;
+}
 
-        <section
-            class="section contact-section"
-            id="contact">
 
-            <div class="section-container">
+/* =========================================================
+   SKILLS
+========================================================= */
 
-                <div class="section-label">
-                    06 — CONTACT
-                </div>
+.skills-grid {
+    display: grid;
 
-                <h2 class="section-title">
-                    Let's work
-                    <span>together.</span>
-                </h2>
+    grid-template-columns:
+        repeat(3, 1fr);
 
-                <div class="contact-grid">
+    gap: 15px;
+}
 
-                    <div>
+.skill-card {
+    min-height: 190px;
 
-                        <p class="contact-text">
-                            I am currently looking for
-                            fresher opportunities in Web
-                            Development and UI/UX Design.
-                        </p>
+    padding: 28px;
 
-                        <a
-                            href="mailto:roshanjack856@gmail.com"
-                            class="contact-email">
+    border: 1px solid #1c2736;
 
-                            roshanjack856@gmail.com
+    background: #09101a;
 
-                        </a>
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+}
 
-                    </div>
+.skill-card:hover {
+    transform: translateY(-7px);
 
+    border-color: #58b6ff;
+}
 
-                    <div class="contact-details">
+.skill-card span {
+    color: #58b6ff;
 
-                        <p>
-                            <strong>Phone</strong>
-                            <br>
-                            +91 90828 44086
-                        </p>
+    font-size: 11px;
 
-                        <p>
-                            <strong>Location</strong>
-                            <br>
-                            Tamil Nadu / Bengaluru
-                        </p>
+    letter-spacing: 2px;
+}
 
-                        <p>
-                            <strong>GitHub</strong>
-                            <br>
+.skill-card h3 {
+    margin-top: 35px;
 
-                            <a
-                                href="https://github.com/roshanjack856-tech"
-                                target="_blank"
-                                rel="noopener">
+    font-size: 25px;
 
-                                github.com/roshanjack856-tech
+    font-weight: 500;
+}
 
-                            </a>
+.skill-card p {
+    margin-top: 10px;
 
-                        </p>
+    color: #8490a0;
 
-                    </div>
+    font-size: 13px;
 
-                </div>
+    line-height: 1.6;
+}
 
-            </div>
 
-        </section>
+/* =========================================================
+   SERVICES
+========================================================= */
 
-    </main>
+.services-grid {
+    display: grid;
 
+    grid-template-columns:
+        repeat(2, 1fr);
 
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
+    gap: 20px;
+}
 
-    <footer>
+.service-card {
+    padding: 45px;
 
-        <div>
-            JACK ROSHAN
-        </div>
+    min-height: 270px;
 
-        <p>
-            © 2026 Jack Roshan. All Rights Reserved.
-        </p>
+    border: 1px solid #202a38;
 
-    </footer>
+    background: #0b111c;
 
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+}
 
-    <!-- JAVASCRIPT -->
-    <script src="script.js"></script>
+.service-card:hover {
+    transform: translateY(-8px);
 
-</body>
+    border-color: #58b6ff;
+}
 
-</html>
+.service-number {
+    color: #58b6ff;
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+}
+
+.service-card h3 {
+    margin-top: 55px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 40px;
+
+    font-weight: 600;
+}
+
+.service-card p {
+    margin-top: 15px;
+
+    color: #8d98a8;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+.projects-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.project-card {
+    padding: 40px;
+
+    min-height: 420px;
+
+    border: 1px solid #1b2635;
+
+    background: #090f18;
+
+    display: flex;
+
+    flex-direction: column;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+
+    border-color: #58b6ff;
+}
+
+.project-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #58b6ff;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+.project-card h3 {
+    margin-top: 60px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 42px;
+
+    line-height: 1.05;
+
+    font-weight: 600;
+}
+
+.project-card p {
+    margin-top: 20px;
+
+    color: #8b96a5;
+
+    line-height: 1.7;
+}
+
+.project-tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 25px;
+}
+
+.project-tags span {
+    padding: 7px 10px;
+
+    border: 1px solid #263345;
+
+    color: #aeb8c5;
+
+    font-size: 10px;
+}
+
+.project-card > a {
+    margin-top: auto;
+
+    padding-top: 30px;
+
+    color: #58b6ff;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   EXPERIENCE
+========================================================= */
+
+.experience-card {
+    display: grid;
+
+    grid-template-columns: 180px 1fr;
+
+    gap: 30px;
+
+    padding: 35px 0;
+
+    border-bottom: 1px solid #202a38;
+}
+
+.experience-date {
+    color: #58b6ff;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+}
+
+.experience-card h3 {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 38px;
+
+    font-weight: 600;
+}
+
+.experience-location {
+    color: #58b6ff !important;
+
+    margin-top: 5px;
+}
+
+.experience-card p {
+    margin-top: 15px;
+
+    color: #8b96a5;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-section {
+    background:
+        radial-gradient(
+            circle at 70% 40%,
+            rgba(88, 182, 255, 0.08),
+            transparent 35%
+        ),
+        #080d16;
+}
+
+.contact-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 80px;
+}
+
+.contact-grid h3 {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(50px, 6vw, 85px);
+
+    line-height: 0.95;
+
+    font-weight: 600;
+}
+
+.contact-grid > div:first-child p {
+    max-width: 450px;
+
+    margin-top: 25px;
+
+    color: #8b96a5;
+
+    line-height: 1.8;
+}
+
+.contact-details {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0;
+}
+
+.contact-details a,
+.contact-details > div {
+    padding: 20px 0;
+
+    border-bottom: 1px solid #202a38;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    color: #ffffff;
+}
+
+.contact-details span {
+    color: #58b6ff;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    min-height: 100px;
+
+    padding: 30px 5%;
+
+    background: #03060b;
+
+    border-top: 1px solid #17202d;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    color: #677383;
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .desktop-nav {
+        gap: 18px;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-content h1 {
+        font-size: 80px;
+    }
+
+    .portrait-3d {
+        width: 480px;
+    }
+
+    .skills-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .nav-container {
+        height: 70px;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        height: 190vh;
+    }
+
+    .hero-sticky {
+        height: 100svh;
+    }
+
+    .hero-container {
+        width: 90%;
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+        padding-top: 60px;
+    }
+
+    .hero-content {
+        text-align: center;
+
+        order: 1;
+    }
+
+    .hero-label {
+        font-size: 9px;
+
+        letter-spacing: 3px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(65px, 20vw, 100px);
+    }
+
+    .hero-content h2 {
+        font-size: 22px;
+
+        margin-top: 25px;
+    }
+
+    .hero-content p {
+        display: none;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+
+        margin-top: 25px;
+    }
+
+    .portrait-area {
+        order: 2;
+
+        height: 48vh;
+
+        min-height: 320px;
+
+        margin-top: -5px;
+    }
+
+    .portrait-3d {
+        width: min(400px, 88vw);
+    }
+
+    .portrait-glow {
+        width: 260px;
+        height: 400px;
+    }
+
+    .scroll-hint {
+        bottom: 10px;
+
+        font-size: 7px;
+    }
+
+
+    /* SECTIONS */
+
+    .section {
+        padding: 90px 0;
+    }
+
+    .section-title {
+        margin-bottom: 45px;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        min-height: 230px;
+
+        padding: 30px;
+    }
+
+    .service-card h3 {
+        margin-top: 35px;
+
+        font-size: 34px;
+    }
+
+    .project-card {
+        min-height: 390px;
+
+        padding: 30px;
+    }
+
+    .project-card h3 {
+        margin-top: 45px;
+
+        font-size: 35px;
+    }
+
+    .experience-card {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+    footer {
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+
+    /* LOADER */
+
+    .loader-content h1 {
+        font-size: 55px;
+    }
+
+    .loader-percentage {
+        margin-top: 50px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .hero-content h1 {
+        font-size: 62px;
+    }
+
+    .hero-content h2 {
+        font-size: 19px;
+    }
+
+    .portrait-area {
+        min-height: 300px;
+    }
+
+    .portrait-3d {
+        width: 350px;
+    }
+
+    .btn {
+        padding: 0 17px;
+
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+}
