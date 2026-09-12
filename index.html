@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -20,57 +22,117 @@
 
     <title>Jack Roshan | Web Developer & UI/UX Designer</title>
 
+
     <!-- Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
+
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 
     <!-- GSAP -->
+
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-        defer>
-    </script>
+        defer
+    ></script>
 
-    <!-- ScrollTrigger -->
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
-        defer>
-    </script>
+        defer
+    ></script>
 
-    <!-- JavaScript -->
-    <script src="script.js" defer></script>
 </head>
 
-<body>
 
-    <!-- =========================================
-         NAVBAR
-    ========================================== -->
+<body class="loading">
+
+
+    <!-- =====================================================
+         PRELOADER
+    ====================================================== -->
+
+    <div id="preloader">
+
+        <div class="loader-content">
+
+            <div class="loader-small">
+                WELCOME TO
+            </div>
+
+            <h1>
+                JACK ROSHAN
+            </h1>
+
+            <p class="loader-role">
+                WEB DEVELOPER &amp; UI/UX DESIGNER
+            </p>
+
+            <div class="loader-percent">
+                <span id="loadingPercent">0</span>%
+            </div>
+
+            <div class="loader-line">
+
+                <div id="loaderProgress"></div>
+
+            </div>
+
+            <div class="loader-status">
+
+                <span>
+                    LOADING PORTFOLIO...
+                </span>
+
+                <span>
+                    SECURE CONNECTION
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
 
     <header class="navbar">
 
         <div class="nav-container">
 
-            <a href="#home" class="logo">
-                <span>J</span>
-                <span class="logo-name">Jack Roshan</span>
+            <a
+                href="#home"
+                class="logo"
+            >
+                JACK<span>.</span>
             </a>
+
 
             <!-- Desktop Navigation -->
 
             <nav class="desktop-nav">
 
-                <a href="#home" class="active">
+                <a
+                    href="#home"
+                    class="active"
+                >
                     Home
                 </a>
 
@@ -116,9 +178,10 @@
     </header>
 
 
-    <!-- =========================================
+
+    <!-- =====================================================
          MOBILE MENU
-    ========================================== -->
+    ====================================================== -->
 
     <div
         class="mobile-menu"
@@ -133,34 +196,35 @@
             ×
         </button>
 
+
         <nav>
 
             <a href="#home">
-                Home
+                🏠 Home
             </a>
 
             <a href="#about">
-                About
+                👤 About
             </a>
 
             <a href="#skills">
-                Skills
+                💻 Skills
             </a>
 
             <a href="#services">
-                Services
+                ⚡ Services
             </a>
 
             <a href="#projects">
-                Projects
+                🚀 Projects
             </a>
 
             <a href="#experience">
-                Experience
+                📚 Experience
             </a>
 
             <a href="#contact">
-                Contact
+                📩 Contact
             </a>
 
         </nav>
@@ -168,132 +232,232 @@
     </div>
 
 
-    <!-- =========================================
+
+    <!-- =====================================================
          HERO / HOME
-    ========================================== -->
+    ====================================================== -->
 
-    <main>
+    <section
+        id="home"
+        class="hero"
+    >
 
-        <section
-            class="hero"
-            id="home"
-        >
-
-            <div class="hero-container">
+        <div class="hero-container">
 
 
-                <!-- LEFT CONTENT -->
+            <!-- LEFT SIDE -->
 
-                <div class="hero-content">
+            <div class="hero-content">
 
-                    <p class="hero-small">
-                        HELLO, I'M
-                    </p>
+                <div class="hero-label">
+                    HELLO, I'M
+                </div>
 
-                    <h1>
-                        Jack
-                        <span>Roshan</span>
-                    </h1>
+                <h1>
+                    Jack
+                    <span>Roshan</span>
+                </h1>
 
-                    <h2>
-                        Web Developer
-                        <span>&</span>
-                        UI/UX Designer
-                    </h2>
+                <h2>
+                    Web Developer
+                    <br>
+                    &amp; UI/UX Designer
+                </h2>
 
-                    <p class="hero-description">
-                        I create clean, responsive and
-                        user-friendly websites with modern
-                        web technologies and creative UI/UX
-                        design.
-                    </p>
+                <p class="hero-description">
 
+                    I create modern, responsive and
+                    user-friendly websites with clean
+                    design and smooth digital experiences.
 
-                    <div class="hero-buttons">
-
-                        <a
-                            href="#projects"
-                            class="btn btn-primary"
-                        >
-                            View My Work
-                        </a>
-
-                        <a
-                            href="resume.pdf"
-                            class="btn btn-outline"
-                            download
-                        >
-                            Download Resume
-                        </a>
-
-                    </div>
+                </p>
 
 
-                    <div class="hero-social">
+                <div class="hero-buttons">
 
-                        <a
-                            href="https://github.com/roshanjack856-tech"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            GitHub
-                        </a>
+                    <a
+                        href="#projects"
+                        class="btn btn-primary"
+                    >
+                        View My Work
+                    </a>
 
-                        <span>•</span>
-
-                        <a href="#contact">
-                            Contact
-                        </a>
-
-                    </div>
+                    <a
+                        href="#contact"
+                        class="btn btn-outline"
+                    >
+                        Contact Me
+                    </a>
 
                 </div>
 
 
-                <!-- RIGHT PORTRAIT -->
+                <div class="hero-location">
 
-                <div class="hero-visual">
+                    <span>📍</span>
 
-                    <div class="portrait-container">
+                    Tamil Nadu / Bengaluru
 
-                        <div class="portrait-glow"></div>
+                </div>
 
-
-                        <div
-                            class="portrait-3d"
-                            id="portrait3D"
-                        >
-
-                            <!--
-                                IMPORTANT:
-                                Your 300 images are in the
-                                same folder as index.html.
-                            -->
-
-                            <img
-                                id="portraitFrame"
-                                src="ezgif-frame-001.jpg"
-                                alt="Jack Roshan"
-                                draggable="false"
-                            >
-
-                        </div>
+            </div>
 
 
-                        <div
-                            class="scroll-hint"
-                            id="scrollHint"
-                        >
 
-                            <span>
-                                SCROLL TO ROTATE
-                            </span>
+            <!-- RIGHT SIDE - 300 FRAME PORTRAIT -->
 
-                            <strong>
-                                ↓
-                            </strong>
+            <div class="portrait-container">
 
-                        </div>
+                <div class="portrait-glow"></div>
+
+
+                <div
+                    class="portrait-3d"
+                    id="portrait3D"
+                >
+
+                    <img
+                        id="portraitFrame"
+                        src="portrait-frames/ezgif-frame-001.jpg"
+                        alt="Jack Roshan"
+                        draggable="false"
+                    >
+
+                </div>
+
+
+                <div
+                    class="scroll-hint"
+                    id="scrollHint"
+                >
+
+                    SCROLL TO ROTATE
+
+                    <span>
+                        ↓
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ABOUT
+    ====================================================== -->
+
+    <section
+        id="about"
+        class="section"
+    >
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span>
+                    01
+                </span>
+
+                <h2>
+                    About Me
+                </h2>
+
+            </div>
+
+
+            <div class="about-grid">
+
+                <div class="about-text">
+
+                    <h3>
+                        Building digital experiences
+                        with creativity and technology.
+                    </h3>
+
+                    <p>
+
+                        I am a B.Sc. Computer Science graduate
+                        from Loyola College and a fresher
+                        interested in Web Development and
+                        UI/UX Design.
+
+                    </p>
+
+                    <p>
+
+                        I enjoy creating responsive websites,
+                        modern user interfaces and practical
+                        digital solutions.
+
+                    </p>
+
+                    <p>
+
+                        I am continuously improving my skills
+                        in HTML, CSS, JavaScript, Figma,
+                        Canva, Firebase, GitHub and Vercel.
+
+                    </p>
+
+                </div>
+
+
+                <div class="about-card">
+
+                    <div class="about-card-item">
+
+                        <strong>
+                            Education
+                        </strong>
+
+                        <span>
+                            B.Sc. Computer Science
+                        </span>
+
+                    </div>
+
+
+                    <div class="about-card-item">
+
+                        <strong>
+                            College
+                        </strong>
+
+                        <span>
+                            Loyola College
+                        </span>
+
+                    </div>
+
+
+                    <div class="about-card-item">
+
+                        <strong>
+                            Role
+                        </strong>
+
+                        <span>
+                            Web Developer &amp; UI/UX Designer
+                        </span>
+
+                    </div>
+
+
+                    <div class="about-card-item">
+
+                        <strong>
+                            Location
+                        </strong>
+
+                        <span>
+                            Tamil Nadu / Bengaluru
+                        </span>
 
                     </div>
 
@@ -301,484 +465,379 @@
 
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
-        <!-- =========================================
-             ABOUT
-        ========================================== -->
 
-        <section
-            class="section about-section"
-            id="about"
-        >
+    <!-- =====================================================
+         SKILLS
+    ====================================================== -->
 
-            <div class="section-container">
+    <section
+        id="skills"
+        class="section dark-section"
+    >
 
-                <div class="section-heading">
+        <div class="section-container">
 
-                    <span>
+            <div class="section-heading">
+
+                <span>
+                    02
+                </span>
+
+                <h2>
+                    Skills
+                </h2>
+
+            </div>
+
+
+            <div class="skills-grid">
+
+
+                <div class="skill-card">
+
+                    <div class="skill-number">
                         01
-                    </span>
+                    </div>
 
-                    <h2>
-                        About Me
-                    </h2>
+                    <h3>
+                        HTML
+                    </h3>
+
+                    <p>
+                        Semantic and structured
+                        website development.
+                    </p>
 
                 </div>
 
 
-                <div class="about-grid">
+                <div class="skill-card">
 
-                    <div class="about-text">
-
-                        <p class="large-text">
-                            I'm a passionate
-                            <strong>Web Developer</strong>
-                            and
-                            <strong>UI/UX Designer</strong>
-                            who enjoys creating modern
-                            digital experiences.
-                        </p>
-
-                        <p>
-                            I completed my B.Sc. Computer
-                            Science at Loyola College.
-                            I have experience working with
-                            HTML, CSS, JavaScript, Figma,
-                            Canva, Firebase, GitHub and
-                            Vercel.
-                        </p>
-
-                        <p>
-                            I enjoy learning new technologies
-                            and building responsive websites
-                            that are simple, useful and
-                            visually attractive.
-                        </p>
-
-                        <a
-                            href="resume.pdf"
-                            class="text-link"
-                            download
-                        >
-                            Download My Resume →
-                        </a>
-
-                    </div>
-
-
-                    <div class="about-cards">
-
-                        <div class="info-card">
-
-                            <span>
-                                Education
-                            </span>
-
-                            <h3>
-                                B.Sc. Computer Science
-                            </h3>
-
-                            <p>
-                                Loyola College
-                            </p>
-
-                        </div>
-
-
-                        <div class="info-card">
-
-                            <span>
-                                Focus
-                            </span>
-
-                            <h3>
-                                Web Development
-                            </h3>
-
-                            <p>
-                                UI/UX Design
-                            </p>
-
-                        </div>
-
-
-                        <div class="info-card">
-
-                            <span>
-                                Location
-                            </span>
-
-                            <h3>
-                                Tamil Nadu
-                            </h3>
-
-                            <p>
-                                Bengaluru
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================
-             SKILLS
-        ========================================== -->
-
-        <section
-            class="section skills-section"
-            id="skills"
-        >
-
-            <div class="section-container">
-
-                <div class="section-heading">
-
-                    <span>
+                    <div class="skill-number">
                         02
-                    </span>
+                    </div>
 
-                    <h2>
-                        Skills
-                    </h2>
+                    <h3>
+                        CSS
+                    </h3>
+
+                    <p>
+                        Responsive layouts,
+                        animations and modern styling.
+                    </p>
 
                 </div>
 
 
-                <div class="skills-grid">
+                <div class="skill-card">
 
-                    <div class="skill-card">
-
-                        <div class="skill-number">
-                            01
-                        </div>
-
-                        <h3>
-                            HTML
-                        </h3>
-
-                        <p>
-                            Semantic and structured
-                            web page development.
-                        </p>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-number">
-                            02
-                        </div>
-
-                        <h3>
-                            CSS
-                        </h3>
-
-                        <p>
-                            Responsive layouts,
-                            animations and modern styling.
-                        </p>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-number">
-                            03
-                        </div>
-
-                        <h3>
-                            JavaScript
-                        </h3>
-
-                        <p>
-                            Interactive websites and
-                            dynamic functionality.
-                        </p>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-number">
-                            04
-                        </div>
-
-                        <h3>
-                            Figma
-                        </h3>
-
-                        <p>
-                            UI design, wireframes and
-                            basic prototypes.
-                        </p>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-number">
-                            05
-                        </div>
-
-                        <h3>
-                            Canva
-                        </h3>
-
-                        <p>
-                            Creative graphics,
-                            social media and visual design.
-                        </p>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-number">
-                            06
-                        </div>
-
-                        <h3>
-                            Firebase
-                        </h3>
-
-                        <p>
-                            Database and backend services
-                            for web projects.
-                        </p>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-number">
-                            07
-                        </div>
-
-                        <h3>
-                            GitHub
-                        </h3>
-
-                        <p>
-                            Source control and
-                            project deployment workflow.
-                        </p>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-number">
-                            08
-                        </div>
-
-                        <h3>
-                            Vercel
-                        </h3>
-
-                        <p>
-                            Fast and simple website
-                            deployment.
-                        </p>
-
-                    </div>
-
-
-                    <div class="skill-card">
-
-                        <div class="skill-number">
-                            09
-                        </div>
-
-                        <h3>
-                            MS Office
-                        </h3>
-
-                        <p>
-                            Word, Excel and PowerPoint.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================
-             SERVICES
-        ========================================== -->
-
-        <section
-            class="section services-section"
-            id="services"
-        >
-
-            <div class="section-container">
-
-                <div class="section-heading">
-
-                    <span>
+                    <div class="skill-number">
                         03
-                    </span>
+                    </div>
 
-                    <h2>
-                        Services
-                    </h2>
+                    <h3>
+                        JavaScript
+                    </h3>
+
+                    <p>
+                        Interactive website features
+                        and dynamic functionality.
+                    </p>
 
                 </div>
 
 
-                <div class="services-grid">
+                <div class="skill-card">
 
-                    <article class="service-card">
+                    <div class="skill-number">
+                        04
+                    </div>
 
-                        <span class="service-icon">
-                            &lt;/&gt;
-                        </span>
+                    <h3>
+                        Figma
+                    </h3>
 
-                        <h3>
-                            Web Development
-                        </h3>
+                    <p>
+                        UI design, wireframes
+                        and interface concepts.
+                    </p>
 
-                        <p>
-                            Responsive and modern websites
-                            using HTML, CSS and JavaScript.
-                        </p>
-
-                    </article>
+                </div>
 
 
-                    <article class="service-card">
+                <div class="skill-card">
 
-                        <span class="service-icon">
-                            ◇
-                        </span>
+                    <div class="skill-number">
+                        05
+                    </div>
 
-                        <h3>
-                            UI/UX Design
-                        </h3>
+                    <h3>
+                        Canva
+                    </h3>
 
-                        <p>
-                            Clean interfaces and user-friendly
-                            experiences using Figma.
-                        </p>
+                    <p>
+                        Advanced graphic and
+                        visual design.
+                    </p>
 
-                    </article>
-
-
-                    <article class="service-card">
-
-                        <span class="service-icon">
-                            ✦
-                        </span>
-
-                        <h3>
-                            Graphic Design
-                        </h3>
-
-                        <p>
-                            Creative graphics and visual
-                            content using Canva.
-                        </p>
-
-                    </article>
+                </div>
 
 
-                    <article class="service-card">
+                <div class="skill-card">
 
-                        <span class="service-icon">
-                            ↗
-                        </span>
+                    <div class="skill-number">
+                        06
+                    </div>
 
-                        <h3>
-                            Website Deployment
-                        </h3>
+                    <h3>
+                        Firebase
+                    </h3>
 
-                        <p>
-                            Website deployment and project
-                            management using GitHub and Vercel.
-                        </p>
+                    <p>
+                        Basic backend and
+                        web application services.
+                    </p>
 
-                    </article>
+                </div>
+
+
+                <div class="skill-card">
+
+                    <div class="skill-number">
+                        07
+                    </div>
+
+                    <h3>
+                        GitHub
+                    </h3>
+
+                    <p>
+                        Version control and
+                        project deployment workflow.
+                    </p>
+
+                </div>
+
+
+                <div class="skill-card">
+
+                    <div class="skill-number">
+                        08
+                    </div>
+
+                    <h3>
+                        Vercel
+                    </h3>
+
+                    <p>
+                        Website deployment and
+                        hosting.
+                    </p>
+
+                </div>
+
+
+                <div class="skill-card">
+
+                    <div class="skill-number">
+                        09
+                    </div>
+
+                    <h3>
+                        MS Office
+                    </h3>
+
+                    <p>
+                        Word, Excel and
+                        PowerPoint.
+                    </p>
 
                 </div>
 
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
-        <!-- =========================================
-             PROJECTS
-        ========================================== -->
 
-        <section
-            class="section projects-section"
-            id="projects"
-        >
+    <!-- =====================================================
+         SERVICES
+    ====================================================== -->
 
-            <div class="section-container">
+    <section
+        id="services"
+        class="section"
+    >
 
-                <div class="section-heading">
+        <div class="section-container">
 
-                    <span>
-                        04
+            <div class="section-heading">
+
+                <span>
+                    03
+                </span>
+
+                <h2>
+                    Services
+                </h2>
+
+            </div>
+
+
+            <div class="services-grid">
+
+
+                <div class="service-card">
+
+                    <span class="service-icon">
+                        ◈
                     </span>
 
-                    <h2>
-                        Projects
-                    </h2>
+                    <h3>
+                        Web Development
+                    </h3>
+
+                    <p>
+
+                        Modern and responsive
+                        websites using HTML, CSS
+                        and JavaScript.
+
+                    </p>
 
                 </div>
 
 
-                <div class="projects-grid">
+                <div class="service-card">
+
+                    <span class="service-icon">
+                        ◇
+                    </span>
+
+                    <h3>
+                        UI/UX Design
+                    </h3>
+
+                    <p>
+
+                        Clean, simple and
+                        user-friendly interface
+                        design.
+
+                    </p>
+
+                </div>
 
 
-                    <!-- PROJECT 1 -->
+                <div class="service-card">
 
-                    <article class="project-card">
+                    <span class="service-icon">
+                        ✦
+                    </span>
 
-                        <div class="project-top">
+                    <h3>
+                        Graphic Design
+                    </h3>
 
-                            <span>
-                                01
-                            </span>
+                    <p>
 
-                            <span>
-                                Web Development
-                            </span>
+                        Creative posters,
+                        social media designs
+                        and visual content.
 
-                        </div>
+                    </p>
 
+                </div>
+
+
+                <div class="service-card">
+
+                    <span class="service-icon">
+                        ◎
+                    </span>
+
+                    <h3>
+                        Website Deployment
+                    </h3>
+
+                    <p>
+
+                        GitHub-based project
+                        management and Vercel
+                        deployment.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PROJECTS
+    ====================================================== -->
+
+    <section
+        id="projects"
+        class="section dark-section"
+    >
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span>
+                    04
+                </span>
+
+                <h2>
+                    Projects
+                </h2>
+
+            </div>
+
+
+            <div class="projects-grid">
+
+
+                <!-- PROJECT 1 -->
+
+                <article class="project-card">
+
+                    <div class="project-number">
+                        01
+                    </div>
+
+                    <div class="project-content">
+
+                        <span class="project-type">
+                            BUSINESS WEBSITE
+                        </span>
 
                         <h3>
-                            Foreign Bridge
-                            Export & Import Corp
+                            Foreign Bridge Export
+                            &amp; Import Corp
                         </h3>
 
                         <p>
-                            A professional business website
-                            designed for an export and import
-                            company based in Chennai.
+
+                            A modern business website
+                            and product catalogue
+                            created for an export and
+                            import business.
+
                         </p>
 
 
@@ -806,45 +865,53 @@
                         <a
                             href="https://fb-group.vercel.app/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             class="project-link"
                         >
                             View Project →
                         </a>
 
-                    </article>
+                    </div>
+
+                </article>
 
 
-                    <!-- PROJECT 2 -->
 
-                    <article class="project-card">
+                <!-- PROJECT 2 -->
 
-                        <div class="project-top">
+                <article class="project-card">
 
-                            <span>
-                                02
-                            </span>
+                    <div class="project-number">
+                        02
+                    </div>
 
-                            <span>
-                                College Project
-                            </span>
+                    <div class="project-content">
 
-                        </div>
-
+                        <span class="project-type">
+                            COLLEGE PROJECT
+                        </span>
 
                         <h3>
-                            Sports & Event
+                            Sports &amp; Event
                             Management System
                         </h3>
 
                         <p>
-                            A college project covering sports
-                            information, nutrition, game rules
-                            and event management.
+
+                            A college project designed
+                            to provide sports information,
+                            nutrition information,
+                            game rules and event
+                            management features.
+
                         </p>
 
 
                         <div class="project-tech">
+
+                            <span>
+                                Web Development
+                            </span>
 
                             <span>
                                 HTML
@@ -860,91 +927,82 @@
 
                         </div>
 
+                    </div>
 
-                        <a
-                            href="#contact"
-                            class="project-link"
-                        >
-                            Ask About Project →
-                        </a>
-
-                    </article>
-
-                </div>
+                </article>
 
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
-        <!-- =========================================
-             EXPERIENCE
-        ========================================== -->
 
-        <section
-            class="section experience-section"
-            id="experience"
-        >
+    <!-- =====================================================
+         EXPERIENCE
+    ====================================================== -->
 
-            <div class="section-container">
+    <section
+        id="experience"
+        class="section"
+    >
 
-                <div class="section-heading">
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span>
+                    05
+                </span>
+
+                <h2>
+                    Experience
+                </h2>
+
+            </div>
+
+
+            <div class="experience-card">
+
+                <div class="experience-date">
+                    INTERNSHIP
+                </div>
+
+
+                <div class="experience-content">
+
+                    <h3>
+                        Codsair Technologies
+                    </h3>
 
                     <span>
-                        05
+                        Calicut, Kerala
                     </span>
 
-                    <h2>
-                        Experience
-                    </h2>
+                    <p>
 
-                </div>
+                        During my internship, I improved
+                        my communication skills and
+                        gained practical exposure to
+                        basic coding and website
+                        development.
 
+                    </p>
 
-                <div class="experience-card">
+                    <div class="experience-tags">
 
-                    <div class="experience-date">
-                        Internship
-                    </div>
+                        <span>
+                            Communication
+                        </span>
 
+                        <span>
+                            Coding
+                        </span>
 
-                    <div class="experience-content">
-
-                        <h3>
-                            Codsair Technologies
-                        </h3>
-
-                        <p class="experience-location">
-                            Calicut, Kerala
-                        </p>
-
-                        <p>
-                            During my internship, I improved
-                            my communication skills and gained
-                            practical knowledge of basic coding
-                            and website development.
-                        </p>
-
-
-                        <ul>
-
-                            <li>
-                                Basic coding knowledge
-                            </li>
-
-                            <li>
-                                Website development
-                            </li>
-
-                            <li>
-                                Websites with and without coding
-                            </li>
-
-                            <li>
-                                Communication skills
-                            </li>
-
-                        </ul>
+                        <span>
+                            Website Development
+                        </span>
 
                     </div>
 
@@ -952,115 +1010,120 @@
 
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
-        <!-- =========================================
-             CONTACT
-        ========================================== -->
 
-        <section
-            class="section contact-section"
-            id="contact"
-        >
+    <!-- =====================================================
+         CONTACT
+    ====================================================== -->
 
-            <div class="section-container">
+    <section
+        id="contact"
+        class="section contact-section"
+    >
 
-                <div class="section-heading">
+        <div class="section-container">
 
-                    <span>
-                        06
-                    </span>
+            <div class="section-heading">
 
-                    <h2>
-                        Let's Connect
-                    </h2>
+                <span>
+                    06
+                </span>
+
+                <h2>
+                    Contact
+                </h2>
+
+            </div>
+
+
+            <div class="contact-grid">
+
+
+                <div class="contact-intro">
+
+                    <h3>
+                        Let's create something
+                        great together.
+                    </h3>
+
+                    <p>
+
+                        I am currently looking for
+                        fresher opportunities in
+                        Web Development and UI/UX
+                        Design.
+
+                    </p>
 
                 </div>
 
 
-                <div class="contact-grid">
+                <div class="contact-details">
 
 
-                    <div class="contact-intro">
+                    <a
+                        href="mailto:roshanjack856@gmail.com"
+                        class="contact-item"
+                    >
 
-                        <p class="contact-large">
-                            Have a project or
-                            opportunity?
-                        </p>
+                        <span>
+                            EMAIL
+                        </span>
 
-                        <p>
-                            I'm currently looking for
-                            fresher opportunities in
-                            Web Development and UI/UX Design.
-                        </p>
+                        <strong>
+                            roshanjack856@gmail.com
+                        </strong>
 
-                    </div>
-
-
-                    <div class="contact-details">
-
-                        <a
-                            href="mailto:roshanjack856@gmail.com"
-                            class="contact-item"
-                        >
-
-                            <span>
-                                Email
-                            </span>
-
-                            <strong>
-                                roshanjack856@gmail.com
-                            </strong>
-
-                        </a>
+                    </a>
 
 
-                        <a
-                            href="tel:+919082844086"
-                            class="contact-item"
-                        >
+                    <a
+                        href="tel:+919082844086"
+                        class="contact-item"
+                    >
 
-                            <span>
-                                Phone
-                            </span>
+                        <span>
+                            PHONE
+                        </span>
 
-                            <strong>
-                                +91 90828 44086
-                            </strong>
+                        <strong>
+                            +91 90828 44086
+                        </strong>
 
-                        </a>
-
-
-                        <a
-                            href="https://github.com/roshanjack856-tech"
-                            target="_blank"
-                            rel="noopener"
-                            class="contact-item"
-                        >
-
-                            <span>
-                                GitHub
-                            </span>
-
-                            <strong>
-                                roshanjack856-tech
-                            </strong>
-
-                        </a>
+                    </a>
 
 
-                        <div class="contact-item">
+                    <a
+                        href="https://github.com/roshanjack856-tech"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-item"
+                    >
 
-                            <span>
-                                Location
-                            </span>
+                        <span>
+                            GITHUB
+                        </span>
 
-                            <strong>
-                                Tamil Nadu / Bengaluru
-                            </strong>
+                        <strong>
+                            roshanjack856-tech
+                        </strong>
 
-                        </div>
+                    </a>
+
+
+                    <div class="contact-item">
+
+                        <span>
+                            LOCATION
+                        </span>
+
+                        <strong>
+                            Tamil Nadu / Bengaluru
+                        </strong>
 
                     </div>
 
@@ -1068,31 +1131,54 @@
 
             </div>
 
-        </section>
 
-    </main>
+            <div class="resume-area">
+
+                <a
+                    href="resume.pdf"
+                    download
+                    class="btn btn-primary"
+                >
+                    Download Resume
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
 
 
-    <!-- =========================================
+
+    <!-- =====================================================
          FOOTER
-    ========================================== -->
+    ====================================================== -->
 
     <footer class="footer">
 
         <div class="footer-container">
 
-            <p>
+            <div>
                 © 2026 Jack Roshan.
                 All Rights Reserved.
-            </p>
+            </div>
 
-            <p>
-                Web Developer & UI/UX Designer
-            </p>
+            <div>
+                Web Developer &amp; UI/UX Designer
+            </div>
 
         </div>
 
     </footer>
 
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
 </body>
+
 </html>
