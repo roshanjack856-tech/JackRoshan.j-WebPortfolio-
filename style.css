@@ -294,51 +294,123 @@ button {
    MOBILE MENU
 ===================================================== */
 
+.mob-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: 0.3s;
+
+    z-index: 4999;
+}
+
+
+.mob-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
 .mobile-menu {
     position: fixed;
 
     top: 0;
-    left: 0;
+    left: -100%;
 
-    width: 100%;
+    width: min(295px, 80vw);
     height: 100vh;
 
     z-index: 5000;
 
-    background: #05080f;
+    background: #0b0f18;
 
-    padding: 30px;
-
-    transform: translateX(100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 
     transition:
-        transform 0.5s cubic-bezier(.77,0,.18,1);
+        left 0.45s cubic-bezier(.77,0,.18,1);
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
 }
 
 
 .mobile-menu.open {
-    transform: translateX(0);
+    left: 0;
+
+    box-shadow: 20px 0 70px rgba(0, 0, 0, 0.8);
 }
 
 
 .mobile-menu-top {
+    padding: 22px 20px 16px;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
 
-    margin-bottom: 70px;
+    gap: 12px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(88, 182, 255, 0.05);
+
+    flex-shrink: 0;
 }
 
 
-.mobile-logo {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 28px;
+.mob-avatar {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(135deg, #58b6ff, #164a7a);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    font-size: 1.05rem;
+
+    color: #05080f;
+
+    border: 2px solid rgba(88, 182, 255, 0.5);
+
+    flex-shrink: 0;
+}
+
+
+.mob-info {
+    flex: 1;
+}
+
+
+.mob-head-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #58b6ff;
+}
+
+
+.mob-head-role {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 3px;
 }
 
 
 .close-menu {
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
 
     border-radius: 50%;
 
@@ -347,24 +419,186 @@ button {
     background: transparent;
     color: #ffffff;
 
-    font-size: 25px;
+    font-size: 22px;
+
+    flex-shrink: 0;
 }
 
 
-.mobile-menu nav {
+.mob-body {
+    flex: 1;
+    overflow-y: auto;
+
     display: flex;
     flex-direction: column;
 }
 
 
-.mobile-menu nav a {
-    font-family: "Cormorant Garamond", serif;
+.mob-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.28);
+    padding: 0.9rem 1.3rem 0.3rem;
+    font-weight: 600;
+}
 
-    font-size: 46px;
 
-    padding: 14px 0;
+.mob-nav-links {
+    display: flex;
+    flex-direction: column;
+}
 
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+
+.mob-nav-links a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+
+    padding: 0.8rem 1.3rem;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+    transition: 0.28s;
+
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+
+.mob-nav-links a:hover,
+.mob-nav-links a.active {
+    background: rgba(88, 182, 255, 0.08);
+    color: #58b6ff;
+    padding-left: 1.7rem;
+}
+
+
+.mob-nav-links a .ico {
+    width: 33px;
+    height: 33px;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0.92rem;
+    flex-shrink: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+.mob-nav-links a:hover .ico,
+.mob-nav-links a.active .ico {
+    background: rgba(88, 182, 255, 0.12);
+    border-color: rgba(88, 182, 255, 0.22);
+}
+
+
+.mob-srv-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.5rem;
+}
+
+
+.mob-srv-scroll {
+    display: flex;
+    gap: 0.55rem;
+
+    overflow-x: auto;
+
+    padding: 0.6rem 1.3rem;
+
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+.mob-srv-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+
+    background: rgba(88, 182, 255, 0.05);
+    border: 1px solid rgba(88, 182, 255, 0.16);
+
+    border-radius: 10px;
+
+    padding: 0.7rem 0.75rem;
+
+    text-align: center;
+
+    min-width: 72px;
+}
+
+
+.srv-i {
+    font-size: 1.25rem;
+    display: block;
+    margin-bottom: 0.28rem;
+}
+
+
+.srv-n {
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-weight: 500;
+}
+
+
+.mob-cta {
+    padding: 0.6rem 1.2rem 0.3rem;
+    flex-shrink: 0;
+}
+
+
+.mob-cta a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.45rem;
+
+    width: 100%;
+
+    padding: 0.88rem;
+
+    background: #58b6ff;
+    color: #05080f;
+
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.84rem;
+
+    border-radius: 8px;
+
+    transition: 0.28s;
+}
+
+
+.mob-cta a:hover {
+    background: #79c5ff;
+    transform: translateY(-2px);
+}
+
+
+.mob-foot {
+    padding: 0.7rem 1.3rem 1.1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+}
+
+
+.mob-foot p {
+    font-size: 0.64rem;
+    color: rgba(255, 255, 255, 0.3);
 }
 
 
