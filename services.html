@@ -135,14 +135,18 @@ nav{
   transition:.3s;
 }
 
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; transform:scaleX(0); }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
 /* MOBILE OVERLAY */
 
 .mob-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.7);
+  background:rgba(0,0,0,.65);
 
-  backdrop-filter:blur(4px);
+  backdrop-filter:blur(3px);
 
   opacity:0;
   pointer-events:none;
@@ -163,9 +167,9 @@ nav{
   position:fixed;
 
   top:0;
-  left:-320px;
+  left:-100%;
 
-  width:290px;
+  width:min(295px,80vw);
   height:100vh;
 
   background:#0b1e3d;
@@ -190,7 +194,7 @@ nav{
 /* MENU HEADER */
 
 .mob-head{
-  padding:25px 20px;
+  padding:1.4rem 1.3rem 1rem;
 
   display:flex;
   align-items:center;
@@ -199,11 +203,13 @@ nav{
   border-bottom:1px solid rgba(255,255,255,.08);
 
   background:rgba(216,155,43,.04);
+
+  flex-shrink:0;
 }
 
 .mob-avatar{
-  width:50px;
-  height:50px;
+  width:46px;
+  height:46px;
 
   border-radius:50%;
 
@@ -214,11 +220,12 @@ nav{
   justify-content:center;
 
   font-weight:700;
-  font-size:18px;
+  font-size:1.15rem;
 
   color:#081b3a;
 
   border:2px solid rgba(216,155,43,.4);
+  flex-shrink:0;
 }
 
 .mob-info{
@@ -238,7 +245,7 @@ nav{
 }
 
 .mob-x{
-  font-size:24px;
+  font-size:20px;
   cursor:pointer;
   color:white;
   transition:.3s;
@@ -248,68 +255,173 @@ nav{
   color:#d89b2b;
 }
 
+/* MENU BODY */
+
+.mob-body{
+  flex:1;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+
+.mob-label{
+  font-size:.58rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.28);
+  padding:.9rem 1.3rem .3rem;
+  font-weight:600;
+}
+
 /* MOBILE NAVIGATION */
 
 .mob-nav-links{
   display:flex;
   flex-direction:column;
-  margin-top:10px;
 }
 
 .mob-nav-links a{
   color:rgba(255,255,255,.75);
   text-decoration:none;
 
-  padding:18px 25px;
+  padding:.8rem 1.3rem;
 
   border-bottom:1px solid rgba(255,255,255,.05);
 
-  transition:.3s;
+  transition:.28s;
 
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:.8rem;
 
-  font-size:15px;
+  font-size:.84rem;
+  font-weight:500;
 }
 
 .mob-nav-links a:hover,
 .mob-nav-links a.active{
   background:rgba(216,155,43,.08);
   color:#d89b2b;
-  padding-left:32px;
+  padding-left:1.7rem;
+}
+
+.mob-nav-links a .ico{
+  width:33px;
+  height:33px;
+  background:rgba(255,255,255,.05);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.92rem;
+  flex-shrink:0;
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.mob-nav-links a:hover .ico,
+.mob-nav-links a.active .ico{
+  background:rgba(216,155,43,.12);
+  border-color:rgba(216,155,43,.22);
+}
+
+/* SERVICES SWIPE */
+
+.mob-srv-section{
+  border-top:1px solid rgba(255,255,255,.05);
+  padding-bottom:.5rem;
+}
+
+.mob-srv-scroll{
+  display:flex;
+  gap:.55rem;
+  overflow-x:auto;
+  padding:.6rem 1.3rem;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+
+.mob-srv-card{
+  flex:0 0 auto;
+  scroll-snap-align:start;
+  background:rgba(216,155,43,.05);
+  border:1px solid rgba(216,155,43,.16);
+  border-radius:10px;
+  padding:.7rem .75rem;
+  text-align:center;
+  min-width:72px;
+  text-decoration:none;
+  transition:.28s;
+}
+
+.mob-srv-card:hover{
+  background:rgba(216,155,43,.14);
+  border-color:rgba(216,155,43,.38);
+  transform:translateY(-3px);
+}
+
+.srv-i{
+  font-size:1.25rem;
+  display:block;
+  margin-bottom:.28rem;
+}
+
+.srv-n{
+  font-size:.6rem;
+  color:rgba(255,255,255,.62);
+  font-weight:500;
 }
 
 /* CONTACT BUTTON */
 
-.mob-btn{
-  margin-top:auto;
-  padding:20px;
+.mob-cta{
+  padding:.6rem 1.2rem .3rem;
+  flex-shrink:0;
 }
 
-.mob-btn a{
+.mob-cta a{
   display:flex;
   justify-content:center;
   align-items:center;
+  gap:.45rem;
 
   width:100%;
 
-  padding:14px;
+  padding:.88rem;
 
   background:#d89b2b;
   color:#081b3a;
 
   text-decoration:none;
   font-weight:700;
+  font-size:.84rem;
 
-  border-radius:10px;
+  border-radius:8px;
 
-  transition:.3s;
+  transition:.28s;
 }
 
-.mob-btn a:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 20px rgba(216,155,43,.4);
+.mob-cta a:hover{
+  background:#f0b040;
+  transform:translateY(-2px);
+}
+
+/* MENU FOOTER */
+
+.mob-foot{
+  padding:.7rem 1.3rem 1.1rem;
+  border-top:1px solid rgba(255,255,255,.05);
+  flex-shrink:0;
+}
+
+.mob-foot p{
+  font-size:.64rem;
+  color:rgba(255,255,255,.26);
+  line-height:1.7;
+}
+
+.mob-foot a{
+  color:#d89b2b;
+  text-decoration:none;
 }
 
 /* SERVICES */
@@ -493,10 +605,6 @@ nav{
     padding:30px 22px;
   }
 
-  .mob-menu{
-    width:280px;
-  }
-
 }
 
 </style>
@@ -533,36 +641,41 @@ nav{
 
   </div>
 
-  <div class="mob-nav-links">
+  <div class="mob-body">
 
-    <a href="index.html">
-      🏠 Home
-    </a>
+    <div class="mob-label">Pages</div>
+    <div class="mob-nav-links">
 
-    <a href="about.html">
-      👤 About
-    </a>
+      <a href="index.html"><span class="ico">🏠</span> Home</a>
+      <a href="about.html"><span class="ico">👤</span> About</a>
+      <a href="services.html" class="active"><span class="ico">⚡</span> Services</a>
+      <a href="project.html"><span class="ico">🗂️</span> Projects</a>
+      <a href="contact.html"><span class="ico">✉️</span> Contact</a>
 
-    <a href="services.html" class="active">
-      ⚡ Services
-    </a>
+    </div>
 
-    <a href="project.html">
-      🗂 Projects
-    </a>
-
-    <a href="contact.html">
-      ✉ Contact
-    </a>
+    <div class="mob-label" style="margin-top:.5rem">
+      Services &nbsp;<span style="color:rgba(216,155,43,.5);font-size:.52rem">swipe →</span>
+    </div>
+    <div class="mob-srv-section">
+      <div class="mob-srv-scroll">
+        <a href="services.html#webdev" class="mob-srv-card"><span class="srv-i">🌐</span><span class="srv-n">Web Dev</span></a>
+        <a href="services.html#uiux" class="mob-srv-card"><span class="srv-i">🎨</span><span class="srv-n">UI/UX</span></a>
+        <a href="services.html#nocode" class="mob-srv-card"><span class="srv-i">⚡</span><span class="srv-n">No-Code</span></a>
+        <a href="services.html#graphic" class="mob-srv-card"><span class="srv-i">🖼️</span><span class="srv-n">Graphic</span></a>
+        <a href="services.html#seo" class="mob-srv-card"><span class="srv-i">📈</span><span class="srv-n">SEO</span></a>
+        <a href="services.html#deploy" class="mob-srv-card"><span class="srv-i">🚀</span><span class="srv-n">Deploy</span></a>
+      </div>
+    </div>
 
   </div>
 
-  <div class="mob-btn">
+  <div class="mob-cta">
+    <a href="contact.html" id="ctaLink">✉ &nbsp;Contact Me</a>
+  </div>
 
-    <a href="contact.html">
-      Contact Me
-    </a>
-
+  <div class="mob-foot">
+    <p>📞 <a href="tel:9082844086">9082844086</a><br>✉ <a href="mailto:roshanjack856@gmail.com">roshanjack856@gmail.com</a></p>
   </div>
 
 </div>
@@ -751,11 +864,15 @@ const overlay = document.getElementById('overlay');
 
 const mobClose = document.getElementById('mobClose');
 
+const ctaLink = document.getElementById('ctaLink');
+
 function openMenu(){
 
   mobMenu.classList.add('open');
 
   overlay.classList.add('open');
+
+  ham.classList.add('open');
 
   document.body.style.overflow='hidden';
 
@@ -767,6 +884,8 @@ function closeMenu(){
 
   overlay.classList.remove('open');
 
+  ham.classList.remove('open');
+
   document.body.style.overflow='';
 
 }
@@ -776,6 +895,8 @@ ham.addEventListener('click', openMenu);
 mobClose.addEventListener('click', closeMenu);
 
 overlay.addEventListener('click', closeMenu);
+
+ctaLink.addEventListener('click', closeMenu);
 
 document.querySelectorAll('.mob-nav-links a').forEach(link=>{
 
