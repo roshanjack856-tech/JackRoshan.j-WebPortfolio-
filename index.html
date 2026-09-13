@@ -204,6 +204,16 @@
 
 
 <!-- =====================================================
+     MOBILE MENU OVERLAY
+===================================================== -->
+
+<div
+    class="mob-overlay"
+    id="mobOverlay"
+></div>
+
+
+<!-- =====================================================
      MOBILE MENU
 ===================================================== -->
 
@@ -214,8 +224,11 @@
 
     <div class="mobile-menu-top">
 
-        <div class="mobile-logo">
-            JACK ROSHAN J
+        <div class="mob-avatar">JR</div>
+
+        <div class="mob-info">
+            <div class="mob-head-name">Jack Roshan J</div>
+            <div class="mob-head-role">Web Developer &amp; UI/UX Designer</div>
         </div>
 
         <button
@@ -228,32 +241,43 @@
     </div>
 
 
-    <nav>
+    <div class="mob-body">
 
-        <a href="index.html">
-            Home
-        </a>
+        <div class="mob-label">Pages</div>
 
-        <a href="about.html">
-            About
-        </a>
+        <nav class="mob-nav-links">
 
-        <a href="project.html">
-            Projects
-        </a>
+            <a href="index.html" class="active"><span class="ico">🏠</span> Home</a>
+            <a href="about.html"><span class="ico">👤</span> About</a>
+            <a href="project.html"><span class="ico">🗂️</span> Projects</a>
+            <a href="contact.html"><span class="ico">✉️</span> Contact</a>
+            <a href="resume.pdf" target="_blank"><span class="ico">📄</span> Resume</a>
 
-        <a href="contact.html">
-            Contact
-        </a>
+        </nav>
 
-        <a
-            href="resume.pdf"
-            target="_blank"
-        >
-            Resume
-        </a>
+        <div class="mob-label" style="margin-top:.5rem">
+            Skills &nbsp;<span style="color:rgba(88,182,255,.5);font-size:.52rem">swipe →</span>
+        </div>
 
-    </nav>
+        <div class="mob-srv-section">
+            <div class="mob-srv-scroll">
+                <span class="mob-srv-card"><span class="srv-i">🌐</span><span class="srv-n">Web Dev</span></span>
+                <span class="mob-srv-card"><span class="srv-i">🎨</span><span class="srv-n">UI/UX</span></span>
+                <span class="mob-srv-card"><span class="srv-i">🖌️</span><span class="srv-n">Figma</span></span>
+                <span class="mob-srv-card"><span class="srv-i">🖼️</span><span class="srv-n">Canva</span></span>
+                <span class="mob-srv-card"><span class="srv-i">⚡</span><span class="srv-n">JavaScript</span></span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="mob-cta">
+        <a href="contact.html" id="mobCtaLink">✉ &nbsp;Contact Me</a>
+    </div>
+
+    <div class="mob-foot">
+        <p>📍 Viluppuram, Tamil Nadu</p>
+    </div>
 
 </div>
 
