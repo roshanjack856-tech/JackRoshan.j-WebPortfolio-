@@ -1080,6 +1080,9 @@ button {
 ===================================================== */
 
 .after-scene {
+    position: relative;
+    overflow: hidden;
+
     min-height: 80vh;
 
     display: flex;
@@ -1089,17 +1092,43 @@ button {
 
     padding: 100px 7%;
 
+    background: #09111d;
+}
+
+
+.after-scene::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
     background:
         linear-gradient(
             rgba(9, 17, 29, 0.93),
             rgba(9, 17, 29, 0.93)
-        ),
-        url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&q=80")
-        center / cover no-repeat;
+        );
+
+    z-index: 1;
+}
+
+
+.after-bg {
+    position: absolute;
+    inset: 0;
+
+    background-size: cover;
+    background-position: center;
+
+    transition: opacity 0.5s ease;
+
+    z-index: 0;
 }
 
 
 .after-inner {
+    position: relative;
+    z-index: 2;
+
     text-align: center;
 
     max-width: 750px;
