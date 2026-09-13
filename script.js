@@ -42,20 +42,48 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeMenu =
         document.getElementById("closeMenu");
 
+    const mobOverlay =
+        document.getElementById("mobOverlay");
+
+    const mobCtaLink =
+        document.getElementById("mobCtaLink");
+
 
     /* =================================================
        MOBILE MENU
     ================================================= */
 
+    function openMobileMenu() {
+
+        mobileMenu.classList.add("open");
+
+        if (mobOverlay) {
+            mobOverlay.classList.add("open");
+        }
+
+        document.body.style.overflow = "hidden";
+
+    }
+
+
+    function closeMobileMenu() {
+
+        mobileMenu.classList.remove("open");
+
+        if (mobOverlay) {
+            mobOverlay.classList.remove("open");
+        }
+
+        document.body.style.overflow = "";
+
+    }
+
+
     if (menuButton && mobileMenu) {
 
         menuButton.addEventListener(
             "click",
-            function () {
-
-                mobileMenu.classList.add("open");
-
-            }
+            openMobileMenu
         );
 
     }
@@ -65,11 +93,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         closeMenu.addEventListener(
             "click",
-            function () {
+            closeMobileMenu
+        );
 
-                mobileMenu.classList.remove("open");
+    }
 
-            }
+
+    if (mobOverlay) {
+
+        mobOverlay.addEventListener(
+            "click",
+            closeMobileMenu
+        );
+
+    }
+
+
+    if (mobCtaLink) {
+
+        mobCtaLink.addEventListener(
+            "click",
+            closeMobileMenu
         );
 
     }
@@ -78,19 +122,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (mobileMenu) {
 
         const mobileLinks =
-            mobileMenu.querySelectorAll("a");
+            mobileMenu.querySelectorAll(".mob-nav-links a");
 
         mobileLinks.forEach(function (link) {
 
             link.addEventListener(
                 "click",
-                function () {
-
-                    mobileMenu.classList.remove(
-                        "open"
-                    );
-
-                }
+                closeMobileMenu
             );
 
         });
