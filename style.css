@@ -1031,7 +1031,18 @@ footer {
 
 
     .header-marquee {
-        display: none;
+        display: block;
+
+        flex: 1;
+
+        overflow: hidden;
+
+        margin: 0 12px;
+    }
+
+
+    .marquee-track span {
+        font-size: 9px;
     }
 
 
