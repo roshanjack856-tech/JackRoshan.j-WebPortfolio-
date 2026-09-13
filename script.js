@@ -50,6 +50,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
+       AFTER-SCENE BACKGROUND SLIDESHOW
+    ================================================= */
+
+    const afterBg =
+        document.getElementById("afterBg");
+
+
+    if (afterBg) {
+
+        const afterBgImages = [
+            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&q=80",
+            "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1600&q=80",
+            "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&q=80",
+            "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600&q=80"
+        ];
+
+
+        let afterBgIndex = 0;
+
+
+        afterBg.style.backgroundImage =
+            `url(${afterBgImages[0]})`;
+
+
+        setInterval(
+            function () {
+
+                afterBgIndex =
+                    (afterBgIndex + 1) %
+                    afterBgImages.length;
+
+                afterBg.style.opacity = "0";
+
+                setTimeout(
+                    function () {
+
+                        afterBg.style.backgroundImage =
+                            `url(${afterBgImages[afterBgIndex]})`;
+
+                        afterBg.style.opacity = "1";
+
+                    },
+                    250
+                );
+
+            },
+            1000
+        );
+
+    }
+
+
+    /* =================================================
        MOBILE MENU
     ================================================= */
 
