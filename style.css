@@ -1090,7 +1090,12 @@ button {
     padding: 100px 7%;
 
     background:
-        #09111d;
+        linear-gradient(
+            rgba(9, 17, 29, 0.93),
+            rgba(9, 17, 29, 0.93)
+        ),
+        url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1600&q=80")
+        center / cover no-repeat;
 }
 
 
