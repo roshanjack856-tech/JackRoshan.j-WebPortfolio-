@@ -955,7 +955,7 @@ button {
 
 /* =====================================================
    SIDE COLOR STRIPS
-   (BOTH SIDES SCROLL BOTTOM TO TOP, SAME COLOR SEQUENCE)
+   (LEFT SCROLLS BOTTOM TO TOP, RIGHT SCROLLS TOP TO BOTTOM)
 ===================================================== */
 
 .side-strip {
@@ -1007,12 +1007,25 @@ button {
 
 
 .right-strip .strip-track {
-    animation: stripUp 16s linear infinite;
+    animation: stripDown 16s linear infinite;
 }
 
 
 .left-strip .strip-track {
     animation: stripUp 16s linear infinite;
+}
+
+
+@keyframes stripDown {
+
+    from {
+        transform: translateY(-50%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+
 }
 
 
