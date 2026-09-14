@@ -631,6 +631,40 @@ button {
 
 
 /* =====================================================
+   HERO BACKGROUND SLIDESHOW (BLURRED GLASS LOOK)
+===================================================== */
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+
+    background-size: cover;
+    background-position: center;
+
+    filter: blur(9px) brightness(0.42) saturate(1.15);
+
+    transform: scale(1.1);
+
+    transition: opacity 0.7s ease;
+
+    z-index: 0;
+}
+
+
+.hero-bg-tint {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(5, 8, 15, 0.35);
+
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+
+    z-index: 1;
+}
+
+
+/* =====================================================
    SEPARATOR LINES
 ===================================================== */
 
@@ -665,6 +699,7 @@ button {
 
 .hero-layout {
     position: relative;
+    z-index: 2;
 
     flex: 1;
 
