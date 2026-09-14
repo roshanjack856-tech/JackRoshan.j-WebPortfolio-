@@ -641,7 +641,7 @@ button {
     background-size: cover;
     background-position: center;
 
-    filter: blur(9px) brightness(0.42) saturate(1.15);
+    filter: blur(9px) brightness(0.26) saturate(1.1);
 
     transform: scale(1.1);
 
@@ -655,7 +655,7 @@ button {
     position: absolute;
     inset: 0;
 
-    background: rgba(5, 8, 15, 0.35);
+    background: rgba(5, 8, 15, 0.55);
 
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
