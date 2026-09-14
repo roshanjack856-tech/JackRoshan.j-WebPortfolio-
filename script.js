@@ -60,11 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (heroBg) {
 
         const heroBgImages = [
-            "https://images.unsplash.com/photo-1550439062-609e1531270e?w=1600&q=80",
-            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1600&q=80",
-            "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1600&q=80",
-            "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=1600&q=80",
-            "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=1600&q=80"
+            "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=1600&q=80",
+            "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1600&q=80",
+            "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=1600&q=80",
+            "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1600&q=80",
+            "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1600&q=80"
         ];
 
 
