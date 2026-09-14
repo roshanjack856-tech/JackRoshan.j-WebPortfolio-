@@ -1029,7 +1029,7 @@ button {
 
 
 /* =====================================================
-   PORTRAIT SIDE-GAP COLOR SCROLLS
+   PORTRAIT SIDE-GAP CODE RAIN CANVASES
 ===================================================== */
 
 .portrait-side {
@@ -1042,80 +1042,17 @@ button {
 
     z-index: 0;
 
-    background-repeat: repeat-y;
-    background-size: 100% 320px;
-
-    opacity: 0.55;
+    opacity: 0.85;
 }
 
 
 .portrait-side-left {
     left: 0;
-
-    background-image:
-        linear-gradient(
-            180deg,
-            #58b6ff 0%,
-            #7c4dff 18%,
-            #05080f 18%,
-            #05080f 38%,
-            #ff6b6b 38%,
-            #ffd166 56%,
-            #05080f 56%,
-            #05080f 76%,
-            #06d6a0 76%,
-            #118ab2 100%
-        );
-
-    animation: portraitSideUp 11s linear infinite;
 }
 
 
 .portrait-side-right {
     right: 0;
-
-    background-image:
-        linear-gradient(
-            180deg,
-            #ff6b6b 0%,
-            #ffd166 18%,
-            #05080f 18%,
-            #05080f 38%,
-            #06d6a0 38%,
-            #118ab2 56%,
-            #05080f 56%,
-            #05080f 76%,
-            #58b6ff 76%,
-            #7c4dff 100%
-        );
-
-    animation: portraitSideDown 11s linear infinite;
-}
-
-
-@keyframes portraitSideUp {
-
-    from {
-        background-position: 0 0;
-    }
-
-    to {
-        background-position: 0 -320px;
-    }
-
-}
-
-
-@keyframes portraitSideDown {
-
-    from {
-        background-position: 0 -320px;
-    }
-
-    to {
-        background-position: 0 0;
-    }
-
 }
 
 
