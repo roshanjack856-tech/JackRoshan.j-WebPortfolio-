@@ -50,6 +50,60 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
+       HERO BACKGROUND SLIDESHOW
+    ================================================= */
+
+    const heroBg =
+        document.getElementById("heroBg");
+
+
+    if (heroBg) {
+
+        const heroBgImages = [
+            "https://images.unsplash.com/photo-1550439062-609e1531270e?w=1600&q=80",
+            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1600&q=80",
+            "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1600&q=80",
+            "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=1600&q=80",
+            "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=1600&q=80"
+        ];
+
+
+        let heroBgIndex = 0;
+
+
+        heroBg.style.backgroundImage =
+            `url(${heroBgImages[0]})`;
+
+
+        setInterval(
+            function () {
+
+                heroBgIndex =
+                    (heroBgIndex + 1) %
+                    heroBgImages.length;
+
+                heroBg.style.opacity = "0";
+
+                setTimeout(
+                    function () {
+
+                        heroBg.style.backgroundImage =
+                            `url(${heroBgImages[heroBgIndex]})`;
+
+                        heroBg.style.opacity = "1";
+
+                    },
+                    350
+                );
+
+            },
+            2000
+        );
+
+    }
+
+
+    /* =================================================
        AFTER-SCENE BACKGROUND SLIDESHOW
     ================================================= */
 
