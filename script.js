@@ -76,6 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const rect =
                 canvas.getBoundingClientRect();
 
+            if (rect.width < 1 || rect.height < 1) {
+                return;
+            }
+
             canvas.width = rect.width;
             canvas.height = rect.height;
 
@@ -104,6 +108,19 @@ document.addEventListener("DOMContentLoaded", function () {
         resize();
 
         window.addEventListener("resize", resize);
+
+        if (window.ResizeObserver && canvas.parentElement) {
+
+            new ResizeObserver(resize).observe(
+                canvas.parentElement
+            );
+
+        }
+
+        window.addEventListener(
+            "load",
+            resize
+        );
 
 
         function draw() {
