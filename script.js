@@ -50,6 +50,144 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
+       PORTRAIT SIDE CODE-RAIN (RAINBOW)
+    ================================================= */
+
+    function initCodeRain(canvas, direction, hueStart, hueEnd) {
+
+        if (!canvas) {
+            return;
+        }
+
+        const ctx =
+            canvas.getContext("2d");
+
+        const chars =
+            "0123456789ABCDEF";
+
+        const fontSize = 16;
+
+        let columns = 0;
+        let drops = [];
+
+
+        function resize() {
+
+            const rect =
+                canvas.getBoundingClientRect();
+
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+
+            columns =
+                Math.max(
+                    1,
+                    Math.floor(canvas.width / fontSize)
+                );
+
+            drops = [];
+
+            for (let i = 0; i < columns; i++) {
+
+                drops.push(
+                    direction === 1
+                        ? Math.random() * -20
+                        : (canvas.height / fontSize) +
+                          Math.random() * 20
+                );
+
+            }
+
+        }
+
+
+        resize();
+
+        window.addEventListener("resize", resize);
+
+
+        function draw() {
+
+            ctx.fillStyle =
+                "rgba(5,8,15,0.18)";
+
+            ctx.fillRect(
+                0, 0,
+                canvas.width,
+                canvas.height
+            );
+
+            ctx.font =
+                fontSize + "px monospace";
+
+            for (let i = 0; i < columns; i++) {
+
+                const char =
+                    chars[
+                        Math.floor(
+                            Math.random() * chars.length
+                        )
+                    ];
+
+                const hue =
+                    hueStart +
+                    (i / columns) *
+                    (hueEnd - hueStart);
+
+                ctx.fillStyle =
+                    `hsl(${hue}, 90%, 58%)`;
+
+                ctx.fillText(
+                    char,
+                    i * fontSize,
+                    drops[i] * fontSize
+                );
+
+                drops[i] += direction * 0.5;
+
+                const outOfBounds =
+                    direction === 1
+                        ? drops[i] * fontSize > canvas.height
+                        : drops[i] * fontSize < 0;
+
+                if (outOfBounds && Math.random() > 0.975) {
+
+                    drops[i] =
+                        direction === 1
+                            ? Math.random() * -10
+                            : (canvas.height / fontSize) +
+                              Math.random() * 10;
+
+                }
+
+            }
+
+            requestAnimationFrame(draw);
+
+        }
+
+
+        requestAnimationFrame(draw);
+
+    }
+
+
+    initCodeRain(
+        document.getElementById("portraitSideLeft"),
+        -1,
+        260,
+        180
+    );
+
+    initCodeRain(
+        document.getElementById("portraitSideRight"),
+        1,
+        180,
+        0
+    );
+
+
+    /* =================================================
        HERO BACKGROUND SLIDESHOW
     ================================================= */
 
