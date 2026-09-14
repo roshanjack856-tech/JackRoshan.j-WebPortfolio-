@@ -948,6 +948,97 @@ button {
 
     align-items: center;
     justify-content: center;
+
+    gap: clamp(10px, 2vw, 22px);
+}
+
+
+/* =====================================================
+   SIDE COLOR STRIPS
+   (LEFT SCROLLS BOTTOM TO TOP, RIGHT SCROLLS TOP TO BOTTOM)
+===================================================== */
+
+.side-strip {
+    position: relative;
+    z-index: 2;
+
+    width: clamp(36px, 4vw, 58px);
+    height: min(560px, 72vh);
+
+    overflow: hidden;
+
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background: rgba(255, 255, 255, 0.03);
+
+    flex-shrink: 0;
+}
+
+
+.strip-track {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    width: 100%;
+
+    will-change: transform;
+}
+
+
+.strip-block {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    border-radius: 12px;
+
+    flex-shrink: 0;
+}
+
+
+.strip-c1 { background: linear-gradient(135deg, #58b6ff, #164a7a); }
+.strip-c2 { background: linear-gradient(135deg, #ff6bb3, #a3195b); }
+.strip-c3 { background: linear-gradient(135deg, #ffb347, #ff5e62); }
+.strip-c4 { background: linear-gradient(135deg, #6dffb0, #0f9b6c); }
+.strip-c5 { background: linear-gradient(135deg, #c084fc, #5b21b6); }
+.strip-c6 { background: linear-gradient(135deg, #ffe066, #ff9f1c); }
+
+
+.right-strip .strip-track {
+    animation: stripDown 16s linear infinite;
+}
+
+
+.left-strip .strip-track {
+    animation: stripUp 16s linear infinite;
+}
+
+
+@keyframes stripDown {
+
+    from {
+        transform: translateY(-50%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+
+}
+
+
+@keyframes stripUp {
+
+    from {
+        transform: translateY(0%);
+    }
+
+    to {
+        transform: translateY(-50%);
+    }
+
 }
 
 
@@ -1338,6 +1429,11 @@ footer {
         width: min(440px, 90%);
     }
 
+
+    .side-strip {
+        width: clamp(30px, 3.4vw, 46px);
+    }
+
 }
 
 
@@ -1445,6 +1541,12 @@ footer {
         max-height: 560px;
 
         flex-shrink: 0;
+    }
+
+
+    .side-strip {
+
+        display: none;
     }
 
 
