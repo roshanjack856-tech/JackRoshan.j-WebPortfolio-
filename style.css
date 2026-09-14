@@ -1028,11 +1028,51 @@ button {
 }
 
 
+/* =====================================================
+   PORTRAIT SIDE-GAP CODE SCROLL
+===================================================== */
+
+.portrait-card::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 0;
+
+    background-image:
+        url("https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=700&q=60");
+
+    background-repeat: repeat-y;
+    background-size: 100% 320px;
+
+    opacity: 0.45;
+
+    animation: portraitCodeScroll 14s linear infinite;
+}
+
+
+@keyframes portraitCodeScroll {
+
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 -320px;
+    }
+
+}
+
+
 .portrait-card img {
     display: block;
 
     width: 100%;
     height: 100%;
+
+    position: relative;
+    z-index: 1;
 
     object-fit: contain;
     object-position: center bottom;
