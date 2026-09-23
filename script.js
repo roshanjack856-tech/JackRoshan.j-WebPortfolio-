@@ -291,6 +291,9 @@ document.addEventListener("DOMContentLoaded", function () {
     ================================================= */
 
     let ticking = false;
+    let targetFrame = 0;
+    let currentFrame = 0;
+    let shownFrame = -1;
 
     function updateScroll() {
 
@@ -300,10 +303,29 @@ document.addEventListener("DOMContentLoaded", function () {
         let progress = -rect.top / totalDistance;
         progress = Math.max(0, Math.min(1, progress));
 
-        showFrame(Math.round(progress * (TOTAL_FRAMES - 1)));
+        targetFrame = progress * (TOTAL_FRAMES - 1);
         updateText(progress);
 
         ticking = false;
+    }
+
+    /* glides toward the target frame so the photo moves smoothly */
+    function animateFrames() {
+
+        currentFrame += (targetFrame - currentFrame) * 0.18;
+
+        if (Math.abs(targetFrame - currentFrame) < 0.05) {
+            currentFrame = targetFrame;
+        }
+
+        const f = Math.round(currentFrame);
+
+        if (f !== shownFrame && frames[f] && frames[f].complete) {
+            showFrame(f);
+            shownFrame = f;
+        }
+
+        requestAnimationFrame(animateFrames);
     }
 
     window.addEventListener(
@@ -334,9 +356,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateScroll();
 
+    currentFrame = targetFrame;
+
+    showFrame(Math.round(currentFrame));
+
+    animateFrames();
+
 
     /* =================================================
-       LOADER (3 SECONDS)
+       LOADER (1.5 SECONDS)
     ================================================= */
 
     startLoader();
