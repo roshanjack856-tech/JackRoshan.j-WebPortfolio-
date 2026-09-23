@@ -556,7 +556,9 @@ button { font-family: inherit; }
     overflow: hidden;
     background: #0b0f18;
     border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 3px solid #58b6ff;
+    outline: 1px solid rgba(88, 182, 255, 0.4);
+    outline-offset: 10px;
     z-index: 3;
     filter: drop-shadow(0 35px 55px rgba(0,0,0,0.75));
 }
