@@ -121,8 +121,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (heroBg) {
 
         const heroBgImages = [
-            "https://images.pexels.com/photos/270366/pexels-photo-270366.jpeg?cs=srgb&dl=pexels-pixabay-270366.jpg&fm=jpg&_gl=1*3kxsf*_ga*MTM4MzkzMzc4NS4xNzcyNzEzMzk4*_ga_8JE65Q40S6*czE3OTAxODA3MjAkbzckZzEkdDE3OTAxODA4MTkkajM1JGwwJGgw",
-            "vl.img.png",
+            "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=1600&q=80",
+            "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1600&q=80",
             "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=1600&q=80",
             "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1600&q=80",
             "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1600&q=80"
@@ -322,8 +322,17 @@ document.addEventListener("DOMContentLoaded", function () {
        INITIAL STATE
     ================================================= */
 
-    showFrame(0);
-    updateText(0);
+    /* Open the website at 100% (last frame + "Let's Work Together") */
+    if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+    }
+
+    window.scrollTo({
+        top: scrollScene.offsetHeight - window.innerHeight,
+        behavior: "instant"
+    });
+
+    updateScroll();
 
 
     /* =================================================
@@ -335,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function startLoader() {
 
         const start = performance.now();
-        const duration = 3000;
+        const duration = 1500;
 
         function animateLoader(now) {
 
@@ -376,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!loader || !website) return;
 
         const start = performance.now();
-        const duration = 1800;
+        const duration = 1500;
 
         function run(now) {
 
