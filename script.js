@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (heroBg) {
 
         const heroBgImages = [
-            "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=1600&q=80",
+            "vl.img.png",
             "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1600&q=80",
             "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=1600&q=80",
             "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1600&q=80",
