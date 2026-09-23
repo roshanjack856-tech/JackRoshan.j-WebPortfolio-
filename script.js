@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (heroBg) {
 
         const heroBgImages = [
-            "vl.img.png",
+            "https://images.pexels.com/photos/270366/pexels-photo-270366.jpeg?cs=srgb&dl=pexels-pixabay-270366.jpg&fm=jpg&_gl=1*3kxsf*_ga*MTM4MzkzMzc4NS4xNzcyNzEzMzk4*_ga_8JE65Q40S6*czE3OTAxODA3MjAkbzckZzEkdDE3OTAxODA4MTkkajM1JGwwJGgw",
             "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1600&q=80",
             "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=1600&q=80",
             "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1600&q=80",
