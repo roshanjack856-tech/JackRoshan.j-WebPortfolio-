@@ -1,28 +1,401 @@
-/* =================================================
-   AFTER-SCENE BACKGROUND SLIDESHOW (VERCEL + GITHUB)
-================================================= */
+/* =====================================================
+   JACK ROSHAN J PORTFOLIO
+===================================================== */
 
-const afterBg = document.getElementById("afterBg");
+document.addEventListener("DOMContentLoaded", function () {
 
-if (afterBg) {
+    /* =================================================
+       ELEMENTS
+    ================================================= */
 
-    const afterBgImages = ["vercel.jpg", "github.jpg"];
+    const loader = document.getElementById("loader");
+    const website = document.getElementById("website");
+    const loaderNumber = document.getElementById("loaderNumber");
+    const loaderProgress = document.getElementById("loaderProgress");
+    const portrait = document.getElementById("portraitFrame");
+    const frameCounter = document.getElementById("frameCounter");
+    const scrollScene = document.querySelector(".scroll-scene");
+    const textBlocks = document.querySelectorAll(".scene-text");
+    const menuButton = document.getElementById("menuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const closeMenu = document.getElementById("closeMenu");
+    const mobOverlay = document.getElementById("mobOverlay");
+    const mobCtaLink = document.getElementById("mobCtaLink");
 
-    afterBgImages.forEach(function (src, i) {
-        const img = document.createElement("img");
-        img.src = src;
-        img.alt = "";
-        if (i === 0) img.classList.add("active");
-        afterBg.appendChild(img);
-    });
 
-    const slides = afterBg.querySelectorAll("img");
-    let afterBgIndex = 0;
+    /* =================================================
+       PORTRAIT SIDE CODE-RAIN (RAINBOW)
+    ================================================= */
 
-    setInterval(function () {
-        slides[afterBgIndex].classList.remove("active");
-        afterBgIndex = (afterBgIndex + 1) % slides.length;
-        slides[afterBgIndex].classList.add("active");
-    }, 2000);
+    function initCodeRain(canvas, direction, hueStart, hueEnd) {
 
-}
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        const chars = "0123456789ABCDEF";
+        const fontSize = 16;
+
+        let columns = 0;
+        let drops = [];
+
+        function resize() {
+
+            const rect = canvas.getBoundingClientRect();
+
+            if (rect.width < 1 || rect.height < 1) return;
+
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+
+            columns = Math.max(1, Math.floor(canvas.width / fontSize));
+
+            drops = [];
+
+            for (let i = 0; i < columns; i++) {
+                drops.push(
+                    direction === 1
+                        ? Math.random() * -20
+                        : (canvas.height / fontSize) + Math.random() * 20
+                );
+            }
+        }
+
+        resize();
+
+        window.addEventListener("resize", resize);
+
+        if (window.ResizeObserver && canvas.parentElement) {
+            new ResizeObserver(resize).observe(canvas.parentElement);
+        }
+
+        window.addEventListener("load", resize);
+
+        function draw() {
+
+            ctx.fillStyle = "rgba(5,8,15,0.18)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < columns; i++) {
+
+                const char = chars[Math.floor(Math.random() * chars.length)];
+
+                const hue = hueStart + (i / columns) * (hueEnd - hueStart);
+
+                ctx.fillStyle = `hsl(${hue}, 90%, 58%)`;
+
+                ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+                drops[i] += direction * 0.5;
+
+                const outOfBounds =
+                    direction === 1
+                        ? drops[i] * fontSize > canvas.height
+                        : drops[i] * fontSize < 0;
+
+                if (outOfBounds && Math.random() > 0.975) {
+                    drops[i] =
+                        direction === 1
+                            ? Math.random() * -10
+                            : (canvas.height / fontSize) + Math.random() * 10;
+                }
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    initCodeRain(document.getElementById("portraitSideLeft"), -1, 260, 180);
+    initCodeRain(document.getElementById("portraitSideRight"), 1, 180, 0);
+
+
+    /* =================================================
+       HERO BACKGROUND SLIDESHOW
+    ================================================= */
+
+    const heroBg = document.getElementById("heroBg");
+
+    if (heroBg) {
+
+        const heroBgImages = [
+            "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=1600&q=80",
+            "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1600&q=80",
+            "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=1600&q=80",
+            "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1600&q=80",
+            "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1600&q=80"
+        ];
+
+        let heroBgIndex = 0;
+
+        heroBg.style.backgroundImage = `url(${heroBgImages[0]})`;
+
+        setInterval(function () {
+
+            heroBgIndex = (heroBgIndex + 1) % heroBgImages.length;
+
+            heroBg.style.opacity = "0";
+
+            setTimeout(function () {
+                heroBg.style.backgroundImage = `url(${heroBgImages[heroBgIndex]})`;
+                heroBg.style.opacity = "1";
+            }, 350);
+
+        }, 2000);
+    }
+
+
+    /* =================================================
+       AFTER-SCENE BACKGROUND SLIDESHOW (VERCEL + GITHUB)
+       Changes every 2 seconds with a fade
+    ================================================= */
+
+    const afterBg = document.getElementById("afterBg");
+
+    if (afterBg) {
+
+        const afterBgImages = ["vercel.jpg", "github.jpg"];
+
+        afterBgImages.forEach(function (src, i) {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = "";
+            if (i === 0) img.classList.add("active");
+            afterBg.appendChild(img);
+        });
+
+        const slides = afterBg.querySelectorAll("img");
+        let afterBgIndex = 0;
+
+        setInterval(function () {
+            slides[afterBgIndex].classList.remove("active");
+            afterBgIndex = (afterBgIndex + 1) % slides.length;
+            slides[afterBgIndex].classList.add("active");
+        }, 2000);
+    }
+
+
+    /* =================================================
+       MOBILE MENU
+    ================================================= */
+
+    function openMobileMenu() {
+        mobileMenu.classList.add("open");
+        if (mobOverlay) mobOverlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeMobileMenu() {
+        mobileMenu.classList.remove("open");
+        if (mobOverlay) mobOverlay.classList.remove("open");
+        document.body.style.overflow = "";
+    }
+
+    if (menuButton && mobileMenu) menuButton.addEventListener("click", openMobileMenu);
+    if (closeMenu && mobileMenu) closeMenu.addEventListener("click", closeMobileMenu);
+    if (mobOverlay) mobOverlay.addEventListener("click", closeMobileMenu);
+    if (mobCtaLink) mobCtaLink.addEventListener("click", closeMobileMenu);
+
+    if (mobileMenu) {
+        mobileMenu.querySelectorAll(".mob-nav-links a").forEach(function (link) {
+            link.addEventListener("click", closeMobileMenu);
+        });
+    }
+
+
+    /* =================================================
+       OTHER PAGES
+    ================================================= */
+
+    if (!portrait || !scrollScene) {
+        startSimpleLoader();
+        return;
+    }
+
+
+    /* =================================================
+       300 PORTRAIT FRAMES (images are in the ROOT folder)
+    ================================================= */
+
+    const TOTAL_FRAMES = 300;
+    const frames = [];
+    let loadedFrames = 0;
+
+    portrait.src = "ezgif-frame-001.jpg";
+
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+
+        const image = new Image();
+        const number = String(i).padStart(3, "0");
+
+        image.src = `ezgif-frame-${number}.jpg`;
+
+        image.onload = function () {
+            loadedFrames++;
+        };
+
+        frames.push(image);
+    }
+
+
+    /* =================================================
+       SHOW FRAME
+    ================================================= */
+
+    function showFrame(frame) {
+
+        frame = Math.max(0, Math.min(TOTAL_FRAMES - 1, frame));
+
+        const image = frames[frame];
+
+        if (image && image.complete) {
+            portrait.src = image.src;
+        }
+
+        if (frameCounter) {
+            frameCounter.textContent =
+                `FRAME ${String(frame + 1).padStart(3, "0")} / 300`;
+        }
+    }
+
+
+    /* =================================================
+       CHANGE TEXT
+       0% intro, 25% location, 50% education,
+       75% skills, 100% call to action
+    ================================================= */
+
+    function updateText(progress) {
+
+        if (!textBlocks.length) return;
+
+        let index;
+
+        if (progress < 0.125) index = 0;
+        else if (progress < 0.375) index = 1;
+        else if (progress < 0.625) index = 2;
+        else if (progress < 0.875) index = 3;
+        else index = 4;
+
+        textBlocks.forEach(function (text, i) {
+            if (i === index) text.classList.add("active");
+            else text.classList.remove("active");
+        });
+    }
+
+
+    /* =================================================
+       SCROLL ANIMATION
+    ================================================= */
+
+    let ticking = false;
+
+    function updateScroll() {
+
+        const rect = scrollScene.getBoundingClientRect();
+        const totalDistance = scrollScene.offsetHeight - window.innerHeight;
+
+        let progress = -rect.top / totalDistance;
+        progress = Math.max(0, Math.min(1, progress));
+
+        showFrame(Math.round(progress * (TOTAL_FRAMES - 1)));
+        updateText(progress);
+
+        ticking = false;
+    }
+
+    window.addEventListener(
+        "scroll",
+        function () {
+            if (!ticking) {
+                window.requestAnimationFrame(updateScroll);
+                ticking = true;
+            }
+        },
+        { passive: true }
+    );
+
+
+    /* =================================================
+       INITIAL STATE
+    ================================================= */
+
+    showFrame(0);
+    updateText(0);
+
+
+    /* =================================================
+       LOADER (3 SECONDS)
+    ================================================= */
+
+    startLoader();
+
+    function startLoader() {
+
+        const start = performance.now();
+        const duration = 3000;
+
+        function animateLoader(now) {
+
+            const progress = Math.min((now - start) / duration, 1);
+            const percent = Math.floor(progress * 100);
+
+            if (loaderNumber) loaderNumber.textContent = `${percent}%`;
+            if (loaderProgress) loaderProgress.style.width = `${percent}%`;
+
+            if (progress < 1) requestAnimationFrame(animateLoader);
+            else finishLoader();
+        }
+
+        requestAnimationFrame(animateLoader);
+    }
+
+    function finishLoader() {
+
+        if (!loader || !website) return;
+
+        loader.classList.add("hide");
+
+        website.style.visibility = "visible";
+        website.style.opacity = "1";
+
+        setTimeout(function () {
+            loader.style.display = "none";
+        }, 800);
+    }
+
+
+    /* =================================================
+       SIMPLE LOADER (ABOUT / PROJECT / CONTACT)
+    ================================================= */
+
+    function startSimpleLoader() {
+
+        if (!loader || !website) return;
+
+        const start = performance.now();
+        const duration = 1800;
+
+        function run(now) {
+
+            const progress = Math.min((now - start) / duration, 1);
+            const percent = Math.floor(progress * 100);
+
+            if (loaderNumber) loaderNumber.textContent = `${percent}%`;
+            if (loaderProgress) loaderProgress.style.width = `${percent}%`;
+
+            if (progress < 1) {
+                requestAnimationFrame(run);
+            } else {
+                loader.classList.add("hide");
+                website.style.visibility = "visible";
+                website.style.opacity = "1";
+            }
+        }
+
+        requestAnimationFrame(run);
+    }
+
+});
