@@ -1,910 +1,438 @@
-<!DOCTYPE html>
-<html lang="en">
+/* =====================================================
+   JACK ROSHAN J PORTFOLIO
+===================================================== */
 
-<head>
+document.addEventListener("DOMContentLoaded", function () {
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    /* =================================================
+       ELEMENTS
+    ================================================= */
 
-<title>Services | Jack Roshan</title>
+    const loader = document.getElementById("loader");
+    const website = document.getElementById("website");
+    const loaderNumber = document.getElementById("loaderNumber");
+    const loaderProgress = document.getElementById("loaderProgress");
+    const portrait = document.getElementById("portraitFrame");
+    const frameCounter = document.getElementById("frameCounter");
+    const scrollScene = document.querySelector(".scroll-scene");
+    const textBlocks = document.querySelectorAll(".scene-text");
+    const menuButton = document.getElementById("menuButton");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const closeMenu = document.getElementById("closeMenu");
+    const mobOverlay = document.getElementById("mobOverlay");
+    const mobCtaLink = document.getElementById("mobCtaLink");
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
+    /* =================================================
+       PORTRAIT SIDE CODE-RAIN (RAINBOW)
+    ================================================= */
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+    function initCodeRain(canvas, direction, hueStart, hueEnd) {
 
-html{
-  scroll-behavior:smooth;
-}
+        if (!canvas) return;
 
-body{
-  background:#081b3a;
-  color:white;
-  overflow-x:hidden;
-  font-family:'Outfit',sans-serif;
-  position:relative;
-}
+        const ctx = canvas.getContext("2d");
+        const chars = "0123456789ABCDEF";
+        const fontSize = 16;
 
-/* BACKGROUND */
+        let columns = 0;
+        let drops = [];
 
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
+        function resize() {
 
-  background:
-  linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.82)),
-  url("Screenshot 2026-06-07 100111.png");
+            const rect = canvas.getBoundingClientRect();
 
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
+            if (rect.width < 1 || rect.height < 1) return;
 
-  z-index:-2;
-}
+            canvas.width = rect.width;
+            canvas.height = rect.height;
 
-/* GOLD GLOW */
+            columns = Math.max(1, Math.floor(canvas.width / fontSize));
 
-body::after{
-  content:'';
-  position:fixed;
+            drops = [];
 
-  top:50%;
-  right:10%;
+            for (let i = 0; i < columns; i++) {
+                drops.push(
+                    direction === 1
+                        ? Math.random() * -20
+                        : (canvas.height / fontSize) + Math.random() * 20
+                );
+            }
+        }
 
-  width:450px;
-  height:450px;
+        resize();
 
-  background:rgba(216,155,43,.12);
+        window.addEventListener("resize", resize);
 
-  filter:blur(120px);
+        if (window.ResizeObserver && canvas.parentElement) {
+            new ResizeObserver(resize).observe(canvas.parentElement);
+        }
 
-  transform:translateY(-50%);
+        window.addEventListener("load", resize);
 
-  z-index:-1;
-}
+        function draw() {
 
-/* NAVBAR */
+            ctx.fillStyle = "rgba(5,8,15,0.18)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-nav{
-  width:100%;
-  padding:22px 8%;
+            ctx.font = fontSize + "px monospace";
 
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+            for (let i = 0; i < columns; i++) {
 
-  border-bottom:1px solid rgba(255,255,255,.08);
+                const char = chars[Math.floor(Math.random() * chars.length)];
 
-  backdrop-filter:blur(10px);
+                const hue = hueStart + (i / columns) * (hueEnd - hueStart);
 
-  position:sticky;
-  top:0;
-  z-index:1000;
+                ctx.fillStyle = `hsl(${hue}, 90%, 58%)`;
 
-  background:rgba(0,0,0,.35);
-}
+                ctx.fillText(char, i * fontSize, drops[i] * fontSize);
 
-.logo{
-  font-size:2rem;
-  color:#d89b2b;
-  font-weight:700;
-  font-family:'Cormorant Garamond',serif;
-}
+                drops[i] += direction * 0.5;
 
-.nav-links{
-  display:flex;
-  gap:35px;
-  list-style:none;
-}
+                const outOfBounds =
+                    direction === 1
+                        ? drops[i] * fontSize > canvas.height
+                        : drops[i] * fontSize < 0;
 
-.nav-links a{
-  text-decoration:none;
-  color:white;
-  font-size:14px;
-  transition:.3s;
-}
+                if (outOfBounds && Math.random() > 0.975) {
+                    drops[i] =
+                        direction === 1
+                            ? Math.random() * -10
+                            : (canvas.height / fontSize) + Math.random() * 10;
+                }
+            }
 
-.nav-links a:hover,
-.nav-links a.active{
-  color:#d89b2b;
-}
+            requestAnimationFrame(draw);
+        }
 
-/* HAMBURGER */
+        requestAnimationFrame(draw);
+    }
 
-.hamburger{
-  display:none;
-  flex-direction:column;
-  gap:5px;
-  cursor:pointer;
-  background:none;
-  border:none;
-  z-index:1200;
-}
+    initCodeRain(document.getElementById("portraitSideLeft"), -1, 260, 180);
+    initCodeRain(document.getElementById("portraitSideRight"), 1, 180, 0);
 
-.hamburger span{
-  width:26px;
-  height:2px;
-  background:#d89b2b;
-  border-radius:3px;
-  transition:.3s;
-}
 
-.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2){ opacity:0; transform:scaleX(0); }
-.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+    /* =================================================
+       HERO BACKGROUND SLIDESHOW
+    ================================================= */
 
-/* MOBILE OVERLAY */
+    const heroBg = document.getElementById("heroBg");
 
-.mob-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.65);
+    if (heroBg) {
 
-  backdrop-filter:blur(3px);
+        const heroBgImages = [
+            "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=1600&q=80",
+            "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1600&q=80",
+            "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=1600&q=80",
+            "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1600&q=80",
+            "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1600&q=80"
+        ];
 
-  opacity:0;
-  pointer-events:none;
+        let heroBgIndex = 0;
 
-  transition:.3s;
+        heroBg.style.backgroundImage = `url(${heroBgImages[0]})`;
 
-  z-index:1000;
-}
+        setInterval(function () {
 
-.mob-overlay.open{
-  opacity:1;
-  pointer-events:auto;
-}
+            heroBgIndex = (heroBgIndex + 1) % heroBgImages.length;
 
-/* MOBILE MENU */
+            heroBg.style.opacity = "0";
 
-.mob-menu{
-  position:fixed;
+            setTimeout(function () {
+                heroBg.style.backgroundImage = `url(${heroBgImages[heroBgIndex]})`;
+                heroBg.style.opacity = "1";
+            }, 350);
 
-  top:0;
-  left:-100%;
+        }, 2000);
+    }
 
-  width:min(295px,80vw);
-  height:100vh;
 
-  background:#0b1e3d;
+    /* =================================================
+       AFTER-SCENE BACKGROUND SLIDESHOW (VERCEL + GITHUB)
+       Changes every 2 seconds with a fade
+    ================================================= */
 
-  border-right:1px solid rgba(216,155,43,.2);
+    const afterBg = document.getElementById("afterBg");
 
-  z-index:1100;
+    if (afterBg) {
 
-  transition:.45s cubic-bezier(.77,0,.18,1);
+        const afterBgImages = ["vercel.jpg", "github.jpg"];
 
-  display:flex;
-  flex-direction:column;
+        afterBgImages.forEach(function (src, i) {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = "";
+            if (i === 0) img.classList.add("active");
+            afterBg.appendChild(img);
+        });
 
-  overflow:hidden;
-}
+        const slides = afterBg.querySelectorAll("img");
+        let afterBgIndex = 0;
 
-.mob-menu.open{
-  left:0;
-  box-shadow:20px 0 70px rgba(0,0,0,.8);
-}
+        setInterval(function () {
+            slides[afterBgIndex].classList.remove("active");
+            afterBgIndex = (afterBgIndex + 1) % slides.length;
+            slides[afterBgIndex].classList.add("active");
+        }, 2000);
+    }
 
-/* MENU HEADER */
 
-.mob-head{
-  padding:1.4rem 1.3rem 1rem;
+    /* =================================================
+       MOBILE MENU
+    ================================================= */
 
-  display:flex;
-  align-items:center;
-  gap:12px;
+    function openMobileMenu() {
+        mobileMenu.classList.add("open");
+        if (mobOverlay) mobOverlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
 
-  border-bottom:1px solid rgba(255,255,255,.08);
+    function closeMobileMenu() {
+        mobileMenu.classList.remove("open");
+        if (mobOverlay) mobOverlay.classList.remove("open");
+        document.body.style.overflow = "";
+    }
 
-  background:rgba(216,155,43,.04);
+    if (menuButton && mobileMenu) menuButton.addEventListener("click", openMobileMenu);
+    if (closeMenu && mobileMenu) closeMenu.addEventListener("click", closeMobileMenu);
+    if (mobOverlay) mobOverlay.addEventListener("click", closeMobileMenu);
+    if (mobCtaLink) mobCtaLink.addEventListener("click", closeMobileMenu);
 
-  flex-shrink:0;
-}
+    if (mobileMenu) {
+        mobileMenu.querySelectorAll(".mob-nav-links a").forEach(function (link) {
+            link.addEventListener("click", closeMobileMenu);
+        });
+    }
 
-.mob-avatar{
-  width:46px;
-  height:46px;
 
-  border-radius:50%;
+    /* =================================================
+       OTHER PAGES
+    ================================================= */
 
-  background:linear-gradient(135deg,#d89b2b,#9a6510);
+    if (!portrait || !scrollScene) {
+        startSimpleLoader();
+        return;
+    }
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
 
-  font-weight:700;
-  font-size:1.15rem;
+    /* =================================================
+       300 PORTRAIT FRAMES (images are in the ROOT folder)
+    ================================================= */
 
-  color:#081b3a;
-
-  border:2px solid rgba(216,155,43,.4);
-  flex-shrink:0;
-}
+    const TOTAL_FRAMES = 300;
+    const frames = [];
+    let loadedFrames = 0;
 
-.mob-info{
-  flex:1;
-}
+    portrait.src = "ezgif-frame-001.jpg";
 
-.mob-head-name{
-  font-size:15px;
-  font-weight:700;
-  color:#d89b2b;
-}
-
-.mob-head-role{
-  font-size:11px;
-  color:rgba(255,255,255,.5);
-  margin-top:3px;
-}
-
-.mob-x{
-  font-size:20px;
-  cursor:pointer;
-  color:white;
-  transition:.3s;
-}
-
-.mob-x:hover{
-  color:#d89b2b;
-}
-
-/* MENU BODY */
-
-.mob-body{
-  flex:1;
-  overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-}
-
-.mob-label{
-  font-size:.58rem;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.28);
-  padding:.9rem 1.3rem .3rem;
-  font-weight:600;
-}
-
-/* MOBILE NAVIGATION */
-
-.mob-nav-links{
-  display:flex;
-  flex-direction:column;
-}
-
-.mob-nav-links a{
-  color:rgba(255,255,255,.75);
-  text-decoration:none;
-
-  padding:.8rem 1.3rem;
-
-  border-bottom:1px solid rgba(255,255,255,.05);
-
-  transition:.28s;
-
-  display:flex;
-  align-items:center;
-  gap:.8rem;
-
-  font-size:.84rem;
-  font-weight:500;
-}
-
-.mob-nav-links a:hover,
-.mob-nav-links a.active{
-  background:rgba(216,155,43,.08);
-  color:#d89b2b;
-  padding-left:1.7rem;
-}
-
-.mob-nav-links a .ico{
-  width:33px;
-  height:33px;
-  background:rgba(255,255,255,.05);
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:.92rem;
-  flex-shrink:0;
-  border:1px solid rgba(255,255,255,.06);
-}
-
-.mob-nav-links a:hover .ico,
-.mob-nav-links a.active .ico{
-  background:rgba(216,155,43,.12);
-  border-color:rgba(216,155,43,.22);
-}
-
-/* SERVICES SWIPE */
-
-.mob-srv-section{
-  border-top:1px solid rgba(255,255,255,.05);
-  padding-bottom:.5rem;
-}
-
-.mob-srv-scroll{
-  display:flex;
-  gap:.55rem;
-  overflow-x:auto;
-  padding:.6rem 1.3rem;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
-}
-
-.mob-srv-card{
-  flex:0 0 auto;
-  scroll-snap-align:start;
-  background:rgba(216,155,43,.05);
-  border:1px solid rgba(216,155,43,.16);
-  border-radius:10px;
-  padding:.7rem .75rem;
-  text-align:center;
-  min-width:72px;
-  text-decoration:none;
-  transition:.28s;
-}
-
-.mob-srv-card:hover{
-  background:rgba(216,155,43,.14);
-  border-color:rgba(216,155,43,.38);
-  transform:translateY(-3px);
-}
-
-.srv-i{
-  font-size:1.25rem;
-  display:block;
-  margin-bottom:.28rem;
-}
-
-.srv-n{
-  font-size:.6rem;
-  color:rgba(255,255,255,.62);
-  font-weight:500;
-}
-
-/* CONTACT BUTTON */
-
-.mob-cta{
-  padding:.6rem 1.2rem .3rem;
-  flex-shrink:0;
-}
-
-.mob-cta a{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:.45rem;
-
-  width:100%;
-
-  padding:.88rem;
-
-  background:#d89b2b;
-  color:#081b3a;
-
-  text-decoration:none;
-  font-weight:700;
-  font-size:.84rem;
-
-  border-radius:8px;
-
-  transition:.28s;
-}
-
-.mob-cta a:hover{
-  background:#f0b040;
-  transform:translateY(-2px);
-}
-
-/* MENU FOOTER */
-
-.mob-foot{
-  padding:.7rem 1.3rem 1.1rem;
-  border-top:1px solid rgba(255,255,255,.05);
-  flex-shrink:0;
-}
-
-.mob-foot p{
-  font-size:.64rem;
-  color:rgba(255,255,255,.26);
-  line-height:1.7;
-}
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
 
-.mob-foot a{
-  color:#d89b2b;
-  text-decoration:none;
-}
+        const image = new Image();
+        const number = String(i).padStart(3, "0");
 
-/* SERVICES */
+        image.src = `ezgif-frame-${number}.jpg`;
 
-.services{
-  min-height:100vh;
-  padding:100px 8%;
-}
+        image.onload = function () {
+            loadedFrames++;
+        };
 
-/* HEADER */
+        frames.push(image);
+    }
 
-.services-header{
-  text-align:center;
-  margin-bottom:70px;
-}
 
-.mini-title{
-  color:#d89b2b;
-  font-size:13px;
-  letter-spacing:5px;
-  text-transform:uppercase;
-  margin-bottom:20px;
-  font-weight:600;
-}
+    /* =================================================
+       SHOW FRAME
+    ================================================= */
 
-.services-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:4.5rem;
-  line-height:1.1;
-  margin-bottom:20px;
-}
+    function showFrame(frame) {
 
-.services-title span{
-  color:#d89b2b;
-  font-style:italic;
-}
+        frame = Math.max(0, Math.min(TOTAL_FRAMES - 1, frame));
 
-.services-sub{
-  color:#dcdcdc;
-  max-width:750px;
-  margin:auto;
-  line-height:1.9;
-  font-size:16px;
-}
+        const image = frames[frame];
 
-/* GRID */
+        if (image && image.complete) {
+            portrait.src = image.src;
+        }
 
-.services-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:30px;
-}
+        if (frameCounter) {
+            frameCounter.textContent =
+                `FRAME ${String(frame + 1).padStart(3, "0")} / 300`;
+        }
+    }
 
-/* CARD */
 
-.service-card{
-  padding:40px 35px;
+    /* =================================================
+       CHANGE TEXT
+       0% intro, 25% location, 50% education,
+       75% skills, 100% call to action
+    ================================================= */
 
-  border-radius:25px;
+    function updateText(progress) {
 
-  background:rgba(255,255,255,.04);
+        if (!textBlocks.length) return;
 
-  border:1px solid rgba(216,155,43,.15);
+        let index;
 
-  backdrop-filter:blur(12px);
+        if (progress < 0.125) index = 0;
+        else if (progress < 0.375) index = 1;
+        else if (progress < 0.625) index = 2;
+        else if (progress < 0.875) index = 3;
+        else index = 4;
 
-  transition:.4s;
-}
+        textBlocks.forEach(function (text, i) {
+            if (i === index) text.classList.add("active");
+            else text.classList.remove("active");
+        });
+    }
 
-.service-card:hover{
-  transform:translateY(-10px);
 
-  border-color:#d89b2b;
+    /* =================================================
+       SCROLL ANIMATION
+    ================================================= */
 
-  box-shadow:
-  0 0 30px rgba(216,155,43,.15);
-}
+    let ticking = false;
+    let targetFrame = 0;
+    let currentFrame = 0;
+    let shownFrame = -1;
 
-/* ICON */
+    function updateScroll() {
 
-.service-icon{
-  width:75px;
-  height:75px;
+        const rect = scrollScene.getBoundingClientRect();
+        const totalDistance = scrollScene.offsetHeight - window.innerHeight;
 
-  border-radius:20px;
+        let progress = -rect.top / totalDistance;
+        progress = Math.max(0, Math.min(1, progress));
 
-  background:rgba(216,155,43,.1);
+        targetFrame = progress * (TOTAL_FRAMES - 1);
+        updateText(progress);
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+        ticking = false;
+    }
 
-  font-size:32px;
+    /* glides toward the target frame so the photo moves smoothly */
+    function animateFrames() {
 
-  color:#d89b2b;
+        currentFrame += (targetFrame - currentFrame) * 0.18;
 
-  margin-bottom:25px;
-}
+        if (Math.abs(targetFrame - currentFrame) < 0.05) {
+            currentFrame = targetFrame;
+        }
 
-/* TITLE */
+        const f = Math.round(currentFrame);
 
-.service-card h3{
-  font-size:25px;
+        if (f !== shownFrame && frames[f] && frames[f].complete) {
+            showFrame(f);
+            shownFrame = f;
+        }
 
-  margin-bottom:18px;
+        requestAnimationFrame(animateFrames);
+    }
 
-  font-family:'Cormorant Garamond',serif;
-}
+    window.addEventListener(
+        "scroll",
+        function () {
+            if (!ticking) {
+                window.requestAnimationFrame(updateScroll);
+                ticking = true;
+            }
+        },
+        { passive: true }
+    );
 
-/* TEXT */
 
-.service-card p{
-  color:#d9d9d9;
+    /* =================================================
+       INITIAL STATE
+    ================================================= */
 
-  line-height:1.9;
+    /* Open the website at 100% (last frame + "Let's Work Together") */
+    if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+    }
 
-  font-size:15px;
-}
+    window.scrollTo({
+        top: scrollScene.offsetHeight - window.innerHeight,
+        behavior: "instant"
+    });
 
-/* BUTTON */
+    updateScroll();
 
-.btn{
-  display:inline-block;
+    currentFrame = targetFrame;
 
-  margin-top:22px;
+    showFrame(Math.round(currentFrame));
 
-  color:#d89b2b;
+    animateFrames();
 
-  text-decoration:none;
 
-  font-weight:600;
+    /* =================================================
+       LOADER (1.5 SECONDS)
+    ================================================= */
 
-  transition:.3s;
-}
+    startLoader();
 
-.btn:hover{
-  letter-spacing:1px;
-}
+    function startLoader() {
 
-/* MOBILE */
+        const start = performance.now();
+        const duration = 1500;
 
-@media(max-width:1000px){
+        function animateLoader(now) {
 
-  .services-grid{
-    grid-template-columns:1fr;
-  }
+            const progress = Math.min((now - start) / duration, 1);
+            const percent = Math.floor(progress * 100);
 
-  .services-title{
-    font-size:3rem;
-  }
+            if (loaderNumber) loaderNumber.textContent = `${percent}%`;
+            if (loaderProgress) loaderProgress.style.width = `${percent}%`;
 
-  .nav-links{
-    display:none;
-  }
+            if (progress < 1) requestAnimationFrame(animateLoader);
+            else finishLoader();
+        }
 
-  .hamburger{
-    display:flex;
-  }
+        requestAnimationFrame(animateLoader);
+    }
 
-}
+    function finishLoader() {
 
-@media(max-width:480px){
+        if (!loader || !website) return;
 
-  nav{
-    padding:16px 5%;
-  }
+        loader.classList.add("hide");
 
-  .logo{
-    font-size:1.3rem;
-  }
+        website.style.visibility = "visible";
+        website.style.opacity = "1";
 
-  .services{
-    padding:60px 5%;
-  }
+        setTimeout(function () {
+            loader.style.display = "none";
+        }, 800);
+    }
 
-  .services-title{
-    font-size:2.4rem;
-  }
 
-  .service-card{
-    padding:30px 22px;
-  }
+    /* =================================================
+       SIMPLE LOADER (ABOUT / PROJECT / CONTACT)
+    ================================================= */
 
-}
+    function startSimpleLoader() {
 
-</style>
+        if (!loader || !website) return;
 
-</head>
+        const start = performance.now();
+        const duration = 1500;
 
-<body>
+        function run(now) {
 
-<!-- MOBILE OVERLAY -->
+            const progress = Math.min((now - start) / duration, 1);
+            const percent = Math.floor(progress * 100);
 
-<div class="mob-overlay" id="overlay"></div>
+            if (loaderNumber) loaderNumber.textContent = `${percent}%`;
+            if (loaderProgress) loaderProgress.style.width = `${percent}%`;
 
-<!-- MOBILE MENU -->
+            if (progress < 1) {
+                requestAnimationFrame(run);
+            } else {
+                loader.classList.add("hide");
+                website.style.visibility = "visible";
+                website.style.opacity = "1";
+            }
+        }
 
-<div class="mob-menu" id="mobMenu">
-
-  <div class="mob-head">
-
-    <div class="mob-avatar">JR</div>
-
-    <div class="mob-info">
-
-      <div class="mob-head-name">
-        Jack Roshan J
-      </div>
-
-      <div class="mob-head-role">
-        Web Developer & UI/UX Designer
-      </div>
-
-    </div>
-
-    <div class="mob-x" id="mobClose">✕</div>
-
-  </div>
-
-  <div class="mob-body">
-
-    <div class="mob-label">Pages</div>
-    <div class="mob-nav-links">
-
-      <a href="index.html"><span class="ico">🏠</span> Home</a>
-      <a href="about.html"><span class="ico">👤</span> About</a>
-      <a href="services.html" class="active"><span class="ico">⚡</span> Services</a>
-      <a href="project.html"><span class="ico">🗂️</span> Projects</a>
-      <a href="contact.html"><span class="ico">✉️</span> Contact</a>
-
-    </div>
-
-    <div class="mob-label" style="margin-top:.5rem">
-      Services &nbsp;<span style="color:rgba(216,155,43,.5);font-size:.52rem">swipe →</span>
-    </div>
-    <div class="mob-srv-section">
-      <div class="mob-srv-scroll">
-        <a href="services.html#webdev" class="mob-srv-card"><span class="srv-i">🌐</span><span class="srv-n">Web Dev</span></a>
-        <a href="services.html#uiux" class="mob-srv-card"><span class="srv-i">🎨</span><span class="srv-n">UI/UX</span></a>
-        <a href="services.html#nocode" class="mob-srv-card"><span class="srv-i">⚡</span><span class="srv-n">No-Code</span></a>
-        <a href="services.html#graphic" class="mob-srv-card"><span class="srv-i">🖼️</span><span class="srv-n">Graphic</span></a>
-        <a href="services.html#seo" class="mob-srv-card"><span class="srv-i">📈</span><span class="srv-n">SEO</span></a>
-        <a href="services.html#deploy" class="mob-srv-card"><span class="srv-i">🚀</span><span class="srv-n">Deploy</span></a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="mob-cta">
-    <a href="contact.html" id="ctaLink">✉ &nbsp;Contact Me</a>
-  </div>
-
-  <div class="mob-foot">
-    <p>📞 <a href="tel:9082844086">9082844086</a><br>✉ <a href="mailto:roshanjack856@gmail.com">roshanjack856@gmail.com</a></p>
-  </div>
-
-</div>
-
-<!-- NAVBAR -->
-
-<nav>
-
-  <div class="logo">
-    JACK ROSHAN J
-  </div>
-
-  <ul class="nav-links">
-
-    <li><a href="index.html">Home</a></li>
-
-    <li><a href="about.html">About</a></li>
-
-    <li><a href="services.html" class="active">Services</a></li>
-
-    <li><a href="project.html">Projects</a></li>
-
-    <li><a href="contact.html">Contact</a></li>
-
-  </ul>
-
-  <button class="hamburger" id="ham">
-
-    <span></span>
-    <span></span>
-    <span></span>
-
-  </button>
-
-</nav>
-
-<!-- SERVICES -->
-
-<section class="services">
-
-  <div class="services-header">
-
-    <div class="mini-title">
-      WHAT I OFFER
-    </div>
-
-    <h1 class="services-title">
-      Premium <span>Services</span>
-    </h1>
-
-    <p class="services-sub">
-      I create modern digital solutions with clean design,
-      responsive layouts, and user-friendly experiences
-      for businesses and personal brands.
-    </p>
-
-  </div>
-
-  <div class="services-grid">
-
-    <div class="service-card">
-
-      <div class="service-icon">
-        💻
-      </div>
-
-      <h3>Web Development</h3>
-
-      <p>
-        Responsive and modern websites using HTML,
-        CSS, JavaScript, GitHub, and Vercel deployment.
-      </p>
-
-      <a href="#" class="btn">
-        Learn More →
-      </a>
-
-    </div>
-
-    <div class="service-card">
-
-      <div class="service-icon">
-        🎨
-      </div>
-
-      <h3>UI/UX Design</h3>
-
-      <p>
-        Beautiful user interfaces and clean layouts
-        designed with modern UI/UX principles and creativity.
-      </p>
-
-      <a href="#" class="btn">
-        Learn More →
-      </a>
-
-    </div>
-
-    <div class="service-card">
-
-      <div class="service-icon">
-        📱
-      </div>
-
-      <h3>Responsive Design</h3>
-
-      <p>
-        Mobile-friendly websites optimized for desktop,
-        tablet, and smartphone devices.
-      </p>
-
-      <a href="#" class="btn">
-        Learn More →
-      </a>
-
-    </div>
-
-    <div class="service-card">
-
-      <div class="service-icon">
-        🚀
-      </div>
-
-      <h3>Website Deployment</h3>
-
-      <p>
-        Fast and secure website deployment using
-        GitHub and Vercel hosting platforms.
-      </p>
-
-      <a href="#" class="btn">
-        Learn More →
-      </a>
-
-    </div>
-
-    <div class="service-card">
-
-      <div class="service-icon">
-        🖼
-      </div>
-
-      <h3>Canva Design</h3>
-
-      <p>
-        Creative social media posts, digital catalogues,
-        business banners, and promotional designs.
-      </p>
-
-      <a href="#" class="btn">
-        Learn More →
-      </a>
-
-    </div>
-
-    <div class="service-card">
-
-      <div class="service-icon">
-        📊
-      </div>
-
-      <h3>MS Office Work</h3>
-
-      <p>
-        Professional work using Microsoft Word,
-        Excel, and PowerPoint presentations.
-      </p>
-
-      <a href="#" class="btn">
-        Learn More →
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-<script>
-
-const ham = document.getElementById('ham');
-
-const mobMenu = document.getElementById('mobMenu');
-
-const overlay = document.getElementById('overlay');
-
-const mobClose = document.getElementById('mobClose');
-
-const ctaLink = document.getElementById('ctaLink');
-
-function openMenu(){
-
-  mobMenu.classList.add('open');
-
-  overlay.classList.add('open');
-
-  ham.classList.add('open');
-
-  document.body.style.overflow='hidden';
-
-}
-
-function closeMenu(){
-
-  mobMenu.classList.remove('open');
-
-  overlay.classList.remove('open');
-
-  ham.classList.remove('open');
-
-  document.body.style.overflow='';
-
-}
-
-ham.addEventListener('click', openMenu);
-
-mobClose.addEventListener('click', closeMenu);
-
-overlay.addEventListener('click', closeMenu);
-
-ctaLink.addEventListener('click', closeMenu);
-
-document.querySelectorAll('.mob-nav-links a').forEach(link=>{
-
-  link.addEventListener('click', closeMenu);
+        requestAnimationFrame(run);
+    }
 
 });
-
-</script>
-
-</body>
-</html>
