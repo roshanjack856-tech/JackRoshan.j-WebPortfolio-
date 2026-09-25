@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =================================================
        PORTRAIT SIDE CODE-RAIN (RAINBOW)
+       Both columns now fall downward only.
     ================================================= */
 
     function initCodeRain(canvas, direction, hueStart, hueEnd) {
@@ -134,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
         requestAnimationFrame(draw);
     }
 
-    initCodeRain(document.getElementById("portraitSideLeft"), -1, 260, 180);
+    initCodeRain(document.getElementById("portraitSideLeft"), 1, 260, 180);
     initCodeRain(document.getElementById("portraitSideRight"), 1, 180, 0);
 
 
