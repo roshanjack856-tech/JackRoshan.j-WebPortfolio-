@@ -1,435 +1,910 @@
-/* =====================================================
-   JACK ROSHAN J PORTFOLIO
-===================================================== */
+<!DOCTYPE html>
+<html lang="en">
 
-document.addEventListener("DOMContentLoaded", function () {
+<head>
 
-    /* =================================================
-       ELEMENTS
-    ================================================= */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    const loader = document.getElementById("loader");
-    const website = document.getElementById("website");
-    const loaderNumber = document.getElementById("loaderNumber");
-    const loaderProgress = document.getElementById("loaderProgress");
-    const portrait = document.getElementById("portraitFrame");
-    const frameCounter = document.getElementById("frameCounter");
-    const scrollScene = document.querySelector(".scroll-scene");
-    const textBlocks = document.querySelectorAll(".scene-text");
-    const menuButton = document.getElementById("menuButton");
-    const mobileMenu = document.getElementById("mobileMenu");
-    const closeMenu = document.getElementById("closeMenu");
-    const mobOverlay = document.getElementById("mobOverlay");
-    const mobCtaLink = document.getElementById("mobCtaLink");
+<title>Services | Jack Roshan</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    /* =================================================
-       PORTRAIT SIDE CODE-RAIN (RAINBOW)
-    ================================================= */
+<style>
 
-    function initCodeRain(canvas, direction, hueStart, hueEnd) {
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-        if (!canvas) return;
+html{
+  scroll-behavior:smooth;
+}
 
-        const ctx = canvas.getContext("2d");
-        const chars = "0123456789ABCDEF";
-        const fontSize = 16;
+body{
+  background:#081b3a;
+  color:white;
+  overflow-x:hidden;
+  font-family:'Outfit',sans-serif;
+  position:relative;
+}
 
-        let columns = 0;
-        let drops = [];
+/* BACKGROUND */
 
-        function resize() {
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
 
-            const rect = canvas.getBoundingClientRect();
+  background:
+  linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.82)),
+  url("Screenshot 2026-06-07 100111.png");
 
-            if (rect.width < 1 || rect.height < 1) return;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
 
-            canvas.width = rect.width;
-            canvas.height = rect.height;
+  z-index:-2;
+}
 
-            columns = Math.max(1, Math.floor(canvas.width / fontSize));
+/* GOLD GLOW */
 
-            drops = [];
+body::after{
+  content:'';
+  position:fixed;
 
-            for (let i = 0; i < columns; i++) {
-                drops.push(
-                    direction === 1
-                        ? Math.random() * -20
-                        : (canvas.height / fontSize) + Math.random() * 20
-                );
-            }
-        }
+  top:50%;
+  right:10%;
 
-        resize();
+  width:450px;
+  height:450px;
 
-        window.addEventListener("resize", resize);
+  background:rgba(216,155,43,.12);
 
-        if (window.ResizeObserver && canvas.parentElement) {
-            new ResizeObserver(resize).observe(canvas.parentElement);
-        }
+  filter:blur(120px);
 
-        window.addEventListener("load", resize);
+  transform:translateY(-50%);
 
-        function draw() {
+  z-index:-1;
+}
 
-            ctx.fillStyle = "rgba(5,8,15,0.18)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+/* NAVBAR */
 
-            ctx.font = fontSize + "px monospace";
+nav{
+  width:100%;
+  padding:22px 8%;
 
-            for (let i = 0; i < columns; i++) {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 
-                const char = chars[Math.floor(Math.random() * chars.length)];
+  border-bottom:1px solid rgba(255,255,255,.08);
 
-                const hue = hueStart + (i / columns) * (hueEnd - hueStart);
+  backdrop-filter:blur(10px);
 
-                ctx.fillStyle = `hsl(${hue}, 90%, 58%)`;
+  position:sticky;
+  top:0;
+  z-index:1000;
 
-                ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+  background:rgba(0,0,0,.35);
+}
 
-                drops[i] += direction * 0.5;
+.logo{
+  font-size:2rem;
+  color:#d89b2b;
+  font-weight:700;
+  font-family:'Cormorant Garamond',serif;
+}
 
-                const outOfBounds =
-                    direction === 1
-                        ? drops[i] * fontSize > canvas.height
-                        : drops[i] * fontSize < 0;
+.nav-links{
+  display:flex;
+  gap:35px;
+  list-style:none;
+}
 
-                if (outOfBounds && Math.random() > 0.975) {
-                    drops[i] =
-                        direction === 1
-                            ? Math.random() * -10
-                            : (canvas.height / fontSize) + Math.random() * 10;
-                }
-            }
+.nav-links a{
+  text-decoration:none;
+  color:white;
+  font-size:14px;
+  transition:.3s;
+}
 
-            requestAnimationFrame(draw);
-        }
+.nav-links a:hover,
+.nav-links a.active{
+  color:#d89b2b;
+}
 
-        requestAnimationFrame(draw);
-    }
+/* HAMBURGER */
 
-    initCodeRain(document.getElementById("portraitSideLeft"), -1, 260, 180);
-    initCodeRain(document.getElementById("portraitSideRight"), 1, 180, 0);
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  z-index:1200;
+}
 
+.hamburger span{
+  width:26px;
+  height:2px;
+  background:#d89b2b;
+  border-radius:3px;
+  transition:.3s;
+}
 
-    /* =================================================
-       HERO BACKGROUND SLIDESHOW
-    ================================================= */
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; transform:scaleX(0); }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
-    const heroBg = document.getElementById("heroBg");
+/* MOBILE OVERLAY */
 
-    if (heroBg) {
+.mob-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
 
-        const heroBgImages = [
-            "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=1600&q=80",
-            "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1600&q=80",
-            "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=1600&q=80",
-            "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1600&q=80",
-            "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1600&q=80"
-        ];
+  backdrop-filter:blur(3px);
 
-        let heroBgIndex = 0;
+  opacity:0;
+  pointer-events:none;
 
-        heroBg.style.backgroundImage = `url(${heroBgImages[0]})`;
+  transition:.3s;
 
-        setInterval(function () {
+  z-index:1000;
+}
 
-            heroBgIndex = (heroBgIndex + 1) % heroBgImages.length;
+.mob-overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
 
-            heroBg.style.opacity = "0";
+/* MOBILE MENU */
 
-            setTimeout(function () {
-                heroBg.style.backgroundImage = `url(${heroBgImages[heroBgIndex]})`;
-                heroBg.style.opacity = "1";
-            }, 350);
+.mob-menu{
+  position:fixed;
 
-        }, 2000);
-    }
+  top:0;
+  left:-100%;
 
+  width:min(295px,80vw);
+  height:100vh;
 
-    /* =================================================
-       AFTER-SCENE BACKGROUND SLIDESHOW (VERCEL + GITHUB)
-       Changes every 2 seconds with a fade
-    ================================================= */
+  background:#0b1e3d;
 
-    const afterBg = document.getElementById("afterBg");
+  border-right:1px solid rgba(216,155,43,.2);
 
-    if (afterBg) {
+  z-index:1100;
 
-        const afterBgImages = ["vercel.jpg", "github.jpg"];
+  transition:.45s cubic-bezier(.77,0,.18,1);
 
-        afterBgImages.forEach(function (src, i) {
-            const img = document.createElement("img");
-            img.src = src;
-            img.alt = "";
-            if (i === 0) img.classList.add("active");
-            afterBg.appendChild(img);
-        });
+  display:flex;
+  flex-direction:column;
 
-        const slides = afterBg.querySelectorAll("img");
-        let afterBgIndex = 0;
+  overflow:hidden;
+}
 
-        setInterval(function () {
-            slides[afterBgIndex].classList.remove("active");
-            afterBgIndex = (afterBgIndex + 1) % slides.length;
-            slides[afterBgIndex].classList.add("active");
-        }, 2000);
-    }
+.mob-menu.open{
+  left:0;
+  box-shadow:20px 0 70px rgba(0,0,0,.8);
+}
 
+/* MENU HEADER */
 
-    /* =================================================
-       MOBILE MENU
-    ================================================= */
+.mob-head{
+  padding:1.4rem 1.3rem 1rem;
 
-    function openMobileMenu() {
-        mobileMenu.classList.add("open");
-        if (mobOverlay) mobOverlay.classList.add("open");
-        document.body.style.overflow = "hidden";
-    }
+  display:flex;
+  align-items:center;
+  gap:12px;
 
-    function closeMobileMenu() {
-        mobileMenu.classList.remove("open");
-        if (mobOverlay) mobOverlay.classList.remove("open");
-        document.body.style.overflow = "";
-    }
+  border-bottom:1px solid rgba(255,255,255,.08);
 
-    if (menuButton && mobileMenu) menuButton.addEventListener("click", openMobileMenu);
-    if (closeMenu && mobileMenu) closeMenu.addEventListener("click", closeMobileMenu);
-    if (mobOverlay) mobOverlay.addEventListener("click", closeMobileMenu);
-    if (mobCtaLink) mobCtaLink.addEventListener("click", closeMobileMenu);
+  background:rgba(216,155,43,.04);
 
-    if (mobileMenu) {
-        mobileMenu.querySelectorAll(".mob-nav-links a").forEach(function (link) {
-            link.addEventListener("click", closeMobileMenu);
-        });
-    }
+  flex-shrink:0;
+}
 
+.mob-avatar{
+  width:46px;
+  height:46px;
 
-    /* =================================================
-       OTHER PAGES
-    ================================================= */
+  border-radius:50%;
 
-    if (!portrait || !scrollScene) {
-        startSimpleLoader();
-        return;
-    }
+  background:linear-gradient(135deg,#d89b2b,#9a6510);
 
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    /* =================================================
-       300 PORTRAIT FRAMES (images are in the ROOT folder)
-    ================================================= */
+  font-weight:700;
+  font-size:1.15rem;
 
-    const TOTAL_FRAMES = 300;
-    const frames = [];
-    let loadedFrames = 0;
+  color:#081b3a;
+
+  border:2px solid rgba(216,155,43,.4);
+  flex-shrink:0;
+}
 
-    portrait.src = "ezgif-frame-001.jpg";
+.mob-info{
+  flex:1;
+}
 
-    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+.mob-head-name{
+  font-size:15px;
+  font-weight:700;
+  color:#d89b2b;
+}
+
+.mob-head-role{
+  font-size:11px;
+  color:rgba(255,255,255,.5);
+  margin-top:3px;
+}
+
+.mob-x{
+  font-size:20px;
+  cursor:pointer;
+  color:white;
+  transition:.3s;
+}
+
+.mob-x:hover{
+  color:#d89b2b;
+}
+
+/* MENU BODY */
+
+.mob-body{
+  flex:1;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+
+.mob-label{
+  font-size:.58rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.28);
+  padding:.9rem 1.3rem .3rem;
+  font-weight:600;
+}
+
+/* MOBILE NAVIGATION */
+
+.mob-nav-links{
+  display:flex;
+  flex-direction:column;
+}
+
+.mob-nav-links a{
+  color:rgba(255,255,255,.75);
+  text-decoration:none;
+
+  padding:.8rem 1.3rem;
+
+  border-bottom:1px solid rgba(255,255,255,.05);
+
+  transition:.28s;
+
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+
+  font-size:.84rem;
+  font-weight:500;
+}
+
+.mob-nav-links a:hover,
+.mob-nav-links a.active{
+  background:rgba(216,155,43,.08);
+  color:#d89b2b;
+  padding-left:1.7rem;
+}
+
+.mob-nav-links a .ico{
+  width:33px;
+  height:33px;
+  background:rgba(255,255,255,.05);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.92rem;
+  flex-shrink:0;
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.mob-nav-links a:hover .ico,
+.mob-nav-links a.active .ico{
+  background:rgba(216,155,43,.12);
+  border-color:rgba(216,155,43,.22);
+}
+
+/* SERVICES SWIPE */
+
+.mob-srv-section{
+  border-top:1px solid rgba(255,255,255,.05);
+  padding-bottom:.5rem;
+}
+
+.mob-srv-scroll{
+  display:flex;
+  gap:.55rem;
+  overflow-x:auto;
+  padding:.6rem 1.3rem;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+
+.mob-srv-card{
+  flex:0 0 auto;
+  scroll-snap-align:start;
+  background:rgba(216,155,43,.05);
+  border:1px solid rgba(216,155,43,.16);
+  border-radius:10px;
+  padding:.7rem .75rem;
+  text-align:center;
+  min-width:72px;
+  text-decoration:none;
+  transition:.28s;
+}
+
+.mob-srv-card:hover{
+  background:rgba(216,155,43,.14);
+  border-color:rgba(216,155,43,.38);
+  transform:translateY(-3px);
+}
+
+.srv-i{
+  font-size:1.25rem;
+  display:block;
+  margin-bottom:.28rem;
+}
+
+.srv-n{
+  font-size:.6rem;
+  color:rgba(255,255,255,.62);
+  font-weight:500;
+}
+
+/* CONTACT BUTTON */
+
+.mob-cta{
+  padding:.6rem 1.2rem .3rem;
+  flex-shrink:0;
+}
+
+.mob-cta a{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:.45rem;
+
+  width:100%;
+
+  padding:.88rem;
+
+  background:#d89b2b;
+  color:#081b3a;
+
+  text-decoration:none;
+  font-weight:700;
+  font-size:.84rem;
+
+  border-radius:8px;
+
+  transition:.28s;
+}
+
+.mob-cta a:hover{
+  background:#f0b040;
+  transform:translateY(-2px);
+}
+
+/* MENU FOOTER */
+
+.mob-foot{
+  padding:.7rem 1.3rem 1.1rem;
+  border-top:1px solid rgba(255,255,255,.05);
+  flex-shrink:0;
+}
+
+.mob-foot p{
+  font-size:.64rem;
+  color:rgba(255,255,255,.26);
+  line-height:1.7;
+}
 
-        const image = new Image();
-        const number = String(i).padStart(3, "0");
+.mob-foot a{
+  color:#d89b2b;
+  text-decoration:none;
+}
 
-        image.src = `ezgif-frame-${number}.jpg`;
+/* SERVICES */
 
-        image.onload = function () {
-            loadedFrames++;
-        };
+.services{
+  min-height:100vh;
+  padding:100px 8%;
+}
 
-        frames.push(image);
-    }
+/* HEADER */
 
+.services-header{
+  text-align:center;
+  margin-bottom:70px;
+}
 
-    /* =================================================
-       SHOW FRAME
-    ================================================= */
+.mini-title{
+  color:#d89b2b;
+  font-size:13px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  margin-bottom:20px;
+  font-weight:600;
+}
 
-    function showFrame(frame) {
+.services-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.5rem;
+  line-height:1.1;
+  margin-bottom:20px;
+}
 
-        frame = Math.max(0, Math.min(TOTAL_FRAMES - 1, frame));
+.services-title span{
+  color:#d89b2b;
+  font-style:italic;
+}
 
-        const image = frames[frame];
+.services-sub{
+  color:#dcdcdc;
+  max-width:750px;
+  margin:auto;
+  line-height:1.9;
+  font-size:16px;
+}
 
-        if (image && image.complete) {
-            portrait.src = image.src;
-        }
+/* GRID */
 
-        if (frameCounter) {
-            frameCounter.textContent =
-                `FRAME ${String(frame + 1).padStart(3, "0")} / 300`;
-        }
-    }
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+}
 
+/* CARD */
 
-    /* =================================================
-       CHANGE TEXT
-       0% intro, 25% location, 50% education,
-       75% skills, 100% call to action
-    ================================================= */
+.service-card{
+  padding:40px 35px;
 
-    function updateText(progress) {
+  border-radius:25px;
 
-        if (!textBlocks.length) return;
+  background:rgba(255,255,255,.04);
 
-        let index;
+  border:1px solid rgba(216,155,43,.15);
 
-        if (progress < 0.125) index = 0;
-        else if (progress < 0.375) index = 1;
-        else if (progress < 0.625) index = 2;
-        else if (progress < 0.875) index = 3;
-        else index = 4;
+  backdrop-filter:blur(12px);
 
-        textBlocks.forEach(function (text, i) {
-            if (i === index) text.classList.add("active");
-            else text.classList.remove("active");
-        });
-    }
+  transition:.4s;
+}
 
+.service-card:hover{
+  transform:translateY(-10px);
 
-    /* =================================================
-       SCROLL ANIMATION
-    ================================================= */
+  border-color:#d89b2b;
 
-    let ticking = false;
-    let targetFrame = 0;
-    let currentFrame = 0;
-    let shownFrame = -1;
+  box-shadow:
+  0 0 30px rgba(216,155,43,.15);
+}
 
-    function updateScroll() {
+/* ICON */
 
-        const rect = scrollScene.getBoundingClientRect();
-        const totalDistance = scrollScene.offsetHeight - window.innerHeight;
+.service-icon{
+  width:75px;
+  height:75px;
 
-        let progress = -rect.top / totalDistance;
-        progress = Math.max(0, Math.min(1, progress));
+  border-radius:20px;
 
-        targetFrame = progress * (TOTAL_FRAMES - 1);
-        updateText(progress);
+  background:rgba(216,155,43,.1);
 
-        ticking = false;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    /* glides toward the target frame so the photo moves smoothly */
-    function animateFrames() {
+  font-size:32px;
 
-        currentFrame += (targetFrame - currentFrame) * 0.18;
+  color:#d89b2b;
 
-        if (Math.abs(targetFrame - currentFrame) < 0.05) {
-            currentFrame = targetFrame;
-        }
+  margin-bottom:25px;
+}
 
-        const f = Math.round(currentFrame);
+/* TITLE */
 
-        if (f !== shownFrame && frames[f] && frames[f].complete) {
-            showFrame(f);
-            shownFrame = f;
-        }
+.service-card h3{
+  font-size:25px;
 
-        requestAnimationFrame(animateFrames);
-    }
+  margin-bottom:18px;
 
-    window.addEventListener(
-        "scroll",
-        function () {
-            if (!ticking) {
-                window.requestAnimationFrame(updateScroll);
-                ticking = true;
-            }
-        },
-        { passive: true }
-    );
+  font-family:'Cormorant Garamond',serif;
+}
 
+/* TEXT */
 
-    /* =================================================
-       INITIAL STATE
-    ================================================= */
+.service-card p{
+  color:#d9d9d9;
 
-    /* Always open the page scrolled to the top, not where the browser last left it */
-    if ("scrollRestoration" in history) {
-        history.scrollRestoration = "manual";
-    }
+  line-height:1.9;
 
-    window.scrollTo(0, 0);
+  font-size:15px;
+}
 
-    updateScroll();
+/* BUTTON */
 
-    currentFrame = targetFrame;
+.btn{
+  display:inline-block;
 
-    showFrame(Math.round(currentFrame));
+  margin-top:22px;
 
-    animateFrames();
+  color:#d89b2b;
 
+  text-decoration:none;
 
-    /* =================================================
-       LOADER (1.5 SECONDS)
-    ================================================= */
+  font-weight:600;
 
-    startLoader();
+  transition:.3s;
+}
 
-    function startLoader() {
+.btn:hover{
+  letter-spacing:1px;
+}
 
-        const start = performance.now();
-        const duration = 1500;
+/* MOBILE */
 
-        function animateLoader(now) {
+@media(max-width:1000px){
 
-            const progress = Math.min((now - start) / duration, 1);
-            const percent = Math.floor(progress * 100);
+  .services-grid{
+    grid-template-columns:1fr;
+  }
 
-            if (loaderNumber) loaderNumber.textContent = `${percent}%`;
-            if (loaderProgress) loaderProgress.style.width = `${percent}%`;
+  .services-title{
+    font-size:3rem;
+  }
 
-            if (progress < 1) requestAnimationFrame(animateLoader);
-            else finishLoader();
-        }
+  .nav-links{
+    display:none;
+  }
 
-        requestAnimationFrame(animateLoader);
-    }
+  .hamburger{
+    display:flex;
+  }
 
-    function finishLoader() {
+}
 
-        if (!loader || !website) return;
+@media(max-width:480px){
 
-        loader.classList.add("hide");
+  nav{
+    padding:16px 5%;
+  }
 
-        website.style.visibility = "visible";
-        website.style.opacity = "1";
+  .logo{
+    font-size:1.3rem;
+  }
 
-        setTimeout(function () {
-            loader.style.display = "none";
-        }, 800);
-    }
+  .services{
+    padding:60px 5%;
+  }
 
+  .services-title{
+    font-size:2.4rem;
+  }
 
-    /* =================================================
-       SIMPLE LOADER (ABOUT / PROJECT / CONTACT)
-    ================================================= */
+  .service-card{
+    padding:30px 22px;
+  }
 
-    function startSimpleLoader() {
+}
 
-        if (!loader || !website) return;
+</style>
 
-        const start = performance.now();
-        const duration = 1500;
+</head>
 
-        function run(now) {
+<body>
 
-            const progress = Math.min((now - start) / duration, 1);
-            const percent = Math.floor(progress * 100);
+<!-- MOBILE OVERLAY -->
 
-            if (loaderNumber) loaderNumber.textContent = `${percent}%`;
-            if (loaderProgress) loaderProgress.style.width = `${percent}%`;
+<div class="mob-overlay" id="overlay"></div>
 
-            if (progress < 1) {
-                requestAnimationFrame(run);
-            } else {
-                loader.classList.add("hide");
-                website.style.visibility = "visible";
-                website.style.opacity = "1";
-            }
-        }
+<!-- MOBILE MENU -->
 
-        requestAnimationFrame(run);
-    }
+<div class="mob-menu" id="mobMenu">
+
+  <div class="mob-head">
+
+    <div class="mob-avatar">JR</div>
+
+    <div class="mob-info">
+
+      <div class="mob-head-name">
+        Jack Roshan J
+      </div>
+
+      <div class="mob-head-role">
+        Web Developer & UI/UX Designer
+      </div>
+
+    </div>
+
+    <div class="mob-x" id="mobClose">✕</div>
+
+  </div>
+
+  <div class="mob-body">
+
+    <div class="mob-label">Pages</div>
+    <div class="mob-nav-links">
+
+      <a href="index.html"><span class="ico">🏠</span> Home</a>
+      <a href="about.html"><span class="ico">👤</span> About</a>
+      <a href="services.html" class="active"><span class="ico">⚡</span> Services</a>
+      <a href="project.html"><span class="ico">🗂️</span> Projects</a>
+      <a href="contact.html"><span class="ico">✉️</span> Contact</a>
+
+    </div>
+
+    <div class="mob-label" style="margin-top:.5rem">
+      Services &nbsp;<span style="color:rgba(216,155,43,.5);font-size:.52rem">swipe →</span>
+    </div>
+    <div class="mob-srv-section">
+      <div class="mob-srv-scroll">
+        <a href="services.html#webdev" class="mob-srv-card"><span class="srv-i">🌐</span><span class="srv-n">Web Dev</span></a>
+        <a href="services.html#uiux" class="mob-srv-card"><span class="srv-i">🎨</span><span class="srv-n">UI/UX</span></a>
+        <a href="services.html#nocode" class="mob-srv-card"><span class="srv-i">⚡</span><span class="srv-n">No-Code</span></a>
+        <a href="services.html#graphic" class="mob-srv-card"><span class="srv-i">🖼️</span><span class="srv-n">Graphic</span></a>
+        <a href="services.html#seo" class="mob-srv-card"><span class="srv-i">📈</span><span class="srv-n">SEO</span></a>
+        <a href="services.html#deploy" class="mob-srv-card"><span class="srv-i">🚀</span><span class="srv-n">Deploy</span></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mob-cta">
+    <a href="contact.html" id="ctaLink">✉ &nbsp;Contact Me</a>
+  </div>
+
+  <div class="mob-foot">
+    <p>📞 <a href="tel:9082844086">9082844086</a><br>✉ <a href="mailto:roshanjack856@gmail.com">roshanjack856@gmail.com</a></p>
+  </div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+  <div class="logo">
+    JACK ROSHAN J
+  </div>
+
+  <ul class="nav-links">
+
+    <li><a href="index.html">Home</a></li>
+
+    <li><a href="about.html">About</a></li>
+
+    <li><a href="services.html" class="active">Services</a></li>
+
+    <li><a href="project.html">Projects</a></li>
+
+    <li><a href="contact.html">Contact</a></li>
+
+  </ul>
+
+  <button class="hamburger" id="ham">
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </button>
+
+</nav>
+
+<!-- SERVICES -->
+
+<section class="services">
+
+  <div class="services-header">
+
+    <div class="mini-title">
+      WHAT I OFFER
+    </div>
+
+    <h1 class="services-title">
+      Premium <span>Services</span>
+    </h1>
+
+    <p class="services-sub">
+      I create modern digital solutions with clean design,
+      responsive layouts, and user-friendly experiences
+      for businesses and personal brands.
+    </p>
+
+  </div>
+
+  <div class="services-grid">
+
+    <div class="service-card">
+
+      <div class="service-icon">
+        💻
+      </div>
+
+      <h3>Web Development</h3>
+
+      <p>
+        Responsive and modern websites using HTML,
+        CSS, JavaScript, GitHub, and Vercel deployment.
+      </p>
+
+      <a href="#" class="btn">
+        Learn More →
+      </a>
+
+    </div>
+
+    <div class="service-card">
+
+      <div class="service-icon">
+        🎨
+      </div>
+
+      <h3>UI/UX Design</h3>
+
+      <p>
+        Beautiful user interfaces and clean layouts
+        designed with modern UI/UX principles and creativity.
+      </p>
+
+      <a href="#" class="btn">
+        Learn More →
+      </a>
+
+    </div>
+
+    <div class="service-card">
+
+      <div class="service-icon">
+        📱
+      </div>
+
+      <h3>Responsive Design</h3>
+
+      <p>
+        Mobile-friendly websites optimized for desktop,
+        tablet, and smartphone devices.
+      </p>
+
+      <a href="#" class="btn">
+        Learn More →
+      </a>
+
+    </div>
+
+    <div class="service-card">
+
+      <div class="service-icon">
+        🚀
+      </div>
+
+      <h3>Website Deployment</h3>
+
+      <p>
+        Fast and secure website deployment using
+        GitHub and Vercel hosting platforms.
+      </p>
+
+      <a href="#" class="btn">
+        Learn More →
+      </a>
+
+    </div>
+
+    <div class="service-card">
+
+      <div class="service-icon">
+        🖼
+      </div>
+
+      <h3>Canva Design</h3>
+
+      <p>
+        Creative social media posts, digital catalogues,
+        business banners, and promotional designs.
+      </p>
+
+      <a href="#" class="btn">
+        Learn More →
+      </a>
+
+    </div>
+
+    <div class="service-card">
+
+      <div class="service-icon">
+        📊
+      </div>
+
+      <h3>MS Office Work</h3>
+
+      <p>
+        Professional work using Microsoft Word,
+        Excel, and PowerPoint presentations.
+      </p>
+
+      <a href="#" class="btn">
+        Learn More →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+
+const ham = document.getElementById('ham');
+
+const mobMenu = document.getElementById('mobMenu');
+
+const overlay = document.getElementById('overlay');
+
+const mobClose = document.getElementById('mobClose');
+
+const ctaLink = document.getElementById('ctaLink');
+
+function openMenu(){
+
+  mobMenu.classList.add('open');
+
+  overlay.classList.add('open');
+
+  ham.classList.add('open');
+
+  document.body.style.overflow='hidden';
+
+}
+
+function closeMenu(){
+
+  mobMenu.classList.remove('open');
+
+  overlay.classList.remove('open');
+
+  ham.classList.remove('open');
+
+  document.body.style.overflow='';
+
+}
+
+ham.addEventListener('click', openMenu);
+
+mobClose.addEventListener('click', closeMenu);
+
+overlay.addEventListener('click', closeMenu);
+
+ctaLink.addEventListener('click', closeMenu);
+
+document.querySelectorAll('.mob-nav-links a').forEach(link=>{
+
+  link.addEventListener('click', closeMenu);
 
 });
+
+</script>
+
+</body>
+</html>
