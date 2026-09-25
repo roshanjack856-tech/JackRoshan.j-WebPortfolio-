@@ -229,7 +229,7 @@ button { font-family: inherit; }
 
 .mob-info { flex: 1; }
 
-.mob-head-name { font-size: 17px; font-weight: 800; color: #ffffff; }
+.mob-head-name { font-size: 14px; font-weight: 700; color: #ffffff; }
 
 .mob-head-role { font-size: 11px; color: rgba(255, 255, 255, 0.5); margin-top: 3px; }
 
@@ -261,15 +261,15 @@ button { font-family: inherit; }
     position: relative;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    padding: 0.85rem 0.9rem;
-    border-radius: 12px;
+    padding: 0.6rem 0.75rem;
+    border-radius: 10px;
     border: 1px solid transparent;
     transition: 0.28s;
     display: flex;
     align-items: center;
-    gap: 0.9rem;
-    font-size: 1.05rem;
-    font-weight: 600;
+    gap: 0.65rem;
+    font-size: 0.82rem;
+    font-weight: 500;
 }
 
 .mob-nav-links a::before {
@@ -296,13 +296,13 @@ button { font-family: inherit; }
 .mob-nav-links a.active::before { opacity: 1; }
 
 .mob-nav-links a .ico {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.05rem;
+    font-size: 0.78rem;
     flex-shrink: 0;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -348,7 +348,7 @@ button { font-family: inherit; }
 .mob-srv-card:nth-child(4) { background: rgba(255, 187, 76, 0.1); border-color: rgba(255, 187, 76, 0.28); }
 .mob-srv-card:nth-child(5) { background: rgba(120, 245, 165, 0.1); border-color: rgba(120, 245, 165, 0.28); }
 
-.srv-i { font-size: 1.25rem; display: block; margin-bottom: 0.28rem; }
+.srv-i { font-size: 1rem; display: block; margin-bottom: 0.28rem; }
 
 .srv-n { font-size: 0.6rem; color: rgba(255, 255, 255, 0.62); font-weight: 500; }
 
