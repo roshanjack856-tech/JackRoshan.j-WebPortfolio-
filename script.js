@@ -432,4 +432,117 @@ document.addEventListener("DOMContentLoaded", function () {
         requestAnimationFrame(run);
     }
 
+
+    /* =================================================
+       AI CHAT WIDGET (n8n webhook)
+    ================================================= */
+
+    const CHAT_WEBHOOK_URL =
+        "https://greedjack.app.n8n.cloud/webhook/170c5083-9466-43c4-b2bd-3e0e72095c69/chat";
+
+    const chatWidget = document.getElementById("chatWidget");
+    const chatToggle = document.getElementById("chatToggle");
+    const chatClose = document.getElementById("chatClose");
+    const chatMessages = document.getElementById("chatMessages");
+    const chatInput = document.getElementById("chatInput");
+    const chatSend = document.getElementById("chatSend");
+
+    if (chatWidget && chatToggle && chatMessages && chatInput && chatSend) {
+
+        const chatSessionId =
+            "session-" + Math.random().toString(36).slice(2) + "-" + Date.now();
+
+        function openChat() {
+            chatWidget.classList.add("open");
+            chatInput.focus();
+        }
+
+        function closeChat() {
+            chatWidget.classList.remove("open");
+        }
+
+        chatToggle.addEventListener("click", function () {
+            chatWidget.classList.contains("open") ? closeChat() : openChat();
+        });
+
+        if (chatClose) {
+            chatClose.addEventListener("click", closeChat);
+        }
+
+        function addMessage(text, who) {
+            const msg = document.createElement("div");
+            msg.className = "chat-msg " + (who === "user" ? "chat-msg-user" : "chat-msg-bot");
+            msg.textContent = text;
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const typing = document.createElement("div");
+            typing.className = "chat-msg-typing";
+            typing.id = "chatTyping";
+            typing.innerHTML = "<span></span><span></span><span></span>";
+            chatMessages.appendChild(typing);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById("chatTyping");
+            if (typing) typing.remove();
+        }
+
+        async function sendMessage() {
+
+            const text = chatInput.value.trim();
+
+            if (!text) return;
+
+            addMessage(text, "user");
+            chatInput.value = "";
+            chatInput.disabled = true;
+            chatSend.disabled = true;
+
+            showTyping();
+
+            try {
+
+                const response = await fetch(CHAT_WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chatInput: text,
+                        sessionId: chatSessionId
+                    })
+                });
+
+                const data = await response.json().catch(function () {
+                    return null;
+                });
+
+                const reply =
+                    (data && (data.output || data.text || data.reply || data.message)) ||
+                    (Array.isArray(data) && data[0] && (data[0].output || data[0].text)) ||
+                    "Sorry, I didn't get a reply from the server.";
+
+                hideTyping();
+                addMessage(reply, "bot");
+
+            } catch (err) {
+
+                hideTyping();
+                addMessage("Sorry, I couldn't reach the chat service right now.", "bot");
+            }
+
+            chatInput.disabled = false;
+            chatSend.disabled = false;
+            chatInput.focus();
+        }
+
+        chatSend.addEventListener("click", sendMessage);
+
+        chatInput.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") sendMessage();
+        });
+    }
+
 });
