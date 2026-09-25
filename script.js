@@ -156,7 +156,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (afterBg) {
 
-        const afterBgImages = ["vercel.jpg", "github.jpg"];
+        const afterBgImages = [
+            "vercel.jpg",
+            "github.jpg",
+            "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1600&q=80",
+            "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80",
+            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1600&q=80",
+            "https://images.unsplash.com/photo-1550439062-609e1531270e?w=1600&q=80",
+            "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=1600&q=80",
+            "https://images.unsplash.com/photo-1533709752211-118fcaf03312?w=1600&q=80",
+            "https://images.unsplash.com/photo-1620121684840-edffcfc4b878?w=1600&q=80",
+            "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80"
+        ];
 
         afterBgImages.forEach(function (src, i) {
             const img = document.createElement("img");
