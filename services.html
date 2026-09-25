@@ -344,15 +344,12 @@ document.addEventListener("DOMContentLoaded", function () {
        INITIAL STATE
     ================================================= */
 
-    /* Open the website at 100% (last frame + "Let's Work Together") */
+    /* Always open the page scrolled to the top, not where the browser last left it */
     if ("scrollRestoration" in history) {
         history.scrollRestoration = "manual";
     }
 
-    window.scrollTo({
-        top: scrollScene.offsetHeight - window.innerHeight,
-        behavior: "instant"
-    });
+    window.scrollTo(0, 0);
 
     updateScroll();
 
