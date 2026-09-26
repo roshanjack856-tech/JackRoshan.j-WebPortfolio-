@@ -699,7 +699,12 @@ button { font-family: inherit; }
 ===================================================== */
 
 .frame-scene {
-    height: 400vh;
+    /* Split three ways: ~72% of this scroll distance drives the
+       180-frame rotation, the rest is the crossfade + a dwell
+       zone for reading/clicking the Explore-Portfolio overlay
+       that now lives inside this same section (see script.js
+       WATCH_END / FADE_END). */
+    height: 560vh;
     position: relative;
     background: #05080f;
 }
@@ -709,9 +714,6 @@ button { font-family: inherit; }
     top: 0;
     height: 100vh;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
     background:
         radial-gradient(ellipse at center, rgba(88, 182, 255, 0.07), transparent 62%),
@@ -719,12 +721,16 @@ button { font-family: inherit; }
 }
 
 .frame-stage {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 5vh 5vw;
+    z-index: 2;
+    /* Opacity is set directly per scroll frame in script.js
+       (no CSS transition) so the crossfade tracks scroll speed
+       exactly instead of lagging behind it. */
 }
 
 .frame-stage img {
@@ -765,19 +771,20 @@ button { font-family: inherit; }
    AFTER SCENE (VERCEL + GITHUB SLIDESHOW BACKGROUND)
 ===================================================== */
 
-.after-scene {
-    position: relative;
-    overflow: hidden;
-    min-height: 80vh;
+.frame-explore {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 7%;
-    background: #09111d;
+    opacity: 0;
+    /* No CSS transition here either — script.js drives this
+       value every scroll frame so it stays perfectly synced. */
 }
 
-/* dark tint over the photos (lower 0.6 = brighter photos) */
-.after-scene::before {
+/* dark tint over the slideshow photos (lower 0.6 = brighter) */
+.frame-explore::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -808,6 +815,7 @@ button { font-family: inherit; }
     z-index: 2;
     text-align: center;
     max-width: 750px;
+    padding: 0 7%;
 }
 
 .small-label {
@@ -966,13 +974,13 @@ footer {
 
     .scroll-indicator { bottom: 33px; font-size: 7px; letter-spacing: 2px; }
 
-    .frame-scene { height: 350vh; }
+    .frame-scene { height: 490vh; }
 
     .frame-stage { padding: 8vh 6vw; }
 
     .frame-scroll-hint { bottom: 30px; font-size: 8px; }
 
-    .after-scene { min-height: 75vh; padding: 80px 25px; }
+    .after-inner { padding: 0 8%; }
 
     footer { flex-direction: column; gap: 10px; text-align: center; }
 
@@ -1006,9 +1014,11 @@ footer {
 
     .hero-buttons a { padding: 10px 15px; }
 
-    .frame-scene { height: 320vh; }
+    .frame-scene { height: 450vh; }
 
     .frame-stage { padding: 9vh 4vw; }
+
+    .after-inner { padding: 0 6%; }
 
     .mobile-menu { padding: 25px 20px; }
 
