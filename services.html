@@ -95,6 +95,7 @@ nav{
   color:#d89b2b;
   font-weight:700;
   font-family:'Cormorant Garamond',serif;
+  text-decoration:none;
 }
 
 .nav-links{
@@ -489,6 +490,8 @@ nav{
   backdrop-filter:blur(12px);
 
   transition:.4s;
+
+  scroll-margin-top:110px;
 }
 
 .service-card:hover{
@@ -650,6 +653,7 @@ nav{
       <a href="about.html"><span class="ico">👤</span> About</a>
       <a href="services.html" class="active"><span class="ico">⚡</span> Services</a>
       <a href="project.html"><span class="ico">🗂️</span> Projects</a>
+      <a href="certificate.html"><span class="ico">🎓</span> Certificates</a>
       <a href="contact.html"><span class="ico">✉️</span> Contact</a>
 
     </div>
@@ -661,9 +665,9 @@ nav{
       <div class="mob-srv-scroll">
         <a href="services.html#webdev" class="mob-srv-card"><span class="srv-i">🌐</span><span class="srv-n">Web Dev</span></a>
         <a href="services.html#uiux" class="mob-srv-card"><span class="srv-i">🎨</span><span class="srv-n">UI/UX</span></a>
-        <a href="services.html#nocode" class="mob-srv-card"><span class="srv-i">⚡</span><span class="srv-n">No-Code</span></a>
+        <a href="services.html#responsive" class="mob-srv-card"><span class="srv-i">📱</span><span class="srv-n">Responsive</span></a>
         <a href="services.html#graphic" class="mob-srv-card"><span class="srv-i">🖼️</span><span class="srv-n">Graphic</span></a>
-        <a href="services.html#seo" class="mob-srv-card"><span class="srv-i">📈</span><span class="srv-n">SEO</span></a>
+        <a href="services.html#msoffice" class="mob-srv-card"><span class="srv-i">📊</span><span class="srv-n">MS Office</span></a>
         <a href="services.html#deploy" class="mob-srv-card"><span class="srv-i">🚀</span><span class="srv-n">Deploy</span></a>
       </div>
     </div>
@@ -684,9 +688,9 @@ nav{
 
 <nav>
 
-  <div class="logo">
+  <a href="index.html" class="logo">
     JACK ROSHAN J
-  </div>
+  </a>
 
   <ul class="nav-links">
 
@@ -697,6 +701,8 @@ nav{
     <li><a href="services.html" class="active">Services</a></li>
 
     <li><a href="project.html">Projects</a></li>
+
+    <li><a href="certificate.html">Certificates</a></li>
 
     <li><a href="contact.html">Contact</a></li>
 
@@ -736,7 +742,7 @@ nav{
 
   <div class="services-grid">
 
-    <div class="service-card">
+    <div class="service-card" id="webdev">
 
       <div class="service-icon">
         💻
@@ -749,13 +755,13 @@ nav{
         CSS, JavaScript, GitHub, and Vercel deployment.
       </p>
 
-      <a href="#" class="btn">
+      <a href="contact.html" class="btn">
         Learn More →
       </a>
 
     </div>
 
-    <div class="service-card">
+    <div class="service-card" id="uiux">
 
       <div class="service-icon">
         🎨
@@ -768,13 +774,13 @@ nav{
         designed with modern UI/UX principles and creativity.
       </p>
 
-      <a href="#" class="btn">
+      <a href="contact.html" class="btn">
         Learn More →
       </a>
 
     </div>
 
-    <div class="service-card">
+    <div class="service-card" id="responsive">
 
       <div class="service-icon">
         📱
@@ -787,13 +793,13 @@ nav{
         tablet, and smartphone devices.
       </p>
 
-      <a href="#" class="btn">
+      <a href="contact.html" class="btn">
         Learn More →
       </a>
 
     </div>
 
-    <div class="service-card">
+    <div class="service-card" id="deploy">
 
       <div class="service-icon">
         🚀
@@ -806,13 +812,13 @@ nav{
         GitHub and Vercel hosting platforms.
       </p>
 
-      <a href="#" class="btn">
+      <a href="contact.html" class="btn">
         Learn More →
       </a>
 
     </div>
 
-    <div class="service-card">
+    <div class="service-card" id="graphic">
 
       <div class="service-icon">
         🖼
@@ -825,13 +831,13 @@ nav{
         business banners, and promotional designs.
       </p>
 
-      <a href="#" class="btn">
+      <a href="contact.html" class="btn">
         Learn More →
       </a>
 
     </div>
 
-    <div class="service-card">
+    <div class="service-card" id="msoffice">
 
       <div class="service-icon">
         📊
@@ -844,7 +850,7 @@ nav{
         Excel, and PowerPoint presentations.
       </p>
 
-      <a href="#" class="btn">
+      <a href="contact.html" class="btn">
         Learn More →
       </a>
 
