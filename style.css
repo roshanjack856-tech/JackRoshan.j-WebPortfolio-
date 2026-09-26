@@ -189,62 +189,59 @@ button { font-family: inherit; }
 
 .mobile-menu {
     position: fixed;
-    top: 0;
-    left: -100%;
-    width: min(295px, 80vw);
-    height: 100vh;
+    top: 4vh;
+    bottom: 4vh;
+    left: -110%;
+    width: min(280px, 78vw);
     z-index: 5000;
-    background: #0b0f18;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    background: #f6f5f3;
+    border-radius: 28px;
     transition: left 0.45s cubic-bezier(.77,0,.18,1);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
-.mobile-menu.open { left: 0; box-shadow: 20px 0 70px rgba(0, 0, 0, 0.8); }
+.mobile-menu.open { left: 14px; box-shadow: 20px 30px 70px rgba(0, 0, 0, 0.55); }
 
 .mobile-menu-top {
-    padding: 22px 20px 16px;
+    position: relative;
+    padding: 34px 20px 18px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(88, 182, 255, 0.05);
+    text-align: center;
+    gap: 6px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     flex-shrink: 0;
 }
 
 .mob-avatar {
-    width: 46px;
-    height: 46px;
+    width: 62px;
+    height: 62px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #ff6ec4, #7873f5, #4adede);
-    background-size: 200% 200%;
-    animation: chatGradient 6s ease infinite;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: #ffffff;
-    border: 2px solid rgba(255, 255, 255, 0.25);
+    object-fit: cover;
+    border: 2px solid rgba(0, 0, 0, 0.06);
     flex-shrink: 0;
 }
 
 .mob-info { flex: 1; }
 
-.mob-head-name { font-size: 14px; font-weight: 700; color: #ffffff; }
+.mob-head-name { font-size: 14px; font-weight: 700; color: #17181c; }
 
-.mob-head-role { font-size: 11px; color: rgba(255, 255, 255, 0.5); margin-top: 3px; }
+.mob-head-role { font-size: 11px; color: rgba(23, 24, 28, 0.5); margin-top: 3px; }
 
 .close-menu {
-    width: 36px;
-    height: 36px;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: transparent;
-    color: #ffffff;
-    font-size: 22px;
+    border: none;
+    background: rgba(0, 0, 0, 0.06);
+    color: #17181c;
+    font-size: 20px;
     flex-shrink: 0;
 }
 
@@ -254,78 +251,58 @@ button { font-family: inherit; }
     font-size: 0.58rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.28);
+    color: rgba(23, 24, 28, 0.32);
     padding: 0.9rem 1.3rem 0.3rem;
     font-weight: 600;
 }
 
-.mob-nav-links { display: flex; flex-direction: column; gap: 0.35rem; padding: 0.3rem 0.7rem; }
+.mob-nav-links { display: flex; flex-direction: column; gap: 0.3rem; padding: 0.3rem 0.9rem; }
 
 .mob-nav-links a {
     position: relative;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(23, 24, 28, 0.68);
     text-decoration: none;
-    padding: 0.6rem 0.75rem;
-    border-radius: 10px;
-    border: 1px solid transparent;
+    padding: 0.6rem 0.7rem;
+    border-radius: 14px;
     transition: 0.28s;
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.7rem;
     font-size: 0.82rem;
     font-weight: 500;
 }
 
-.mob-nav-links a::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 12%;
-    bottom: 12%;
-    width: 3px;
-    border-radius: 3px;
-    background: linear-gradient(180deg, #ff6ec4, #7873f5, #4adede);
-    opacity: 0;
-    transition: opacity 0.25s ease;
+.mob-nav-links a:hover {
+    background: rgba(0, 0, 0, 0.045);
+    color: #17181c;
 }
 
-.mob-nav-links a:hover,
 .mob-nav-links a.active {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: #17181c;
     color: #ffffff;
-    padding-left: 0.9rem;
+    font-weight: 700;
 }
-
-.mob-nav-links a.active::before { opacity: 1; }
 
 .mob-nav-links a .ico {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.78rem;
     flex-shrink: 0;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.05);
+    color: #17181c;
 }
 
-/* a different accent colour per menu item, made bold and clearly visible */
-.mob-nav-links a:nth-child(1) .ico { background: rgba(255, 110, 196, 0.3); border-color: rgba(255, 110, 196, 0.6); }
-.mob-nav-links a:nth-child(2) .ico { background: rgba(120, 115, 245, 0.3); border-color: rgba(120, 115, 245, 0.6); }
-.mob-nav-links a:nth-child(3) .ico { background: rgba(74, 222, 222, 0.3); border-color: rgba(74, 222, 222, 0.6); }
-.mob-nav-links a:nth-child(4) .ico { background: rgba(255, 187, 76, 0.3); border-color: rgba(255, 187, 76, 0.6); }
-.mob-nav-links a:nth-child(5) .ico { background: rgba(120, 245, 165, 0.3); border-color: rgba(120, 245, 165, 0.6); }
-.mob-nav-links a:nth-child(6) .ico { background: rgba(255, 140, 140, 0.3); border-color: rgba(255, 140, 140, 0.6); }
+.mob-nav-links a .ico svg { width: 16px; height: 16px; }
 
-.mob-nav-links a:hover .ico,
 .mob-nav-links a.active .ico {
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
 }
 
-.mob-srv-section { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 0.5rem; }
+.mob-srv-section { border-top: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 0.5rem; }
 
 .mob-srv-scroll {
     display: flex;
@@ -339,23 +316,17 @@ button { font-family: inherit; }
 .mob-srv-card {
     flex: 0 0 auto;
     scroll-snap-align: start;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.07);
     border-radius: 10px;
     padding: 0.7rem 0.75rem;
     text-align: center;
     min-width: 72px;
 }
 
-.mob-srv-card:nth-child(1) { background: rgba(255, 110, 196, 0.1); border-color: rgba(255, 110, 196, 0.28); }
-.mob-srv-card:nth-child(2) { background: rgba(120, 115, 245, 0.1); border-color: rgba(120, 115, 245, 0.28); }
-.mob-srv-card:nth-child(3) { background: rgba(74, 222, 222, 0.1); border-color: rgba(74, 222, 222, 0.28); }
-.mob-srv-card:nth-child(4) { background: rgba(255, 187, 76, 0.1); border-color: rgba(255, 187, 76, 0.28); }
-.mob-srv-card:nth-child(5) { background: rgba(120, 245, 165, 0.1); border-color: rgba(120, 245, 165, 0.28); }
-
 .srv-i { font-size: 1rem; display: block; margin-bottom: 0.28rem; }
 
-.srv-n { font-size: 0.6rem; color: rgba(255, 255, 255, 0.62); font-weight: 500; }
+.srv-n { font-size: 0.6rem; color: rgba(23, 24, 28, 0.6); font-weight: 500; }
 
 .mob-cta { padding: 0.6rem 1.2rem 0.3rem; flex-shrink: 0; }
 
@@ -380,9 +351,9 @@ button { font-family: inherit; }
 
 .mob-cta a:hover { transform: translateY(-2px); }
 
-.mob-foot { padding: 0.7rem 1.3rem 1.1rem; border-top: 1px solid rgba(255, 255, 255, 0.05); flex-shrink: 0; }
+.mob-foot { padding: 0.7rem 1.3rem 1.1rem; border-top: 1px solid rgba(0, 0, 0, 0.06); flex-shrink: 0; }
 
-.mob-foot p { font-size: 0.64rem; color: rgba(255, 255, 255, 0.3); }
+.mob-foot p { font-size: 0.64rem; color: rgba(23, 24, 28, 0.4); }
 
 
 /* =====================================================
@@ -840,7 +811,7 @@ footer {
         display: flex;
         flex-direction: column-reverse;
         justify-content: center;
-        gap: 0;
+        gap: 22px;
         padding: 100px 24px 55px;
     }
 
@@ -852,7 +823,9 @@ footer {
         flex-shrink: 0;
     }
 
-    .portrait-card { width: min(430px, 94vw); height: 100%; }
+    /* Smaller outline-offset on mobile so the frame's glow ring
+       doesn't reach down into the text/badges below it */
+    .portrait-card { width: min(430px, 94vw); height: 100%; outline-offset: 6px; }
 
     .portrait-glow { width: 300px; height: 430px; }
 
