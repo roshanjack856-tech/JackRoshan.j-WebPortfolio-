@@ -596,6 +596,45 @@
 
 
 <!-- =====================================================
+     WATCH SCROLL FRAME SEQUENCE (SECOND SECTION)
+     180 JPGs: watch-001-001.jpg ... watch-001-180.jpg
+     Scroll position IS the timeline — no autoplay, no
+     easing/lerp. See script.js for the frame-mapping logic.
+===================================================== -->
+
+<section
+    class="frame-scene"
+    id="watchScene"
+>
+
+    <div class="frame-sticky">
+
+        <div class="frame-stage">
+
+            <img
+                id="watchFrame"
+                src="watch-001-001.jpg"
+                alt="Watch product rotation"
+                draggable="false"
+                decoding="async"
+            >
+
+        </div>
+
+        <div
+            class="frame-scroll-hint"
+            id="watchScrollHint"
+        >
+            <span>SCROLL TO ROTATE</span>
+            <span>↕</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
      AFTER 300 FRAMES
 ===================================================== -->
 
