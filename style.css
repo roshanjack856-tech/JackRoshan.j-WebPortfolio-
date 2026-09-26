@@ -589,7 +589,13 @@ button { font-family: inherit; }
 .portrait-card {
     position: relative;
     width: min(480px, 90%);
-    height: min(620px, 76vh);
+    /* Was: height: min(620px, 76vh);
+       That let the card grow taller than the space between the
+       header and the bottom separator line on shorter viewports,
+       so it overflowed downward and covered the scroll indicator.
+       Capping it with calc(100vh - 240px) keeps it inside that
+       space on every screen height. */
+    height: clamp(380px, calc(100vh - 240px), 560px);
     display: flex;
     align-items: flex-end;
     justify-content: center;
