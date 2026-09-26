@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Certificates | Jack Roshan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#081b3a;
+  color:white;
+  overflow-x:hidden;
+  font-family:'Outfit',sans-serif;
+  position:relative;
+}
+
+/* BACKGROUND */
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+
+  background:
+  linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.82)),
+  url("Screenshot 2026-06-07 100111.png");
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  z-index:-2;
+}
+
+/* GOLD GLOW */
+
+body::after{
+  content:'';
+  position:fixed;
+
+  top:50%;
+  left:8%;
+
+  width:450px;
+  height:450px;
+
+  background:rgba(216,155,43,.12);
+
+  filter:blur(120px);
+
+  transform:translateY(-50%);
+
+  z-index:-1;
+}
+
+/* NAVBAR */
+
+nav{
+  width:100%;
+  padding:22px 8%;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  backdrop-filter:blur(10px);
+
+  position:sticky;
+  top:0;
+  z-index:1000;
+
+  background:rgba(0,0,0,.35);
+}
+
+.logo{
+  font-size:2rem;
+  color:#d89b2b;
+  font-weight:700;
+  font-family:'Cormorant Garamond',serif;
+  text-decoration:none;
+}
+
+.nav-links{
+  display:flex;
+  gap:32px;
+  list-style:none;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:white;
+  font-size:14px;
+  transition:.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+  color:#d89b2b;
+}
+
+/* HAMBURGER */
+
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  z-index:1200;
+}
+
+.hamburger span{
+  width:26px;
+  height:2px;
+  background:#d89b2b;
+  border-radius:3px;
+  transition:.3s;
+}
+
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; transform:scaleX(0); }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* MOBILE OVERLAY */
+
+.mob-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+
+  backdrop-filter:blur(3px);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.3s;
+
+  z-index:1000;
+}
+
+.mob-overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* MOBILE MENU */
+
+.mob-menu{
+  position:fixed;
+
+  top:0;
+  left:-100%;
+
+  width:min(295px,80vw);
+  height:100vh;
+
+  background:#0b1e3d;
+
+  border-right:1px solid rgba(216,155,43,.2);
+
+  z-index:1100;
+
+  transition:.45s cubic-bezier(.77,0,.18,1);
+
+  display:flex;
+  flex-direction:column;
+
+  overflow:hidden;
+}
+
+.mob-menu.open{
+  left:0;
+  box-shadow:20px 0 70px rgba(0,0,0,.8);
+}
+
+/* MENU HEADER */
+
+.mob-head{
+  padding:1.4rem 1.3rem 1rem;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  background:rgba(216,155,43,.04);
+
+  flex-shrink:0;
+}
+
+.mob-avatar{
+  width:46px;
+  height:46px;
+
+  border-radius:50%;
+
+  background:linear-gradient(135deg,#d89b2b,#9a6510);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:700;
+  font-size:1.15rem;
+
+  color:#081b3a;
+
+  border:2px solid rgba(216,155,43,.4);
+  flex-shrink:0;
+}
+
+.mob-info{
+  flex:1;
+}
+
+.mob-head-name{
+  font-size:15px;
+  font-weight:700;
+  color:#d89b2b;
+}
+
+.mob-head-role{
+  font-size:11px;
+  color:rgba(255,255,255,.5);
+  margin-top:3px;
+}
+
+.mob-x{
+  font-size:20px;
+  cursor:pointer;
+  color:white;
+  transition:.3s;
+}
+
+.mob-x:hover{
+  color:#d89b2b;
+}
+
+/* MENU BODY */
+
+.mob-body{
+  flex:1;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+
+.mob-label{
+  font-size:.58rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.28);
+  padding:.9rem 1.3rem .3rem;
+  font-weight:600;
+}
+
+/* MOBILE NAVIGATION */
+
+.mob-nav-links{
+  display:flex;
+  flex-direction:column;
+}
+
+.mob-nav-links a{
+  color:rgba(255,255,255,.75);
+  text-decoration:none;
+
+  padding:.8rem 1.3rem;
+
+  border-bottom:1px solid rgba(255,255,255,.05);
+
+  transition:.28s;
+
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+
+  font-size:.84rem;
+  font-weight:500;
+}
+
+.mob-nav-links a:hover,
+.mob-nav-links a.active{
+  background:rgba(216,155,43,.08);
+  color:#d89b2b;
+  padding-left:1.7rem;
+}
+
+.mob-nav-links a .ico{
+  width:33px;
+  height:33px;
+  background:rgba(255,255,255,.05);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.92rem;
+  flex-shrink:0;
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.mob-nav-links a:hover .ico,
+.mob-nav-links a.active .ico{
+  background:rgba(216,155,43,.12);
+  border-color:rgba(216,155,43,.22);
+}
+
+/* SERVICES SWIPE */
+
+.mob-srv-section{
+  border-top:1px solid rgba(255,255,255,.05);
+  padding-bottom:.5rem;
+}
+
+.mob-srv-scroll{
+  display:flex;
+  gap:.55rem;
+  overflow-x:auto;
+  padding:.6rem 1.3rem;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+
+.mob-srv-card{
+  flex:0 0 auto;
+  scroll-snap-align:start;
+  background:rgba(216,155,43,.05);
+  border:1px solid rgba(216,155,43,.16);
+  border-radius:10px;
+  padding:.7rem .75rem;
+  text-align:center;
+  min-width:72px;
+  text-decoration:none;
+  transition:.28s;
+}
+
+.mob-srv-card:hover{
+  background:rgba(216,155,43,.14);
+  border-color:rgba(216,155,43,.38);
+  transform:translateY(-3px);
+}
+
+.srv-i{
+  font-size:1.25rem;
+  display:block;
+  margin-bottom:.28rem;
+}
+
+.srv-n{
+  font-size:.6rem;
+  color:rgba(255,255,255,.62);
+  font-weight:500;
+}
+
+/* CONTACT BUTTON */
+
+.mob-cta{
+  padding:.6rem 1.2rem .3rem;
+  flex-shrink:0;
+}
+
+.mob-cta a{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:.45rem;
+
+  width:100%;
+
+  padding:.88rem;
+
+  background:#d89b2b;
+  color:#081b3a;
+
+  text-decoration:none;
+  font-weight:700;
+  font-size:.84rem;
+
+  border-radius:8px;
+
+  transition:.28s;
+}
+
+.mob-cta a:hover{
+  background:#f0b040;
+  transform:translateY(-2px);
+}
+
+/* MENU FOOTER */
+
+.mob-foot{
+  padding:.7rem 1.3rem 1.1rem;
+  border-top:1px solid rgba(255,255,255,.05);
+  flex-shrink:0;
+}
+
+.mob-foot p{
+  font-size:.64rem;
+  color:rgba(255,255,255,.26);
+  line-height:1.7;
+}
+
+.mob-foot a{
+  color:#d89b2b;
+  text-decoration:none;
+}
+
+/* CERTIFICATES PAGE */
+
+.certificates{
+  min-height:100vh;
+  padding:100px 8%;
+}
+
+.cert-header{
+  text-align:center;
+  margin-bottom:60px;
+}
+
+.mini-title{
+  color:#d89b2b;
+  font-size:13px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  margin-bottom:20px;
+  font-weight:600;
+}
+
+.cert-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.2rem;
+  line-height:1.1;
+  margin-bottom:20px;
+}
+
+.cert-title span{
+  color:#d89b2b;
+  font-style:italic;
+}
+
+.cert-sub{
+  color:#dcdcdc;
+  max-width:750px;
+  margin:auto;
+  line-height:1.9;
+  font-size:16px;
+}
+
+.cert-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:22px;
+  padding:10px 22px;
+  border-radius:30px;
+  border:1px solid rgba(216,155,43,.35);
+  background:rgba(216,155,43,.08);
+  color:#d89b2b;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.5px;
+}
+
+/* GRID */
+
+.cert-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:30px;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+/* CARD */
+
+.cert-card{
+  border-radius:22px;
+
+  background:rgba(255,255,255,.04);
+
+  border:1px solid rgba(216,155,43,.15);
+
+  backdrop-filter:blur(12px);
+
+  overflow:hidden;
+
+  transition:.4s;
+
+  display:flex;
+  flex-direction:column;
+}
+
+.cert-card:hover{
+  transform:translateY(-8px);
+
+  border-color:#d89b2b;
+
+  box-shadow:0 0 30px rgba(216,155,43,.15);
+}
+
+/* IMAGE / PLACEHOLDER FRAME */
+
+.cert-frame{
+  width:100%;
+  aspect-ratio:4/3;
+  background:rgba(255,255,255,.03);
+  border-bottom:1px solid rgba(216,155,43,.15);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.cert-frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none;
+}
+
+.cert-frame img.loaded{
+  display:block;
+}
+
+.cert-placeholder{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  color:rgba(216,155,43,.55);
+  text-align:center;
+  padding:20px;
+}
+
+.cert-placeholder .cert-icon{
+  font-size:40px;
+}
+
+.cert-placeholder span{
+  font-size:12px;
+  color:rgba(255,255,255,.35);
+  letter-spacing:.5px;
+}
+
+.cert-num{
+  position:absolute;
+  top:14px;
+  left:14px;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#d89b2b;
+  color:#081b3a;
+  font-weight:700;
+  font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* BODY */
+
+.cert-body{
+  padding:26px 28px 30px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.cert-issuer{
+  font-size:.68rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#d89b2b;
+  font-weight:700;
+}
+
+.cert-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;
+  font-weight:700;
+  line-height:1.25;
+}
+
+.cert-desc{
+  color:#d9d9d9;
+  line-height:1.75;
+  font-size:14px;
+}
+
+.cert-actions{
+  display:flex;
+  gap:.7rem;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+
+.cert-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.6rem 1.2rem;
+  border-radius:8px;
+  font-size:.78rem;
+  font-weight:600;
+  text-decoration:none;
+  transition:.28s;
+}
+
+.cert-btn-primary{
+  background:#d89b2b;
+  color:#081b3a;
+  border:1.5px solid #d89b2b;
+}
+
+.cert-btn-primary:hover{
+  background:#f0b040;
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(216,155,43,.3);
+}
+
+.cert-btn-ghost{
+  background:transparent;
+  color:rgba(255,255,255,.65);
+  border:1.5px solid rgba(255,255,255,.15);
+}
+
+.cert-btn-ghost:hover{
+  border-color:rgba(216,155,43,.4);
+  color:#d89b2b;
+}
+
+/* CTA STRIP */
+
+.cta-strip{
+  text-align:center;
+  padding:5rem 8% 2rem;
+  max-width:800px;
+  margin:0 auto;
+}
+
+.cta-strip h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem;
+  font-weight:700;
+  margin-bottom:.8rem;
+}
+
+.cta-strip h2 span{
+  color:#d89b2b;
+  font-style:italic;
+}
+
+.cta-strip p{
+  color:rgba(255,255,255,.55);
+  font-size:.92rem;
+  line-height:1.8;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .cert-grid{
+    grid-template-columns:1fr;
+  }
+
+  .cert-title{
+    font-size:3rem;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .hamburger{
+    display:flex;
+  }
+
+}
+
+@media(max-width:480px){
+
+  nav{
+    padding:16px 5%;
+  }
+
+  .logo{
+    font-size:1.3rem;
+  }
+
+  .certificates{
+    padding:60px 5%;
+  }
+
+  .cert-title{
+    font-size:2.3rem;
+  }
+
+  .cert-body{
+    padding:22px 20px 26px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- MOBILE OVERLAY -->
+
+<div class="mob-overlay" id="overlay"></div>
+
+<!-- MOBILE MENU -->
+
+<div class="mob-menu" id="mobMenu">
+
+  <div class="mob-head">
+
+    <div class="mob-avatar">JR</div>
+
+    <div class="mob-info">
+
+      <div class="mob-head-name">
+        Jack Roshan J
+      </div>
+
+      <div class="mob-head-role">
+        Web Developer & UI/UX Designer
+      </div>
+
+    </div>
+
+    <div class="mob-x" id="mobClose">✕</div>
+
+  </div>
+
+  <div class="mob-body">
+
+    <div class="mob-label">Pages</div>
+    <div class="mob-nav-links">
+
+      <a href="index.html"><span class="ico">🏠</span> Home</a>
+      <a href="about.html"><span class="ico">👤</span> About</a>
+      <a href="services.html"><span class="ico">⚡</span> Services</a>
+      <a href="project.html"><span class="ico">🗂️</span> Projects</a>
+      <a href="certificate.html" class="active"><span class="ico">🎓</span> Certificates</a>
+      <a href="contact.html"><span class="ico">✉️</span> Contact</a>
+
+    </div>
+
+    <div class="mob-label" style="margin-top:.5rem">
+      Services &nbsp;<span style="color:rgba(216,155,43,.5);font-size:.52rem">swipe →</span>
+    </div>
+    <div class="mob-srv-section">
+      <div class="mob-srv-scroll">
+        <a href="services.html#webdev" class="mob-srv-card"><span class="srv-i">🌐</span><span class="srv-n">Web Dev</span></a>
+        <a href="services.html#uiux" class="mob-srv-card"><span class="srv-i">🎨</span><span class="srv-n">UI/UX</span></a>
+        <a href="services.html#responsive" class="mob-srv-card"><span class="srv-i">📱</span><span class="srv-n">Responsive</span></a>
+        <a href="services.html#graphic" class="mob-srv-card"><span class="srv-i">🖼️</span><span class="srv-n">Graphic</span></a>
+        <a href="services.html#msoffice" class="mob-srv-card"><span class="srv-i">📊</span><span class="srv-n">MS Office</span></a>
+        <a href="services.html#deploy" class="mob-srv-card"><span class="srv-i">🚀</span><span class="srv-n">Deploy</span></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mob-cta">
+    <a href="contact.html" id="ctaLink">✉ &nbsp;Contact Me</a>
+  </div>
+
+  <div class="mob-foot">
+    <p>📞 <a href="tel:9082844086">9082844086</a><br>✉ <a href="mailto:roshanjack856@gmail.com">roshanjack856@gmail.com</a></p>
+  </div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+  <a href="index.html" class="logo">
+    JACK ROSHAN J
+  </a>
+
+  <ul class="nav-links">
+
+    <li><a href="index.html">Home</a></li>
+
+    <li><a href="about.html">About</a></li>
+
+    <li><a href="services.html">Services</a></li>
+
+    <li><a href="project.html">Projects</a></li>
+
+    <li><a href="certificate.html" class="active">Certificates</a></li>
+
+    <li><a href="contact.html">Contact</a></li>
+
+  </ul>
+
+  <button class="hamburger" id="ham">
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </button>
+
+</nav>
+
+<!-- CERTIFICATES -->
+
+<section class="certificates">
+
+  <div class="cert-header">
+
+    <div class="mini-title">
+      COURSE CERTIFICATE
+    </div>
+
+    <h1 class="cert-title">
+      Meta <span>Front-End Developer</span>
+    </h1>
+
+    <p class="cert-sub">
+      Certificates earned from the Meta Front-End Developer
+      Professional Certificate program, covering front-end
+      fundamentals, JavaScript, version control, and React.
+    </p>
+
+    <div class="cert-badge">
+      🎓 Issued by Meta · via Coursera
+    </div>
+
+  </div>
+
+  <div class="cert-grid">
+
+    <!-- CERTIFICATE 1 -->
+    <div class="cert-card">
+      <div class="cert-frame">
+        <span class="cert-num">1</span>
+        <img src="certificate-1.jpg" alt="Certificate 1" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+        <div class="cert-placeholder">
+          <span class="cert-icon">🎓</span>
+          <span>Add certificate-1.jpg<br>to replace this space</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div class="cert-issuer">Meta · Coursera</div>
+        <div class="cert-name">Introduction to Front-End Development</div>
+        <p class="cert-desc">
+          Core concepts of front-end web development — HTML, CSS,
+          responsive design, and how the web works.
+        </p>
+        <div class="cert-actions">
+          <a href="certificate-1.pdf" target="_blank" class="cert-btn cert-btn-primary">👁 View</a>
+          <a href="certificate-1.pdf" download class="cert-btn cert-btn-ghost">⬇ Download</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATE 2 -->
+    <div class="cert-card">
+      <div class="cert-frame">
+        <span class="cert-num">2</span>
+        <img src="certificate-2.jpg" alt="Certificate 2" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+        <div class="cert-placeholder">
+          <span class="cert-icon">🎓</span>
+          <span>Add certificate-2.jpg<br>to replace this space</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div class="cert-issuer">Meta · Coursera</div>
+        <div class="cert-name">Programming with JavaScript</div>
+        <p class="cert-desc">
+          JavaScript fundamentals — syntax, functions, DOM
+          manipulation, and problem-solving with code.
+        </p>
+        <div class="cert-actions">
+          <a href="certificate-2.pdf" target="_blank" class="cert-btn cert-btn-primary">👁 View</a>
+          <a href="certificate-2.pdf" download class="cert-btn cert-btn-ghost">⬇ Download</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATE 3 -->
+    <div class="cert-card">
+      <div class="cert-frame">
+        <span class="cert-num">3</span>
+        <img src="certificate-3.jpg" alt="Certificate 3" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+        <div class="cert-placeholder">
+          <span class="cert-icon">🎓</span>
+          <span>Add certificate-3.jpg<br>to replace this space</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div class="cert-issuer">Meta · Coursera</div>
+        <div class="cert-name">Version Control</div>
+        <p class="cert-desc">
+          Using Git and GitHub for source control, branching,
+          and collaborating on real-world codebases.
+        </p>
+        <div class="cert-actions">
+          <a href="certificate-3.pdf" target="_blank" class="cert-btn cert-btn-primary">👁 View</a>
+          <a href="certificate-3.pdf" download class="cert-btn cert-btn-ghost">⬇ Download</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATE 4 -->
+    <div class="cert-card">
+      <div class="cert-frame">
+        <span class="cert-num">4</span>
+        <img src="certificate-4.jpg" alt="Certificate 4" onload="this.classList.add('loaded'); this.nextElementSibling.style.display='none';" onerror="this.style.display='none';">
+        <div class="cert-placeholder">
+          <span class="cert-icon">🎓</span>
+          <span>Add certificate-4.jpg<br>to replace this space</span>
+        </div>
+      </div>
+      <div class="cert-body">
+        <div class="cert-issuer">Meta · Coursera</div>
+        <div class="cert-name">HTML and CSS in Depth</div>
+        <p class="cert-desc">
+          Advanced HTML &amp; CSS — layout systems, accessibility,
+          and building fully responsive interfaces.
+        </p>
+        <div class="cert-actions">
+          <a href="certificate-4.pdf" target="_blank" class="cert-btn cert-btn-primary">👁 View</a>
+          <a href="certificate-4.pdf" download class="cert-btn cert-btn-ghost">⬇ Download</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cta-strip">
+    <h2>Want to see <span>more?</span></h2>
+    <p>
+      Check out my other projects and skills, or get in touch
+      if you'd like to know more about my learning journey.
+    </p>
+  </div>
+
+</section>
+
+<script>
+
+const ham = document.getElementById('ham');
+
+const mobMenu = document.getElementById('mobMenu');
+
+const overlay = document.getElementById('overlay');
+
+const mobClose = document.getElementById('mobClose');
+
+const ctaLink = document.getElementById('ctaLink');
+
+function openMenu(){
+
+  mobMenu.classList.add('open');
+
+  overlay.classList.add('open');
+
+  ham.classList.add('open');
+
+  document.body.style.overflow='hidden';
+
+}
+
+function closeMenu(){
+
+  mobMenu.classList.remove('open');
+
+  overlay.classList.remove('open');
+
+  ham.classList.remove('open');
+
+  document.body.style.overflow='';
+
+}
+
+ham.addEventListener('click', openMenu);
+
+mobClose.addEventListener('click', closeMenu);
+
+overlay.addEventListener('click', closeMenu);
+
+ctaLink.addEventListener('click', closeMenu);
+
+document.querySelectorAll('.mob-nav-links a').forEach(link=>{
+
+  link.addEventListener('click', closeMenu);
+
+});
+
+</script>
+
+</body>
+</html>
