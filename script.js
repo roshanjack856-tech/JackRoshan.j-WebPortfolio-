@@ -175,6 +175,146 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
+       WATCH PRODUCT SCROLL FRAME SEQUENCE (2ND SECTION)
+       180 JPG frames: watch-001-001.jpg ... watch-001-180.jpg
+
+       This is placed BEFORE the "OTHER PAGES" early-return
+       below so it always runs on index.html regardless of
+       whether the hero portrait/scroll-scene elements exist.
+
+       Scroll position is the ONLY source of truth for which
+       frame is shown — no easing, no lerp, no autoplay timer.
+       That's deliberate: it guarantees
+         - the frame always matches exactly where the user's
+           scroll position is right now
+         - stopping mid-scroll freezes on that exact frame
+         - resuming (up or down) continues from that exact
+           frame instead of jumping or restarting
+         - scrolling up naturally reverses the sequence, since
+           it's driven by the same progress value either way
+    ================================================= */
+
+    (function initWatchFrameScene() {
+
+        const watchScene = document.getElementById("watchScene");
+        const watchImg = document.getElementById("watchFrame");
+        const watchHint = document.getElementById("watchScrollHint");
+
+        if (!watchScene || !watchImg) return;
+
+        const WATCH_TOTAL_FRAMES = 180;
+        const WATCH_PREFIX = "watch-001-";
+        const WATCH_EXT = ".jpg";
+
+        function watchFrameSrc(n) {
+            const num = String(n).padStart(3, "0");
+            return WATCH_PREFIX + num + WATCH_EXT;
+        }
+
+        /* -------------------------------------------
+           PRELOAD
+           Frame 1 is already the visible <img>'s src in
+           the HTML, so it paints immediately with zero
+           JS delay. All 180 frames (including frame 1)
+           are then preloaded into an in-memory Image
+           array in the background — once a frame's
+           Image object reports .complete, swapping the
+           visible <img> to that frame is instant because
+           the browser serves it straight from cache
+           instead of hitting the network.
+        ------------------------------------------- */
+
+        const watchFrames = new Array(WATCH_TOTAL_FRAMES);
+
+        for (let i = 1; i <= WATCH_TOTAL_FRAMES; i++) {
+            const img = new Image();
+            img.src = watchFrameSrc(i);
+            watchFrames[i - 1] = img;
+        }
+
+        /* -------------------------------------------
+           SCROLL -> FRAME MAPPING
+           progress 0   -> frame 1
+           progress 1   -> frame 180
+           progress 0.5 -> frame ~90
+           (matches the 0/25/50/75/100% -> 1/45/90/135/180
+           mapping exactly, via a floor — see note below)
+        ------------------------------------------- */
+
+        function computeWatchFrame() {
+
+            const rect = watchScene.getBoundingClientRect();
+            const totalDistance = watchScene.offsetHeight - window.innerHeight;
+
+            if (totalDistance <= 0) return 1;
+
+            let progress = -rect.top / totalDistance;
+            progress = Math.max(0, Math.min(1, progress));
+
+            // Math.floor (not round) so progress 0 -> 1,
+            // 0.25 -> 45, 0.5 -> 90, 0.75 -> 135, 1 -> 180.
+            let frame = Math.floor(progress * (WATCH_TOTAL_FRAMES - 1)) + 1;
+
+            if (frame < 1) frame = 1;
+            if (frame > WATCH_TOTAL_FRAMES) frame = WATCH_TOTAL_FRAMES;
+
+            return frame;
+        }
+
+        let watchTicking = false;
+        let watchShownFrame = 1;
+        let watchHintHidden = false;
+
+        function updateWatchFrame() {
+
+            const frame = computeWatchFrame();
+
+            if (frame !== watchShownFrame) {
+
+                const cached = watchFrames[frame - 1];
+
+                // Prefer the already-downloaded cached Image's
+                // src so the swap decodes from cache, not network.
+                watchImg.src = (cached && cached.complete)
+                    ? cached.src
+                    : watchFrameSrc(frame);
+
+                watchShownFrame = frame;
+
+                if (!watchHintHidden && watchHint) {
+                    watchHint.classList.add("hide");
+                    watchHintHidden = true;
+                }
+            }
+
+            watchTicking = false;
+        }
+
+        function onWatchScroll() {
+
+            // rAF-throttled: no matter how many scroll events
+            // fire, only one frame update runs per animation
+            // frame, so fast/flicky scrolling never stutters
+            // and never touches the DOM more than necessary.
+            if (!watchTicking) {
+                window.requestAnimationFrame(updateWatchFrame);
+                watchTicking = true;
+            }
+        }
+
+        window.addEventListener("scroll", onWatchScroll, { passive: true });
+        window.addEventListener("resize", onWatchScroll, { passive: true });
+
+        // Set the correct frame immediately (covers a page
+        // refresh or a jump-link landing mid-way through the
+        // section, so it isn't stuck showing frame 1 until
+        // the next scroll event fires).
+        updateWatchFrame();
+
+    })();
+
+
+    /* =================================================
        AFTER-SCENE BACKGROUND SLIDESHOW (VERCEL + GITHUB)
        Changes every 2 seconds with a fade
     ================================================= */
