@@ -199,12 +199,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const watchScene = document.getElementById("watchScene");
         const watchImg = document.getElementById("watchFrame");
         const watchHint = document.getElementById("watchScrollHint");
+        const watchStage = document.getElementById("watchStage");
+        const frameExplore = document.getElementById("frameExplore");
 
         if (!watchScene || !watchImg) return;
 
         const WATCH_TOTAL_FRAMES = 180;
         const WATCH_PREFIX = "watch-001-";
         const WATCH_EXT = ".jpg";
+
+        // How this section's total scroll distance splits up:
+        //   0        -> WATCH_END : pure 180-frame watch rotation
+        //   WATCH_END -> FADE_END : crossfade, watch fades out as
+        //                           the Explore-Portfolio overlay
+        //                           (merged into this same section
+        //                           instead of a separate one) fades in
+        //   FADE_END  -> 1        : overlay fully visible & clickable,
+        //                           remaining scroll is just dwell time
+        const WATCH_END = 0.72;
+        const FADE_END = 0.85;
 
         function watchFrameSrc(n) {
             const num = String(n).padStart(3, "0");
@@ -241,19 +254,27 @@ document.addEventListener("DOMContentLoaded", function () {
            mapping exactly, via a floor — see note below)
         ------------------------------------------- */
 
-        function computeWatchFrame() {
+        function computeSceneProgress() {
 
             const rect = watchScene.getBoundingClientRect();
             const totalDistance = watchScene.offsetHeight - window.innerHeight;
 
-            if (totalDistance <= 0) return 1;
+            if (totalDistance <= 0) return 0;
 
             let progress = -rect.top / totalDistance;
-            progress = Math.max(0, Math.min(1, progress));
+            return Math.max(0, Math.min(1, progress));
+        }
 
-            // Math.floor (not round) so progress 0 -> 1,
+        function frameForProgress(progress) {
+
+            // Frames are driven only by the first WATCH_END share
+            // of the scroll range; beyond that the frame simply
+            // holds at 180 while the crossfade/dwell phases play.
+            const watchProgress = Math.min(progress / WATCH_END, 1);
+
+            // Math.floor (not round) so watchProgress 0 -> 1,
             // 0.25 -> 45, 0.5 -> 90, 0.75 -> 135, 1 -> 180.
-            let frame = Math.floor(progress * (WATCH_TOTAL_FRAMES - 1)) + 1;
+            let frame = Math.floor(watchProgress * (WATCH_TOTAL_FRAMES - 1)) + 1;
 
             if (frame < 1) frame = 1;
             if (frame > WATCH_TOTAL_FRAMES) frame = WATCH_TOTAL_FRAMES;
@@ -267,7 +288,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function updateWatchFrame() {
 
-            const frame = computeWatchFrame();
+            const progress = computeSceneProgress();
+            const frame = frameForProgress(progress);
 
             if (frame !== watchShownFrame) {
 
@@ -285,6 +307,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     watchHint.classList.add("hide");
                     watchHintHidden = true;
                 }
+            }
+
+            // Crossfade between the watch stage and the merged
+            // Explore-Portfolio overlay, driven by the exact same
+            // scroll progress — so it scrubs with the scrollbar
+            // instead of animating on its own timer.
+            let exploreOpacity;
+
+            if (progress <= WATCH_END) exploreOpacity = 0;
+            else if (progress >= FADE_END) exploreOpacity = 1;
+            else exploreOpacity = (progress - WATCH_END) / (FADE_END - WATCH_END);
+
+            if (frameExplore) {
+                frameExplore.style.opacity = String(exploreOpacity);
+                frameExplore.style.pointerEvents = exploreOpacity > 0.5 ? "auto" : "none";
+            }
+
+            if (watchStage) {
+                watchStage.style.opacity = String(1 - exploreOpacity);
+                watchStage.style.pointerEvents = exploreOpacity > 0.5 ? "none" : "auto";
             }
 
             watchTicking = false;
