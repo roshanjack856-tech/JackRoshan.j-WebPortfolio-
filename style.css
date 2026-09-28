@@ -725,11 +725,11 @@ button { font-family: inherit; }
     inset: 0;
     overflow: hidden;
     z-index: 2;
-    /* The 180 frames are now the section BACKGROUND: the <img>
-       fills this whole box. Switch --watch-fit to "contain" if
-       your frames are portrait and "cover" crops the watch too
-       much on wide desktop screens. */
-    --watch-fit: cover;
+    /* SIZE CONTROLS for the 180 frames — change these to resize:
+       --watch-h    : how tall the frame is (smaller = smaller image)
+       --watch-maxw : the widest it may get                        */
+    --watch-h: 74vh;
+    --watch-maxw: 50vw;
     /* Opacity is set directly per scroll frame in script.js
        (no CSS transition) so the crossfade tracks scroll speed
        exactly instead of lagging behind it. */
@@ -737,16 +737,22 @@ button { font-family: inherit; }
 
 .frame-stage img {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: var(--watch-fit);
+    top: 50%;
+    right: 5vw;
+    width: auto;
+    height: var(--watch-h);
+    max-width: var(--watch-maxw);
+    transform: translateY(-50%);
+    object-fit: contain;
     object-position: center;
     display: block;
     user-select: none;
     pointer-events: none;
     -webkit-user-drag: none;
     image-rendering: auto;
+    /* fades the frame's edges into the page so no box outline shows */
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 60%, transparent 100%);
+    mask-image: radial-gradient(ellipse at center, #000 60%, transparent 100%);
 }
 
 /* dark gradient over the frames so the text is always readable */
@@ -1041,6 +1047,15 @@ footer {
 
     .frame-scene { height: 490vh; }
 
+    .frame-stage { --watch-h: 50vh; --watch-maxw: 90vw; }
+
+    .frame-stage img {
+        top: 40%;
+        right: auto;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
     .frame-shade {
         background:
             linear-gradient(0deg, rgba(5, 8, 15, 0.88) 0%, rgba(5, 8, 15, 0.55) 55%, rgba(5, 8, 15, 0.25) 100%);
@@ -1087,6 +1102,8 @@ footer {
     .hero-buttons a { padding: 10px 15px; }
 
     .frame-scene { height: 450vh; }
+
+    .frame-stage { --watch-h: 44vh; }
 
     .frame-copy { padding: 85px 6% 85px; }
 
