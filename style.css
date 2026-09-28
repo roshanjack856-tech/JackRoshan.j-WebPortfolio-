@@ -725,24 +725,42 @@ button { font-family: inherit; }
     inset: 0;
     overflow: hidden;
     z-index: 2;
-    /* SIZE CONTROLS for the 180 frames — change these to resize:
-       --watch-h    : how tall the frame is (smaller = smaller image)
-       --watch-maxw : the widest it may get                        */
-    --watch-h: 74vh;
-    --watch-maxw: 50vw;
+    /* SIZE CONTROLS for the sharp watch frame:
+       --watch-h    : how tall it is (smaller = smaller image)
+       --watch-maxw : the widest it may get
+       --watch-x    : horizontal position (50% = dead center)    */
+    --watch-h: 76vh;
+    --watch-maxw: 46vw;
+    --watch-x: 64%;
     /* Opacity is set directly per scroll frame in script.js
        (no CSS transition) so the crossfade tracks scroll speed
        exactly instead of lagging behind it. */
 }
 
-.frame-stage img {
+/* BACKGROUND LAYER: fills the ENTIRE section edge to edge */
+.frame-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.12);
+    filter: blur(26px) brightness(0.6) saturate(1.15);
+    user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
+}
+
+/* MAIN FRAME: sharp, uncropped, sits on top of the background */
+#watchFrame {
     position: absolute;
     top: 50%;
-    right: 5vw;
+    left: var(--watch-x);
     width: auto;
     height: var(--watch-h);
     max-width: var(--watch-maxw);
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
     object-fit: contain;
     object-position: center;
     display: block;
@@ -750,9 +768,9 @@ button { font-family: inherit; }
     pointer-events: none;
     -webkit-user-drag: none;
     image-rendering: auto;
-    /* fades the frame's edges into the page so no box outline shows */
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 60%, transparent 100%);
-    mask-image: radial-gradient(ellipse at center, #000 60%, transparent 100%);
+    /* fades the frame's edges into the backdrop */
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 62%, transparent 100%);
+    mask-image: radial-gradient(ellipse at center, #000 62%, transparent 100%);
 }
 
 /* dark gradient over the frames so the text is always readable */
@@ -1047,14 +1065,9 @@ footer {
 
     .frame-scene { height: 490vh; }
 
-    .frame-stage { --watch-h: 50vh; --watch-maxw: 90vw; }
+    .frame-stage { --watch-h: 50vh; --watch-maxw: 90vw; --watch-x: 50%; }
 
-    .frame-stage img {
-        top: 40%;
-        right: auto;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+    #watchFrame { top: 40%; }
 
     .frame-shade {
         background:
