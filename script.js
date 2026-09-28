@@ -175,6 +175,277 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =================================================
+       WATCH PRODUCT SCROLL FRAME SEQUENCE (2ND SECTION)
+       180 JPG frames: watch-001-001.jpg ... watch-001-180.jpg
+
+       This is placed BEFORE the "OTHER PAGES" early-return
+       below so it always runs on index.html regardless of
+       whether the hero portrait/scroll-scene elements exist.
+
+       Scroll position is the ONLY source of truth for which
+       frame is shown — no easing, no lerp, no autoplay timer.
+       That's deliberate: it guarantees
+         - the frame always matches exactly where the user's
+           scroll position is right now
+         - stopping mid-scroll freezes on that exact frame
+         - resuming (up or down) continues from that exact
+           frame instead of jumping or restarting
+         - scrolling up naturally reverses the sequence, since
+           it's driven by the same progress value either way
+    ================================================= */
+
+    (function initWatchFrameScene() {
+
+        const watchScene = document.getElementById("watchScene");
+        const watchImg = document.getElementById("watchFrame");
+        const watchHint = document.getElementById("watchScrollHint");
+        const watchStage = document.getElementById("watchStage");
+        const frameExplore = document.getElementById("frameExplore");
+        const copySteps = document.querySelectorAll("#frameCopy .frame-step");
+        const copyCount = document.getElementById("frameCopyCount");
+
+        if (!watchScene || !watchImg) return;
+
+        const WATCH_TOTAL_FRAMES = 180;
+        const WATCH_PREFIX = "watch-001-";
+        const WATCH_EXT = ".jpg";
+
+        // How this section's total scroll distance splits up:
+        //   0        -> WATCH_END : pure 180-frame watch rotation
+        //   WATCH_END -> FADE_END : crossfade, watch fades out as
+        //                           the Explore-Portfolio overlay
+        //                           (merged into this same section
+        //                           instead of a separate one) fades in
+        //   FADE_END  -> 1        : overlay fully visible & clickable,
+        //                           remaining scroll is just dwell time
+        const WATCH_END = 0.72;
+        const FADE_END = 0.85;
+
+        function watchFrameSrc(n) {
+            const num = String(n).padStart(3, "0");
+            return WATCH_PREFIX + num + WATCH_EXT;
+        }
+
+        /* -------------------------------------------
+           PRELOAD
+           Frame 1 is already the visible <img>'s src in
+           the HTML, so it paints immediately with zero
+           JS delay. All 180 frames (including frame 1)
+           are then preloaded into an in-memory Image
+           array in the background — once a frame's
+           Image object reports .complete, swapping the
+           visible <img> to that frame is instant because
+           the browser serves it straight from cache
+           instead of hitting the network.
+        ------------------------------------------- */
+
+        const watchFrames = new Array(WATCH_TOTAL_FRAMES);
+
+        for (let i = 1; i <= WATCH_TOTAL_FRAMES; i++) {
+            const img = new Image();
+            img.src = watchFrameSrc(i);
+            watchFrames[i - 1] = img;
+        }
+
+        /* -------------------------------------------
+           SCROLL -> FRAME MAPPING
+           progress 0   -> frame 1
+           progress 1   -> frame 180
+           progress 0.5 -> frame ~90
+           (matches the 0/25/50/75/100% -> 1/45/90/135/180
+           mapping exactly, via a floor — see note below)
+        ------------------------------------------- */
+
+        function computeSceneProgress() {
+
+            const rect = watchScene.getBoundingClientRect();
+            const totalDistance = watchScene.offsetHeight - window.innerHeight;
+
+            if (totalDistance <= 0) return 0;
+
+            let progress = -rect.top / totalDistance;
+            return Math.max(0, Math.min(1, progress));
+        }
+
+        function frameForProgress(progress) {
+
+            // Frames are driven only by the first WATCH_END share
+            // of the scroll range; beyond that the frame simply
+            // holds at 180 while the crossfade/dwell phases play.
+            const watchProgress = Math.min(progress / WATCH_END, 1);
+
+            // Math.floor (not round) so watchProgress 0 -> 1,
+            // 0.25 -> 45, 0.5 -> 90, 0.75 -> 135, 1 -> 180.
+            let frame = Math.floor(watchProgress * (WATCH_TOTAL_FRAMES - 1)) + 1;
+
+            if (frame < 1) frame = 1;
+            if (frame > WATCH_TOTAL_FRAMES) frame = WATCH_TOTAL_FRAMES;
+
+            return frame;
+        }
+
+        /* -------------------------------------------
+           TEXT: TWO LINES AT A TIME, MOVED BY SCROLL
+           The frame phase (0 -> WATCH_END) is cut into one
+           equal slice per text step. Inside its slice each
+           step's two lines fade/slide in, hold, then slide
+           up and out — scrubbed by scroll position, so the
+           text moves at the exact same moment as the frames.
+           Line 2 trails line 1 slightly so the pair reads
+           as "two lines" rather than one block.
+        ------------------------------------------- */
+
+        const STEP_COUNT = copySteps.length;
+        const LINE_LAG = 0.07;   // line 2 trails line 1 (in step-time)
+        const FADE_IN = 0.22;    // first 22% of a step: fade/slide in
+        const FADE_OUT = 0.78;   // last 22% of a step: fade/slide out
+        const SHIFT = 30;        // px of vertical travel
+
+        // cache last written values so we only touch the DOM on change
+        const lineCache = [];
+        let shownStepIndex = -1;
+
+        function lineState(t, isFirst, isLast) {
+
+            let o, y;
+
+            if (t <= 0) {
+                // first step is already visible when the section pins
+                o = isFirst ? 1 : 0;
+                y = isFirst ? 0 : SHIFT;
+            } else if (t < FADE_IN) {
+                const k = t / FADE_IN;
+                o = isFirst ? 1 : k;
+                y = isFirst ? 0 : SHIFT * (1 - k);
+            } else if (t <= FADE_OUT) {
+                o = 1;
+                y = 0;
+            } else if (t < 1) {
+                const k = (t - FADE_OUT) / (1 - FADE_OUT);
+                // last step holds until the section crossfades away
+                o = isLast ? 1 : 1 - k;
+                y = isLast ? 0 : -SHIFT * k;
+            } else {
+                o = isLast ? 1 : 0;
+                y = isLast ? 0 : -SHIFT;
+            }
+
+            return { o: o, y: y };
+        }
+
+        function updateWatchCopy(textProgress) {
+
+            if (!STEP_COUNT) return;
+
+            const s = textProgress * STEP_COUNT;
+
+            copySteps.forEach(function (step, i) {
+
+                const lines = step.children;
+
+                for (let j = 0; j < lines.length; j++) {
+
+                    const t = (s - i) - (j * LINE_LAG);
+                    const st = lineState(t, i === 0, i === STEP_COUNT - 1);
+
+                    const key = st.o.toFixed(3) + "|" + st.y.toFixed(1);
+                    const id = i * 2 + j;
+
+                    if (lineCache[id] !== key) {
+                        lines[j].style.opacity = st.o;
+                        lines[j].style.transform = "translate3d(0," + st.y + "px,0)";
+                        lineCache[id] = key;
+                    }
+                }
+            });
+
+            const idx = Math.min(STEP_COUNT - 1, Math.floor(s));
+
+            if (idx !== shownStepIndex && copyCount) {
+                copyCount.textContent =
+                    String(idx + 1).padStart(2, "0") + " / " +
+                    String(STEP_COUNT).padStart(2, "0");
+                shownStepIndex = idx;
+            }
+        }
+
+        let watchTicking = false;
+        let watchShownFrame = 1;
+        let watchHintHidden = false;
+
+        function updateWatchFrame() {
+
+            const progress = computeSceneProgress();
+            const frame = frameForProgress(progress);
+
+            updateWatchCopy(Math.min(progress / WATCH_END, 1));
+
+            if (frame !== watchShownFrame) {
+
+                const cached = watchFrames[frame - 1];
+
+                // Prefer the already-downloaded cached Image's
+                // src so the swap decodes from cache, not network.
+                watchImg.src = (cached && cached.complete)
+                    ? cached.src
+                    : watchFrameSrc(frame);
+
+                watchShownFrame = frame;
+
+                if (!watchHintHidden && watchHint) {
+                    watchHint.classList.add("hide");
+                    watchHintHidden = true;
+                }
+            }
+
+            // Crossfade between the watch stage and the merged
+            // Explore-Portfolio overlay, driven by the exact same
+            // scroll progress — so it scrubs with the scrollbar
+            // instead of animating on its own timer.
+            let exploreOpacity;
+
+            if (progress <= WATCH_END) exploreOpacity = 0;
+            else if (progress >= FADE_END) exploreOpacity = 1;
+            else exploreOpacity = (progress - WATCH_END) / (FADE_END - WATCH_END);
+
+            if (frameExplore) {
+                frameExplore.style.opacity = String(exploreOpacity);
+                frameExplore.style.pointerEvents = exploreOpacity > 0.5 ? "auto" : "none";
+            }
+
+            if (watchStage) {
+                watchStage.style.opacity = String(1 - exploreOpacity);
+                watchStage.style.pointerEvents = exploreOpacity > 0.5 ? "none" : "auto";
+            }
+
+            watchTicking = false;
+        }
+
+        function onWatchScroll() {
+
+            // rAF-throttled: no matter how many scroll events
+            // fire, only one frame update runs per animation
+            // frame, so fast/flicky scrolling never stutters
+            // and never touches the DOM more than necessary.
+            if (!watchTicking) {
+                window.requestAnimationFrame(updateWatchFrame);
+                watchTicking = true;
+            }
+        }
+
+        window.addEventListener("scroll", onWatchScroll, { passive: true });
+        window.addEventListener("resize", onWatchScroll, { passive: true });
+
+        // Set the correct frame immediately (covers a page
+        // refresh or a jump-link landing mid-way through the
+        // section, so it isn't stuck showing frame 1 until
+        // the next scroll event fires).
+        updateWatchFrame();
+
+    })();
+
+
+    /* =================================================
        AFTER-SCENE BACKGROUND SLIDESHOW (VERCEL + GITHUB)
        Changes every 2 seconds with a fade
     ================================================= */
