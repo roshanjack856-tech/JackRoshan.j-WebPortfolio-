@@ -273,6 +273,50 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         /* -------------------------------------------
+           CANVAS RENDERER (no blinking)
+           Drawing to a canvas keeps the previous frame on
+           screen until the next one is painted, so there is
+           never a blank/colour flash between frames.
+        ------------------------------------------- */
+
+        const watchCanvas = document.createElement("canvas");
+        watchCanvas.id = "watchCanvas";
+        watchCanvas.style.cssText =
+            "position:absolute;inset:0;width:100%;height:100%;display:block;" +
+            "pointer-events:none;user-select:none;";
+        watchImg.parentNode.insertBefore(watchCanvas, watchImg);
+
+        const watchCtx = watchCanvas.getContext("2d", { alpha: false });
+        let watchCurrentImg = null;
+
+        function sizeWatchCanvas() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            watchCanvas.width = Math.round(window.innerWidth * dpr);
+            watchCanvas.height = Math.round(window.innerHeight * dpr);
+            if (watchCurrentImg) drawWatchFrame(watchCurrentImg);
+        }
+
+        // "cover" fit: fills the whole screen (use Math.min for "contain")
+        function drawWatchFrame(img) {
+            const cw = watchCanvas.width;
+            const ch = watchCanvas.height;
+            const iw = img.naturalWidth;
+            const ih = img.naturalHeight;
+            if (!iw || !ih) return;
+
+            const scale = Math.max(cw / iw, ch / ih);
+            const w = iw * scale;
+            const h = ih * scale;
+
+            watchCtx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+            watchCurrentImg = img;
+            watchImg.style.display = "none";   // canvas takes over
+        }
+
+        sizeWatchCanvas();
+        window.addEventListener("resize", sizeWatchCanvas, { passive: true });
+
+        /* -------------------------------------------
            SCROLL -> FRAME MAPPING
         ------------------------------------------- */
 
@@ -375,7 +419,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         let watchTicking = false;
-        let watchShownFrame = 1;
+        let watchShownFrame = 0;
         let watchHintHidden = false;
 
         function updateWatchFrame() {
@@ -390,16 +434,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (best && best !== watchShownFrame) {
 
-                const nextSrc = watchFrames[best - 1].src;
-
-                watchImg.src = nextSrc;
-
-                // full-screen backdrop layer shows the same frame
-                if (watchImgBg) watchImgBg.src = nextSrc;
+                drawWatchFrame(watchFrames[best - 1]);
 
                 watchShownFrame = best;
 
-                if (!watchHintHidden && watchHint) {
+                if (!watchHintHidden && watchHint && best > 1) {
                     watchHint.classList.add("hide");
                     watchHintHidden = true;
                 }
