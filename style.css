@@ -72,9 +72,6 @@ button { font-family: inherit; }
 .header-inner {
     height: 70px;
     display: grid;
-    /* Logo and nav size to their own content; the marquee flexes
-       in the middle and shrinks first if space runs short, so a
-       longer nav (more links) never overlaps the marquee text. */
     grid-template-columns: max-content minmax(110px, 1fr) max-content;
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -557,26 +554,13 @@ button { font-family: inherit; }
     pointer-events: none;
 }
 
-/* Animated angle driving the conic-gradient ring below.
-   Browsers without @property support just get a static
-   (still colorful) gradient — no breakage either way. */
 @property --portrait-angle {
     syntax: '<angle>';
     inherits: false;
     initial-value: 0deg;
 }
 
-/* =====================================================
-   PORTRAIT CARD — BIG CIRCULAR FRAME, 3D COLOR BORDER
-   Square box (aspect-ratio 1/1) so border-radius: 50%
-   renders a true circle. The border itself is a slowly
-   rotating rainbow conic-gradient (painted into the
-   border-box via the background layering trick), and the
-   box-shadow stack fakes a beveled 3D ring: a soft colour
-   glow outside, a bright highlight along the top inside
-   edge, and a dark shadow along the bottom inside edge.
-   Same shape/logic is reused (smaller) on mobile below.
-===================================================== */
+/* PORTRAIT CARD — BIG CIRCULAR FRAME, 3D COLOR BORDER */
 
 .portrait-card {
     --portrait-angle: 0deg;
@@ -619,10 +603,7 @@ button { font-family: inherit; }
 }
 
 
-/* PORTRAIT SIDE-GAP CODE RAIN CANVASES
-   (kept in the DOM/JS for future use, but a full-cover
-   circular photo has no visible side gaps, so these sit
-   hidden behind the image now.) */
+/* PORTRAIT SIDE-GAP CODE RAIN CANVASES */
 
 .portrait-side {
     position: absolute;
@@ -691,20 +672,14 @@ button { font-family: inherit; }
 
 /* =====================================================
    WATCH FRAME-SEQUENCE SCROLL SCENE (SECOND SECTION)
-   Same "tall wrapper + sticky inner stage" trick as the
-   hero above: .frame-scene is many viewport-heights tall
-   so there's real scroll distance to map onto 180 frames,
-   while .frame-sticky pins to the screen so only the
-   frame image changes as the user scrolls through it.
+   FULL-SCREEN BACKGROUND: watch-1.jpg ... watch-300.jpg
 ===================================================== */
 
 .frame-scene {
-    /* Split three ways: ~72% of this scroll distance drives the
-       180-frame rotation, the rest is the crossfade + a dwell
-       zone for reading/clicking the Explore-Portfolio overlay
-       that now lives inside this same section (see script.js
-       WATCH_END / FADE_END). */
-    height: 560vh;
+    /* 300 frames need a long scroll distance so the rotation
+       is not too fast. ~72% drives the frames, the rest is the
+       crossfade + dwell for the Explore overlay. */
+    height: 800vh;
     position: relative;
     background: #05080f;
 }
@@ -715,9 +690,7 @@ button { font-family: inherit; }
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    background:
-        radial-gradient(ellipse at center, rgba(88, 182, 255, 0.07), transparent 62%),
-        #05080f;
+    background: #05080f;
 }
 
 .frame-stage {
@@ -725,62 +698,37 @@ button { font-family: inherit; }
     inset: 0;
     overflow: hidden;
     z-index: 2;
-    /* SIZE CONTROLS for the sharp watch frame:
-       --watch-h    : how tall it is (smaller = smaller image)
-       --watch-maxw : the widest it may get
-       --watch-x    : horizontal position (50% = dead center)    */
-    --watch-h: 76vh;
-    --watch-maxw: 46vw;
-    --watch-x: 64%;
-    /* Opacity is set directly per scroll frame in script.js
-       (no CSS transition) so the crossfade tracks scroll speed
-       exactly instead of lagging behind it. */
+    /* Opacity is set per scroll frame in script.js */
 }
 
-/* BACKGROUND LAYER: fills the ENTIRE section edge to edge */
+/* Blurred backdrop no longer needed: main frame fills the screen */
 .frame-bg {
+    display: none;
+}
+
+/* MAIN FRAME: FULL-SCREEN BACKGROUND */
+#watchFrame {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transform: scale(1.12);
-    filter: blur(26px) brightness(0.6) saturate(1.15);
-    user-select: none;
-    pointer-events: none;
-    -webkit-user-drag: none;
-}
-
-/* MAIN FRAME: sharp, uncropped, sits on top of the background */
-#watchFrame {
-    position: absolute;
-    top: 50%;
-    left: var(--watch-x);
-    width: auto;
-    height: var(--watch-h);
-    max-width: var(--watch-maxw);
-    transform: translate(-50%, -50%);
-    object-fit: contain;
+    object-fit: cover;        /* change to "contain" if the watch gets cropped */
     object-position: center;
     display: block;
     user-select: none;
     pointer-events: none;
     -webkit-user-drag: none;
     image-rendering: auto;
-    /* fades the frame's edges into the backdrop */
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 62%, transparent 100%);
-    mask-image: radial-gradient(ellipse at center, #000 62%, transparent 100%);
 }
 
-/* dark gradient over the frames so the text is always readable */
+/* lighter dark gradient so text stays readable but image stays visible */
 .frame-shade {
     position: absolute;
     inset: 0;
     z-index: 1;
     pointer-events: none;
     background:
-        linear-gradient(90deg, rgba(5, 8, 15, 0.85) 0%, rgba(5, 8, 15, 0.5) 50%, rgba(5, 8, 15, 0.15) 100%);
+        linear-gradient(90deg, rgba(5, 8, 15, 0.7) 0%, rgba(5, 8, 15, 0.3) 50%, rgba(5, 8, 15, 0.05) 100%);
 }
 
 /* TEXT LAYER (two lines at a time, moved by scroll in script.js) */
@@ -811,7 +759,6 @@ button { font-family: inherit; }
     letter-spacing: 2px;
 }
 
-/* all steps stacked in one grid cell so the box never jumps */
 .frame-copy-stack {
     display: grid;
     max-width: 760px;
@@ -868,11 +815,8 @@ button { font-family: inherit; }
     align-items: center;
     justify-content: center;
     opacity: 0;
-    /* No CSS transition here either — script.js drives this
-       value every scroll frame so it stays perfectly synced. */
 }
 
-/* dark tint over the slideshow photos (lower 0.6 = brighter) */
 .frame-explore::before {
     content: "";
     position: absolute;
@@ -1025,9 +969,6 @@ footer {
         flex-shrink: 0;
     }
 
-    /* Same circular frame + rotating gradient border as
-       desktop, sized down and kept clear of the frame
-       counter (right edge) and bottom separator line. */
     .portrait-card {
         width: min(300px, 72vw, calc(52vh - 70px));
         aspect-ratio: 1 / 1;
@@ -1063,11 +1004,7 @@ footer {
 
     .scroll-indicator { bottom: 33px; font-size: 7px; letter-spacing: 2px; }
 
-    .frame-scene { height: 490vh; }
-
-    .frame-stage { --watch-h: 50vh; --watch-maxw: 90vw; --watch-x: 50%; }
-
-    #watchFrame { top: 40%; }
+    .frame-scene { height: 700vh; }
 
     .frame-shade {
         background:
@@ -1114,9 +1051,7 @@ footer {
 
     .hero-buttons a { padding: 10px 15px; }
 
-    .frame-scene { height: 450vh; }
-
-    .frame-stage { --watch-h: 44vh; }
+    .frame-scene { height: 650vh; }
 
     .frame-copy { padding: 85px 6% 85px; }
 
