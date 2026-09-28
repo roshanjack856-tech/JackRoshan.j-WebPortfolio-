@@ -198,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const watchScene = document.getElementById("watchScene");
         const watchImg = document.getElementById("watchFrame");
+        const watchImgBg = document.getElementById("watchFrameBg");
         const watchHint = document.getElementById("watchScrollHint");
         const watchStage = document.getElementById("watchStage");
         const frameExplore = document.getElementById("frameExplore");
@@ -386,9 +387,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Prefer the already-downloaded cached Image's
                 // src so the swap decodes from cache, not network.
-                watchImg.src = (cached && cached.complete)
+                const nextSrc = (cached && cached.complete)
                     ? cached.src
                     : watchFrameSrc(frame);
+
+                watchImg.src = nextSrc;
+
+                // full-screen backdrop layer shows the same frame
+                if (watchImgBg) watchImgBg.src = nextSrc;
 
                 watchShownFrame = frame;
 
