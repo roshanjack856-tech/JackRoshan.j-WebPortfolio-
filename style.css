@@ -699,7 +699,12 @@ button { font-family: inherit; }
 ===================================================== */
 
 .frame-scene {
-    height: 400vh;
+    /* Split three ways: ~72% of this scroll distance drives the
+       180-frame rotation, the rest is the crossfade + a dwell
+       zone for reading/clicking the Explore-Portfolio overlay
+       that now lives inside this same section (see script.js
+       WATCH_END / FADE_END). */
+    height: 560vh;
     position: relative;
     background: #05080f;
 }
@@ -709,9 +714,6 @@ button { font-family: inherit; }
     top: 0;
     height: 100vh;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
     background:
         radial-gradient(ellipse at center, rgba(88, 182, 255, 0.07), transparent 62%),
@@ -719,25 +721,94 @@ button { font-family: inherit; }
 }
 
 .frame-stage {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5vh 5vw;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 2;
+    /* The 180 frames are now the section BACKGROUND: the <img>
+       fills this whole box. Switch --watch-fit to "contain" if
+       your frames are portrait and "cover" crops the watch too
+       much on wide desktop screens. */
+    --watch-fit: cover;
+    /* Opacity is set directly per scroll frame in script.js
+       (no CSS transition) so the crossfade tracks scroll speed
+       exactly instead of lagging behind it. */
 }
 
 .frame-stage img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: var(--watch-fit);
+    object-position: center;
     display: block;
     user-select: none;
     pointer-events: none;
     -webkit-user-drag: none;
     image-rendering: auto;
+}
+
+/* dark gradient over the frames so the text is always readable */
+.frame-shade {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+        linear-gradient(90deg, rgba(5, 8, 15, 0.85) 0%, rgba(5, 8, 15, 0.5) 50%, rgba(5, 8, 15, 0.15) 100%);
+}
+
+/* TEXT LAYER (two lines at a time, moved by scroll in script.js) */
+.frame-copy {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 90px 7% 70px;
+    pointer-events: none;
+}
+
+.frame-copy-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 26px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #58b6ff;
+}
+
+.frame-copy-label span {
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 2px;
+}
+
+/* all steps stacked in one grid cell so the box never jumps */
+.frame-copy-stack {
+    display: grid;
+    max-width: 760px;
+}
+
+.frame-step {
+    grid-area: 1 / 1;
+    align-self: start;
+}
+
+.frame-line {
+    display: block;
+    opacity: 0;
+    will-change: opacity, transform;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: clamp(28px, 3.5vw, 54px);
+    line-height: 1.18;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.75);
 }
 
 .frame-scroll-hint {
@@ -765,19 +836,20 @@ button { font-family: inherit; }
    AFTER SCENE (VERCEL + GITHUB SLIDESHOW BACKGROUND)
 ===================================================== */
 
-.after-scene {
-    position: relative;
-    overflow: hidden;
-    min-height: 80vh;
+.frame-explore {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 7%;
-    background: #09111d;
+    opacity: 0;
+    /* No CSS transition here either — script.js drives this
+       value every scroll frame so it stays perfectly synced. */
 }
 
-/* dark tint over the photos (lower 0.6 = brighter photos) */
-.after-scene::before {
+/* dark tint over the slideshow photos (lower 0.6 = brighter) */
+.frame-explore::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -808,6 +880,7 @@ button { font-family: inherit; }
     z-index: 2;
     text-align: center;
     max-width: 750px;
+    padding: 0 7%;
 }
 
 .small-label {
@@ -966,13 +1039,20 @@ footer {
 
     .scroll-indicator { bottom: 33px; font-size: 7px; letter-spacing: 2px; }
 
-    .frame-scene { height: 350vh; }
+    .frame-scene { height: 490vh; }
 
-    .frame-stage { padding: 8vh 6vw; }
+    .frame-shade {
+        background:
+            linear-gradient(0deg, rgba(5, 8, 15, 0.88) 0%, rgba(5, 8, 15, 0.55) 55%, rgba(5, 8, 15, 0.25) 100%);
+    }
+
+    .frame-copy { justify-content: flex-end; padding: 90px 7% 90px; }
+
+    .frame-copy-label { font-size: 10px; margin-bottom: 18px; }
 
     .frame-scroll-hint { bottom: 30px; font-size: 8px; }
 
-    .after-scene { min-height: 75vh; padding: 80px 25px; }
+    .after-inner { padding: 0 8%; }
 
     footer { flex-direction: column; gap: 10px; text-align: center; }
 
@@ -1006,9 +1086,13 @@ footer {
 
     .hero-buttons a { padding: 10px 15px; }
 
-    .frame-scene { height: 320vh; }
+    .frame-scene { height: 450vh; }
 
-    .frame-stage { padding: 9vh 4vw; }
+    .frame-copy { padding: 85px 6% 85px; }
+
+    .frame-line { font-size: clamp(24px, 7vw, 32px); }
+
+    .after-inner { padding: 0 6%; }
 
     .mobile-menu { padding: 25px 20px; }
 
