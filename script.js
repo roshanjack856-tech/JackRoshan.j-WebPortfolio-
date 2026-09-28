@@ -219,11 +219,57 @@ document.addEventListener("DOMContentLoaded", function () {
         ------------------------------------------- */
 
         const watchFrames = new Array(WATCH_TOTAL_FRAMES);
+        const watchLoaded = new Array(WATCH_TOTAL_FRAMES).fill(false);
+        let watchLoadedCount = 0;
+        let watchMissingCount = 0;
+
+        // Small on-screen badge to see what is happening.
+        // Delete this block (and the updateBadge calls) when everything works.
+        const badge = document.createElement("div");
+        badge.style.cssText =
+            "position:fixed;left:12px;bottom:12px;z-index:99998;padding:6px 10px;" +
+            "font:11px monospace;color:#fff;background:rgba(0,0,0,.7);" +
+            "border-radius:6px;pointer-events:none;display:none";
+        document.body.appendChild(badge);
+
+        function updateBadge(frame) {
+            const r = watchScene.getBoundingClientRect();
+            const visible = r.top < window.innerHeight && r.bottom > 0;
+            badge.style.display = visible ? "block" : "none";
+            badge.textContent =
+                "frame " + frame + "/" + WATCH_TOTAL_FRAMES +
+                " | loaded " + watchLoadedCount +
+                " | missing " + watchMissingCount;
+        }
 
         for (let i = 1; i <= WATCH_TOTAL_FRAMES; i++) {
             const img = new Image();
+
+            img.onload = function () {
+                watchLoaded[i - 1] = true;
+                watchLoadedCount++;
+                onWatchScroll();      // refresh in case this frame is needed now
+            };
+
+            img.onerror = function () {
+                watchMissingCount++;
+                if (watchMissingCount <= 3) {
+                    console.error("Frame not found: " + watchFrameSrc(i));
+                }
+                onWatchScroll();
+            };
+
             img.src = watchFrameSrc(i);
             watchFrames[i - 1] = img;
+        }
+
+        // closest already-loaded frame to the wanted one
+        function nearestLoadedFrame(frame) {
+            for (let d = 0; d < WATCH_TOTAL_FRAMES; d++) {
+                if (frame - d >= 1 && watchLoaded[frame - d - 1]) return frame - d;
+                if (frame + d <= WATCH_TOTAL_FRAMES && watchLoaded[frame + d - 1]) return frame + d;
+            }
+            return 0;
         }
 
         /* -------------------------------------------
@@ -339,20 +385,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
             updateWatchCopy(Math.min(progress / WATCH_END, 1));
 
-            if (frame !== watchShownFrame) {
+            const best = nearestLoadedFrame(frame);
+            updateBadge(frame);
 
-                const cached = watchFrames[frame - 1];
+            if (best && best !== watchShownFrame) {
 
-                const nextSrc = (cached && cached.complete)
-                    ? cached.src
-                    : watchFrameSrc(frame);
+                const nextSrc = watchFrames[best - 1].src;
 
                 watchImg.src = nextSrc;
 
                 // full-screen backdrop layer shows the same frame
                 if (watchImgBg) watchImgBg.src = nextSrc;
 
-                watchShownFrame = frame;
+                watchShownFrame = best;
 
                 if (!watchHintHidden && watchHint) {
                     watchHint.classList.add("hide");
