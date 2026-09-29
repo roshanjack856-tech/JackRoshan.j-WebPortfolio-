@@ -173,12 +173,11 @@ button { font-family: inherit; }
 .mob-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.7);
     opacity: 0;
     pointer-events: none;
-    transition: 0.3s;
+    transition: opacity 0.45s ease;
+    will-change: opacity;
     z-index: 4999;
 }
 
@@ -188,18 +187,37 @@ button { font-family: inherit; }
     position: fixed;
     top: 4vh;
     bottom: 4vh;
-    left: -110%;
+    left: 14px;
     width: min(280px, 78vw);
     z-index: 5000;
     background: #f6f5f3;
     border-radius: 28px;
-    transition: left 0.45s cubic-bezier(.77,0,.18,1);
+    box-shadow: 20px 30px 70px rgba(0, 0, 0, 0.55);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
+    /* smooth GPU slide */
+    transform: translate3d(-125%, 0, 0);
+    visibility: hidden;
+    will-change: transform;
+    backface-visibility: hidden;
+    transition:
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0.55s;
 }
 
-.mobile-menu.open { left: 14px; box-shadow: 20px 30px 70px rgba(0, 0, 0, 0.55); }
+.mobile-menu.open {
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+    transition:
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0s;
+}
+
+/* gradient button only animates while the menu is open */
+.mobile-menu .mob-cta a { animation-play-state: paused; }
+.mobile-menu.open .mob-cta a { animation-play-state: running; }
 
 .mobile-menu-top {
     position: relative;
