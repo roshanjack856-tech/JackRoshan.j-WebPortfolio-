@@ -228,25 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let watchLoadedCount = 0;
         let watchMissingCount = 0;
 
-        // Small on-screen badge to see what is happening.
-        // Delete this block (and the updateBadge calls) when everything works.
-        const badge = document.createElement("div");
-        badge.style.cssText =
-            "position:fixed;left:12px;bottom:12px;z-index:99998;padding:6px 10px;" +
-            "font:11px monospace;color:#fff;background:rgba(0,0,0,.7);" +
-            "border-radius:6px;pointer-events:none;display:none";
-        document.body.appendChild(badge);
-
-        function updateBadge(frame) {
-            const r = watchScene.getBoundingClientRect();
-            const visible = r.top < window.innerHeight && r.bottom > 0;
-            badge.style.display = visible ? "block" : "none";
-            badge.textContent =
-                "frame " + frame + "/" + WATCH_TOTAL_FRAMES +
-                " | loaded " + watchLoadedCount +
-                " | missing " + watchMissingCount;
-        }
-
         for (let i = 1; i <= WATCH_TOTAL_FRAMES; i++) {
             const img = new Image();
 
@@ -436,7 +417,6 @@ document.addEventListener("DOMContentLoaded", function () {
             updateWatchCopy(Math.min(progress / TEXT_END, 1));
 
             const best = nearestLoadedFrame(frame);
-            updateBadge(frame);
 
             if (best && best !== watchShownFrame) {
 
