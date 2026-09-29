@@ -209,6 +209,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const WATCH_END = 0.72;
         const FADE_END = 0.85;
 
+        // The text finishes a little BEFORE the watch frames so the
+        // last line ("CONTACT JACK →") stays readable while the
+        // final frames are still rotating.
+        const TEXT_END = 0.66;
+
         // watch-1.jpg, watch-2.jpg ... watch-300.jpg
         function watchFrameSrc(n) {
             return WATCH_PREFIX + n + WATCH_EXT;
@@ -427,7 +432,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const progress = computeSceneProgress();
             const frame = frameForProgress(progress);
 
-            updateWatchCopy(Math.min(progress / WATCH_END, 1));
+            // text runs a bit ahead of the frames (TEXT_END < WATCH_END)
+            updateWatchCopy(Math.min(progress / TEXT_END, 1));
 
             const best = nearestLoadedFrame(frame);
             updateBadge(frame);
