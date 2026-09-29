@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const mobOverlay = document.getElementById("mobOverlay");
     const mobCtaLink = document.getElementById("mobCtaLink");
 
+    // true while the mobile menu is open (heavy animations pause)
+    let menuOpen = false;
+
 
     /* =================================================
        SAFETY FALLBACK
@@ -98,6 +101,11 @@ document.addEventListener("DOMContentLoaded", function () {
         window.addEventListener("load", resize);
 
         function draw() {
+
+            if (menuOpen) {
+                requestAnimationFrame(draw);
+                return;
+            }
 
             ctx.fillStyle = "rgba(5,8,15,0.18)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -512,12 +520,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ================================================= */
 
     function openMobileMenu() {
+        menuOpen = true;
         mobileMenu.classList.add("open");
         if (mobOverlay) mobOverlay.classList.add("open");
         document.body.style.overflow = "hidden";
     }
 
     function closeMobileMenu() {
+        menuOpen = false;
         mobileMenu.classList.remove("open");
         if (mobOverlay) mobOverlay.classList.remove("open");
         document.body.style.overflow = "";
