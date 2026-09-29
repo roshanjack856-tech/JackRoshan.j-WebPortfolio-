@@ -676,10 +676,10 @@ button { font-family: inherit; }
 ===================================================== */
 
 .frame-scene {
-    /* 300 frames need a long scroll distance so the rotation
-       is not too fast. ~72% drives the frames, the rest is the
-       crossfade + dwell for the Explore overlay. */
-    height: 800vh;
+    /* 300 frames + 9 text steps need a long scroll distance.
+       ~72% drives the frames, the rest is the crossfade + dwell
+       for the Explore overlay. */
+    height: 1000vh;
     position: relative;
     background: #05080f;
 }
@@ -780,6 +780,44 @@ button { font-family: inherit; }
     letter-spacing: -0.5px;
     color: #ffffff;
     text-shadow: 0 2px 24px rgba(0, 0, 0, 0.75);
+}
+
+/* smaller body-style lines */
+.frame-line.frame-small {
+    font-family: "Outfit", sans-serif;
+    font-weight: 300;
+    font-size: clamp(16px, 1.7vw, 24px);
+    line-height: 1.6;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+/* "01 — WHO I AM" style labels */
+.frame-line.frame-tag {
+    font-family: "Outfit", sans-serif;
+    font-weight: 600;
+    font-size: clamp(13px, 1.2vw, 16px);
+    letter-spacing: 4px;
+    color: #58b6ff;
+    margin-bottom: 10px;
+}
+
+/* final button */
+.frame-line.frame-cta {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 22px;
+    padding: 14px 28px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 30px;
+    background: #ffffff;
+    color: #05080f;
+    text-shadow: none;
+    font-family: "Outfit", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    pointer-events: auto;   /* frame-copy is pointer-events:none */
 }
 
 .frame-scroll-hint {
@@ -1004,7 +1042,7 @@ footer {
 
     .scroll-indicator { bottom: 33px; font-size: 7px; letter-spacing: 2px; }
 
-    .frame-scene { height: 700vh; }
+    .frame-scene { height: 900vh; }
 
     .frame-shade {
         background:
@@ -1051,11 +1089,15 @@ footer {
 
     .hero-buttons a { padding: 10px 15px; }
 
-    .frame-scene { height: 650vh; }
+    .frame-scene { height: 850vh; }
 
     .frame-copy { padding: 85px 6% 85px; }
 
     .frame-line { font-size: clamp(24px, 7vw, 32px); }
+
+    .frame-line.frame-small { font-size: clamp(14px, 4vw, 17px); }
+
+    .frame-line.frame-tag { font-size: 12px; letter-spacing: 3px; }
 
     .after-inner { padding: 0 6%; }
 
